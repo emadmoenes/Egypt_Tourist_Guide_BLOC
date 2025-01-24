@@ -47,4 +47,16 @@ class SharedPrefsService {
     await prefs.remove(_userProfilePicKey);
     await prefs.remove(_userAddressKey);
   }
+
+  static Future<bool> saveTheme(String theme) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString("theme", theme);
+    return true;
+  }
+
+  static Future<String?> getTheme() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? theme = prefs.getString("theme");
+    return theme;
+  }
 }
