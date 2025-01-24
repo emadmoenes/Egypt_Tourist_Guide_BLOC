@@ -40,7 +40,6 @@ class _MyAppState extends State<MyApp> {
   ThemeBloc? themeBloc;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     themeBloc = context.read<ThemeBloc>();
     themeBloc!.add(InitEvent());
