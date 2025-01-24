@@ -95,8 +95,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       BlocBuilder<ThemeBloc, ThemeState>(
                         builder: (context, state) {
                           return Switch(
-                              value: state is ThemeChanged &&
-                                  state.theme == 'dark',
+                              value: themeBloc.theme == 'dark',
                               onChanged: (value) {
                                 themeBloc.add(ToggleThemeEvent(
                                     theme: value ? 'dark' : 'light'));

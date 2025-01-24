@@ -1,6 +1,7 @@
 import 'package:egypt_tourist_guide/controllers/home_controller/home_cubit.dart';
 import 'package:egypt_tourist_guide/core/Blocs/theme/theme_bloc.dart';
 import 'package:egypt_tourist_guide/core/app_routes.dart';
+import 'package:egypt_tourist_guide/services/shared_prefs_service.dart';
 import 'package:egypt_tourist_guide/views/auth/login_screen.dart';
 import 'package:egypt_tourist_guide/views/auth/signup_screen.dart';
 import 'package:egypt_tourist_guide/views/governorates/governoarates_places.dart';
@@ -8,24 +9,21 @@ import 'package:egypt_tourist_guide/views/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import 'core/custom_page_routes.dart'; // Ensure this import is correct
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  String theme = prefs.getString('theme') ?? 'light';
+  String theme = await SharedPrefsService.getTheme() ?? 'light';
 
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('ar')],
       path: 'assets/lang',
       fallbackLocale: const Locale('en'),
-      child: BlocProvider(
+      child: BlocProvider<ThemeBloc>(
         create: (context) => ThemeBloc(theme),
-        child: const MyApp(),
+        child: MyApp(),
       ),
     ),
   );
@@ -61,6 +59,8 @@ class _MyAppState extends State<MyApp> {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(fontFamily: 'merriweather'),
+            darkTheme: ThemeData(
+                fontFamily: 'merriweather', brightness: Brightness.dark),
             themeMode:
                 themeBloc!.theme == 'light' ? ThemeMode.light : ThemeMode.dark,
             localizationsDelegates: context.localizationDelegates,
@@ -92,7 +92,7 @@ class _MyAppState extends State<MyApp> {
                   );
               }
             },
-            home: const SignupScreen(),
+            home: SignupScreen(),
           );
         },
       ),
