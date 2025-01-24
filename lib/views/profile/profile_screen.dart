@@ -1,3 +1,4 @@
+import 'package:egypt_tourist_guide/core/Blocs/theme/theme_bloc.dart';
 import 'package:egypt_tourist_guide/core/app_colors.dart';
 import 'package:egypt_tourist_guide/views/profile/widgets/editable_field.dart';
 import 'package:egypt_tourist_guide/views/profile/widgets/log_out_button.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:egypt_tourist_guide/models/user_model.dart';
 import 'package:egypt_tourist_guide/controllers/profile_controller.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../core/app_routes.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -69,6 +71,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var themeBloc = context.read<ThemeBloc>();
     return Scaffold(
       body: Stack(
         children: [
@@ -87,6 +90,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       CircleAvatar(
                         radius: 70,
                         backgroundImage: AssetImage('assets/images/user.png'),
+                      ),
+                      const SizedBox(height: 10),
+                      BlocBuilder<ThemeBloc, ThemeState>(
+                        builder: (context, state) {
+                          return Switch(
+                              value: state is ThemeChanged &&
+                                  state.theme == 'dark',
+                              onChanged: (value) {
+                                themeBloc.add(ToggleThemeEvent(
+                                    theme: value ? 'dark' : 'light'));
+                              });
+                        },
                       ),
                       const SizedBox(height: 10),
                       Divider(
