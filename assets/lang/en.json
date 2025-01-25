@@ -47,5 +47,6 @@
   "validation_address_empty": "Address is required",
   "appTitle": "Egypt Tourist Guide",
   "governorates": "Governorates",
-  "logout": "Log Out"
+  "logout": "Log Out",
+  "dark_theme" : "Dark Theme"
 }

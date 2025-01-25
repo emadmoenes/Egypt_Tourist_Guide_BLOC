@@ -71,9 +71,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var themeBloc = context.read<ThemeBloc>();
     return BlocBuilder<ThemeBloc, ThemeState>(
       builder: (context, state) {
+        ThemeBloc themeBloc = context.read<ThemeBloc>();
         return Scaffold(
           body: SingleChildScrollView(
             child: Padding(
@@ -96,7 +96,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Dark Theme',
+                            'dark_theme'.tr(),
                             style: TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.bold,
@@ -106,8 +106,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               value: themeBloc.theme == 'dark',
                               splashRadius: 10,
                               onChanged: (value) {
-                                themeBloc.add(ToggleThemeEvent(
-                                    theme: value ? 'dark' : 'light'));
+                                themeBloc.add(ToggleThemeEvent());
                               }),
                         ],
                       ),
@@ -169,8 +168,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       //---- Logout Button ------//
                       LogOutButton(
                         logOutFunction: () {
-                          Navigator.pushReplacementNamed(
-                              context, AppRoutes.loginRoute);
+                          Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            AppRoutes.loginRoute,
+                            (route) => false,
+                          );
                         },
                       ),
                     ],

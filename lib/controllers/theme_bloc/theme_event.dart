@@ -6,7 +6,4 @@ abstract class ThemeEvent {
 
 class InitEvent extends ThemeEvent {} // when app starts
 
-class ToggleThemeEvent extends ThemeEvent {
-  final String theme;
-  const ToggleThemeEvent({required this.theme});
-}
+class ToggleThemeEvent extends ThemeEvent {}

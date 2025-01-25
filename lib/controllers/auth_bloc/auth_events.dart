@@ -1,5 +1,7 @@
 abstract class AuthEvent {}
 
+// InitAuthEvent when the app starts
+class InitAuthEvent extends AuthEvent {}
 class LoginRequested extends AuthEvent {
   final String email;
   final String password;

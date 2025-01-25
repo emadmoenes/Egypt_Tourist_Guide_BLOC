@@ -7,7 +7,13 @@ class SharedPrefsService {
   static const String _userPhoneKey = 'user_phone';
   static const String _userProfilePicKey = 'user_profile_pic';
   static const String _userAddressKey = 'user_address';
+  static late SharedPreferences sharedPreferences;
 
+  static init() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+  }
+
+  /*-------------- Save user data -----------*/
   static Future<void> saveUserData({
     required String fullName,
     required String email,
@@ -16,48 +22,52 @@ class SharedPrefsService {
     String? profilePicUrl,
     String? address,
   }) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_userFullNameKey, fullName);
-    await prefs.setString(_userEmailKey, email);
-    await prefs.setString(_userPasswordKey, password);
-    if (phoneNumber != null) await prefs.setString(_userPhoneKey, phoneNumber);
-    if (profilePicUrl != null) {
-      await prefs.setString(_userProfilePicKey, profilePicUrl);
+    await sharedPreferences.setString(_userFullNameKey, fullName);
+    await sharedPreferences.setString(_userEmailKey, email);
+    await sharedPreferences.setString(_userPasswordKey, password);
+    if (phoneNumber != null) {
+      await sharedPreferences.setString(_userPhoneKey, phoneNumber);
     }
-    if (address != null) await prefs.setString(_userAddressKey, address);
+    if (profilePicUrl != null) {
+      await sharedPreferences.setString(_userProfilePicKey, profilePicUrl);
+    }
+    if (address != null) {
+      await sharedPreferences.setString(_userAddressKey, address);
+    }
   }
 
+  /*-------------- Get user data from shared prefs ---------------*/
   static Future<Map<String, dynamic>> getUserData() async {
-    final prefs = await SharedPreferences.getInstance();
     return {
-      'fullName': prefs.getString(_userFullNameKey) ?? '',
-      'email': prefs.getString(_userEmailKey) ?? '',
-      'password': prefs.getString(_userPasswordKey) ?? '',
-      'phoneNumber': prefs.getString(_userPhoneKey),
-      'profilePicUrl': prefs.getString(_userProfilePicKey),
-      'address': prefs.getString(_userAddressKey),
+      'fullName': sharedPreferences.getString(_userFullNameKey) ?? '',
+      'email': sharedPreferences.getString(_userEmailKey) ?? '',
+      'password': sharedPreferences.getString(_userPasswordKey) ?? '',
+      'phoneNumber': sharedPreferences.getString(_userPhoneKey),
+      'profilePicUrl': sharedPreferences.getString(_userProfilePicKey),
+      'address': sharedPreferences.getString(_userAddressKey),
     };
   }
 
+  /*-------------- Clear user data ---------------*/
   static Future<void> clearUserData() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(_userFullNameKey);
-    await prefs.remove(_userEmailKey);
-    await prefs.remove(_userPasswordKey);
-    await prefs.remove(_userPhoneKey);
-    await prefs.remove(_userProfilePicKey);
-    await prefs.remove(_userAddressKey);
+    await sharedPreferences.remove(_userFullNameKey);
+    await sharedPreferences.remove(_userEmailKey);
+    await sharedPreferences.remove(_userPasswordKey);
+    await sharedPreferences.remove(_userPhoneKey);
+    await sharedPreferences.remove(_userProfilePicKey);
+    await sharedPreferences.remove(_userAddressKey);
   }
 
-  static Future<bool> saveTheme(String theme) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString("theme", theme);
+  /*-------------- Save string data ---------------*/
+  static Future<bool> saveStringData(
+      {required String key, required String value}) async {
+    await sharedPreferences.setString(key, value);
     return true;
   }
 
-  static Future<String?> getTheme() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? theme = prefs.getString("theme");
-    return theme;
+  /*------------ Get String data from shared prefs --------------*/
+  static Future<String?> getStringData({required String key}) async {
+    String? value = sharedPreferences.getString(key);
+    return value;
   }
 }

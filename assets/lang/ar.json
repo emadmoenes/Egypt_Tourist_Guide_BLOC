@@ -47,5 +47,6 @@
   "validation_address_empty": "العنوان مطلوب",
   "appTitle": "دليل السياحة في مصر",
   "governorates": "المحافظات",
-  "logout": "تسجيل خروج"
+  "logout": "تسجيل خروج",
+  "dark_theme": "الاضاءة الليلية"
 }

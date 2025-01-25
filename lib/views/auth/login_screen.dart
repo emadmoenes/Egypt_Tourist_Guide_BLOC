@@ -24,160 +24,170 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthBloc, AuthState>(
+    bool isLoading = false;
+    return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthAuthenticated) {
-          Navigator.pushReplacementNamed(context, AppRoutes.homeRoute);
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            AppRoutes.homeRoute,
+            (route) => false,
+          );
         } else if (state is AuthError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.message)),
           );
+        } else if (state is AuthLoading) {
+          isLoading = true;
         }
       },
-      child: Scaffold(
-        body: Stack(
-          children: [
-            Positioned.fill(
-              child: Image.asset(
-                'assets/images/pyramids.png',
-                fit: BoxFit.cover,
+      builder: (context, state) {
+        return Scaffold(
+          body: Stack(
+            children: [
+              Positioned.fill(
+                child: Image.asset(
+                  'assets/images/pyramids.png',
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            Positioned(
-              top: 40,
-              right: 16,
-              child: IconButton(
-                icon: const Icon(Icons.language,
-                    color: AppColors.white, size: 30),
-                onPressed: () {
-                  final newLocale = context.locale.languageCode == 'en'
-                      ? Locale('ar')
-                      : Locale('en');
-                  context.setLocale(newLocale);
-                },
+              Positioned(
+                top: 40,
+                right: 16,
+                child: IconButton(
+                  icon: const Icon(Icons.language,
+                      color: AppColors.white, size: 30),
+                  onPressed: () {
+                    final newLocale = context.locale.languageCode == 'en'
+                        ? Locale('ar')
+                        : Locale('en');
+                    context.setLocale(newLocale);
+                  },
+                ),
               ),
-            ),
-            Center(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Form(
-                    key: _formKey,
-                    child: Container(
-                      padding: const EdgeInsets.all(16.0),
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      decoration: BoxDecoration(
-                        color: AppColors.white.withOpacity(0.5),
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.blackColor.withOpacity(0.2),
-                            spreadRadius: 2,
-                            blurRadius: 5,
-                            offset: const Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const SizedBox(height: 20),
-                          Text(
-                            'login'.tr(),
-                            style: TextStyle(
-                              fontSize: 32,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.black87Color,
+              Center(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Form(
+                      key: _formKey,
+                      child: Container(
+                        padding: const EdgeInsets.all(16.0),
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        decoration: BoxDecoration(
+                          color: AppColors.white.withValues(alpha: 0.5),
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.blackColor.withValues(alpha: 0.2),
+                              spreadRadius: 2,
+                              blurRadius: 5,
+                              offset: const Offset(0, 3),
                             ),
-                          ),
-                          const SizedBox(height: 25.0),
-                          //---- Email Form Field ----//
-                          CustomTextFormField(
-                            controller: emailController,
-                            labelText: 'email',
-                            hintText: 'email_hint',
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'validation_email'.tr();
-                              }
-                              if (!value.contains('@')) {
-                                return 'validation_email_at'.tr();
-                              }
-                              if (!value.contains('.')) {
-                                return 'validation_email_dot'.tr();
-                              }
-                              return null;
-                            },
-                          ),
-                          const SizedBox(height: 16.0),
-                          CustomTextFormField(
-                            controller: passwordController,
-                            labelText: 'password',
-                            hintText: 'password_hint',
-                            obscureText: hiddenPassword,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'validation_password_empty'.tr();
-                              }
-                              if (value.length < 6) {
-                                return 'validation_password_length'.tr();
-                              }
-                              return null;
-                            },
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  hiddenPassword = !hiddenPassword;
-                                });
-                              },
-                              icon: Icon(
-                                hiddenPassword
-                                    ? Icons.visibility_off
-                                    : Icons.visibility,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 16.0),
-                          //---- Login button ----//
-                          AuthButton(
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                context.read<AuthBloc>().add(
-                                      LoginRequested(
-                                        email: emailController.text,
-                                        password: passwordController.text,
-                                      ),
-                                    );
-                              }
-                            },
-                            buttonText: 'login'.tr(),
-                          ),
-                          const SizedBox(height: 16.0),
-                          // Sign up prompt
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                  context, AppRoutes.signupRoute);
-                            },
-                            child: Text(
-                              'signup_prompt'.tr(),
-                              style: const TextStyle(
-                                color: AppColors.blackColor,
-                                fontSize: 16,
+                          ],
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const SizedBox(height: 20),
+                            Text(
+                              'login'.tr(),
+                              style: TextStyle(
+                                fontSize: 32,
                                 fontWeight: FontWeight.bold,
+                                color: AppColors.black87Color,
                               ),
                             ),
-                          ),
-                        ],
+                            const SizedBox(height: 25.0),
+                            //---- Email Form Field ----//
+                            CustomTextFormField(
+                              controller: emailController,
+                              labelText: 'email',
+                              hintText: 'email_hint',
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'validation_email'.tr();
+                                }
+                                if (!value.contains('@')) {
+                                  return 'validation_email_at'.tr();
+                                }
+                                if (!value.contains('.')) {
+                                  return 'validation_email_dot'.tr();
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(height: 16.0),
+                            CustomTextFormField(
+                              controller: passwordController,
+                              labelText: 'password',
+                              hintText: 'password_hint',
+                              obscureText: hiddenPassword,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'validation_password_empty'.tr();
+                                }
+                                if (value.length < 6) {
+                                  return 'validation_password_length'.tr();
+                                }
+                                return null;
+                              },
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    hiddenPassword = !hiddenPassword;
+                                  });
+                                },
+                                icon: Icon(
+                                  hiddenPassword
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 16.0),
+                            //---- Login button ----//
+                            AuthButton(
+                              isLoading: isLoading,
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  context.read<AuthBloc>().add(
+                                        LoginRequested(
+                                          email: emailController.text,
+                                          password: passwordController.text,
+                                        ),
+                                      );
+                                }
+                              },
+                              buttonText: 'login'.tr(),
+                            ),
+                            const SizedBox(height: 16.0),
+                            // Sign up prompt
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, AppRoutes.signupRoute);
+                              },
+                              child: Text(
+                                'signup_prompt'.tr(),
+                                style: const TextStyle(
+                                  color: AppColors.blackColor,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
-        ),
-      ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

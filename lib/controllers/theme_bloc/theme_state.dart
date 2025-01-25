@@ -1,14 +1,15 @@
 part of 'theme_bloc.dart';
 
 abstract class ThemeState {
-  final String? theme;
-  const ThemeState({this.theme});
+  const ThemeState(this.themeMode);
+
+  final ThemeMode themeMode;
 }
 
 class ThemeInitial extends ThemeState {
-  const ThemeInitial({String? theme}) : super(theme: theme ?? 'light');
+  const ThemeInitial(super.themeMode);
 }
 
 class ThemeChanged extends ThemeState {
-  const ThemeChanged(String theme) : super(theme: theme);
+  const ThemeChanged(super.themeMode);
 }
