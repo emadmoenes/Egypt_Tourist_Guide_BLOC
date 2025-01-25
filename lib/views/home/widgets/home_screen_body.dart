@@ -9,14 +9,16 @@ class HomeScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        HomeSectionTitle(text: 'suggested_places'.tr()),
-        PopularPlacesSection(),
-        HomeSectionTitle(text: 'recommended'.tr()),
-        RecommendedPlacesSection(),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          HomeSectionTitle(text: 'suggested_places'.tr()),
+          PopularPlacesSection(),
+          HomeSectionTitle(text: 'recommended'.tr()),
+          RecommendedPlacesSection(),
+        ],
+      ),
     );
   }
 }
