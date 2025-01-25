@@ -14,16 +14,16 @@ class RecommendedPlacesGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.sizeOf(context).width;
     return GridView.builder(
-      padding: EdgeInsets.symmetric(horizontal: width * 0.04),
+      padding: EdgeInsets.symmetric(horizontal: width * 0.05),
       shrinkWrap: true,
-
+      physics: NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          crossAxisSpacing: width * 0.03, //0.04
-          mainAxisSpacing: width * 0.04,
+          crossAxisSpacing: width * 0.03,
+          mainAxisSpacing: width * 0.03,
       ),
-      itemBuilder: (context, counter) => PlaceCard(
-        place: recommendedPlaces[counter],
+      itemBuilder: (context, index) => PlaceCard(
+        place: recommendedPlaces[index],
         isWide: isWide,
       ),
       itemCount: recommendedPlaces.length,
