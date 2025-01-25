@@ -31,7 +31,11 @@ class _SignupScreenState extends State<SignupScreen> {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthAuthenticated) {
-          Navigator.pushReplacementNamed(context, AppRoutes.homeRoute);
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            AppRoutes.homeRoute,
+            (route) => false,
+          );
         } else if (state is AuthError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.message)),
@@ -69,7 +73,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 height: MediaQuery.of(context).size.height * 0.8,
                 width: MediaQuery.of(context).size.width * 1,
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.5),
+                  color: AppColors.white.withValues(alpha: 0.5),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(40),
                     topRight: Radius.circular(40),

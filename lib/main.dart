@@ -1,6 +1,6 @@
 import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_bloc.dart';
 import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_states.dart';
-import 'package:egypt_tourist_guide/core/Blocs/theme/theme_bloc.dart';
+import 'package:egypt_tourist_guide/controllers/theme_bloc/theme_bloc.dart';
 import 'package:egypt_tourist_guide/services/shared_prefs_service.dart';
 import 'dart:developer';
 import 'package:egypt_tourist_guide/controllers/places_bloc/places_bloc.dart';

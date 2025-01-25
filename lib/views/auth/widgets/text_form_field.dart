@@ -27,6 +27,9 @@ class CustomTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      style: TextStyle(
+        color: AppColors.blackColor,
+      ),
       decoration: InputDecoration(
         labelText: labelText.tr(),
         labelStyle: TextStyle(color: AppColors.grey),

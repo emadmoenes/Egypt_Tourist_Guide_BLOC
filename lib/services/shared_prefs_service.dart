@@ -21,8 +21,9 @@ class SharedPrefsService {
     await prefs.setString(_userEmailKey, email);
     await prefs.setString(_userPasswordKey, password);
     if (phoneNumber != null) await prefs.setString(_userPhoneKey, phoneNumber);
-    if (profilePicUrl != null)
+    if (profilePicUrl != null) {
       await prefs.setString(_userProfilePicKey, profilePicUrl);
+    }
     if (address != null) await prefs.setString(_userAddressKey, address);
   }
 

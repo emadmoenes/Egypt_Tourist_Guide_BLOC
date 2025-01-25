@@ -1,4 +1,4 @@
-import 'package:egypt_tourist_guide/core/Blocs/theme/theme_bloc.dart';
+import 'package:egypt_tourist_guide/controllers/theme_bloc/theme_bloc.dart';
 import 'package:egypt_tourist_guide/core/app_colors.dart';
 import 'package:egypt_tourist_guide/views/profile/widgets/log_out_button.dart';
 import 'package:egypt_tourist_guide/views/profile/widgets/profile_card.dart';
