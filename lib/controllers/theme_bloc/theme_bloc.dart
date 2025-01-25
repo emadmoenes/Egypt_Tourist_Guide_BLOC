@@ -1,4 +1,4 @@
-import 'package:egypt_tourist_guide/services/shared_prefs_service.dart';
+import 'package:egypt_tourist_guide/core/services/shared_prefs_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -5,7 +5,7 @@ import 'dart:developer';
 import 'package:egypt_tourist_guide/controllers/places_bloc/places_bloc.dart';
 import 'package:egypt_tourist_guide/core/app_routes.dart';
 import 'package:egypt_tourist_guide/core/custom_page_routes.dart';
-import 'package:egypt_tourist_guide/services/shared_prefs_service.dart';
+import 'package:egypt_tourist_guide/core/services/shared_prefs_service.dart';
 import 'package:egypt_tourist_guide/views/auth/login_screen.dart';
 import 'package:egypt_tourist_guide/views/auth/signup_screen.dart';
 import 'package:egypt_tourist_guide/views/governorates/governoarates_places.dart';

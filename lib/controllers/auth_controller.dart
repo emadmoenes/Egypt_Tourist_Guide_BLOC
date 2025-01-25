@@ -1,5 +1,5 @@
+import 'package:egypt_tourist_guide/core/services/shared_prefs_service.dart';
 import 'package:egypt_tourist_guide/models/user_model.dart';
-import 'package:egypt_tourist_guide/services/shared_prefs_service.dart';
 
 class AuthController {
   User? _currentUser;
