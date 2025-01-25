@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:egypt_tourist_guide/controllers/places_bloc/places_bloc.dart';
 import 'package:egypt_tourist_guide/models/place_model.dart';
+import 'package:egypt_tourist_guide/views/widgets/favourite_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../core/app_colors.dart';
@@ -9,20 +10,16 @@ class PlaceCard extends StatelessWidget {
   final PlacesModel place;
   final bool isWide;
 
-  //final VoidCallback? onFavoriteToggled;
-
   const PlaceCard({
     super.key,
     required this.place,
     required this.isWide,
-    //this.onFavoriteToggled,
   });
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.sizeOf(context).width;
     double textFactor = width / 415;
-    // HomeCubit homeCubit = BlocProvider.of<HomeCubit>(context);
     final placesBloc = context.read<PlacesBloc>();
     var isFav = place.isFav;
     return InkWell(
@@ -30,18 +27,19 @@ class PlaceCard extends StatelessWidget {
         width: isWide ? width * 0.81 : width * 0.25,
         height: isWide ? width * 0.81 * 0.75 : width * 0.46,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12.0),
-            color: AppColors.containerColor,
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.greyColor.withValues(alpha: 0.3),
-                spreadRadius: 2,
-                blurRadius: 3,
-                offset: Offset(2, 6),
-              ),
-            ],
-            image: DecorationImage(
-                image: AssetImage(place.image), fit: BoxFit.fill)),
+          borderRadius: BorderRadius.circular(10.0),
+          color: AppColors.containerColor,
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.greyColor.withValues(alpha: 0.3),
+              spreadRadius: 2,
+              blurRadius: 3,
+              offset: Offset(2, 6),
+            ),
+          ],
+          image:
+              DecorationImage(image: AssetImage(place.image), fit: BoxFit.fill),
+        ),
         alignment: Alignment.bottomCenter,
         child: Container(
           width: double.infinity,
@@ -66,7 +64,7 @@ class PlaceCard extends StatelessWidget {
                       child: Text(
                         place.name,
                         style: TextStyle(
-                          fontSize: isWide? textFactor * 16 : textFactor * 14,
+                          fontSize: isWide ? textFactor * 16 : textFactor * 14,
                           color: AppColors.white,
                           overflow: TextOverflow.ellipsis,
                           fontWeight: FontWeight.w500,
@@ -94,17 +92,9 @@ class PlaceCard extends StatelessWidget {
                           return CircleAvatar(
                             backgroundColor: AppColors.white,
                             maxRadius: isWide ? 10 : 8,
-                            child: isFav
-                                ? Icon(
-                                    Icons.favorite_rounded,
-                                    color: AppColors.favoriteIconColor,
-                                    size: 10,
-                                  )
-                                : Icon(
-                                    Icons.favorite_outline_rounded,
-                                    color: AppColors.blackColor,
-                                    size: 10,
-                                  ),
+                            child: FavouriteIcon(
+                              isFav: isFav,
+                            ),
                           );
                         },
                       ),
