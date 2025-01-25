@@ -25,7 +25,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       bottomNavigationBar: AppBottomNavigationBar(),
       appBar: AppBar(
-        elevation: 0.5,
+          elevation: 0.5,
           title: BlocBuilder<PlacesBloc, PlacesState>(
             builder: (context, state) {
               final placesBloc = context.read<PlacesBloc>();
@@ -36,7 +36,7 @@ class HomeScreen extends StatelessWidget {
           ),
           actions: [
             IconButton(
-              icon: const Icon(Icons.language, color: Colors.black, size: 30),
+              icon: const Icon(Icons.language, size: 30),
               onPressed: () {
                 // Toggle between English and Arabic
                 final newLocale = context.locale.languageCode == 'en'

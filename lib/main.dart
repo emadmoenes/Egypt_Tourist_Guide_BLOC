@@ -1,4 +1,3 @@
-
 import 'package:egypt_tourist_guide/core/Blocs/theme/theme_bloc.dart';
 import 'package:egypt_tourist_guide/services/shared_prefs_service.dart';
 import 'dart:developer';
@@ -23,80 +22,80 @@ Future<void> main() async {
       supportedLocales: const [Locale('en'), Locale('ar')],
       path: 'assets/lang',
       fallbackLocale: const Locale('en'),
-      child: BlocProvider<ThemeBloc>(
-        create: (context) => ThemeBloc(theme),
-        child: const MyApp(),
+      child: MyApp(
+        theme: theme,
       ),
     ),
   );
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key, required this.theme});
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  ThemeBloc? themeBloc;
-  @override
-  void initState() {
-    super.initState();
-    themeBloc = context.read<ThemeBloc>();
-    themeBloc!.add(InitEvent());
-  }
+  final String theme;
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => HomeCubit()..fetchHomeData(),
-        )
+          create: (context) => PlacesBloc()..add(LoadPlacesEvent()),
+        ),
+        BlocProvider(
+          create: (context) {
+            final themeBloc = ThemeBloc(theme);
+            themeBloc.add(InitEvent());
+            return themeBloc;
+          },
+        ),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {
+          ThemeBloc themeBloc = context.read<ThemeBloc>();
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(fontFamily: 'merriweather'),
             darkTheme: ThemeData(
                 fontFamily: 'merriweather', brightness: Brightness.dark),
             themeMode:
-                themeBloc!.theme == 'light' ? ThemeMode.light : ThemeMode.dark,
+                themeBloc.theme == 'light' ? ThemeMode.light : ThemeMode.dark,
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
             locale: context.locale,
-            onGenerateRoute: (settings) {
-              print('Navigating to: ${settings.name}'); // Debugging
-              switch (settings.name) {
-                case AppRoutes.signupRoute:
-                  return SlideRightRoute(child: const SignupScreen());
-                case AppRoutes.loginRoute:
-                  return SlideRightRoute(child: const LoginScreen());
-                case AppRoutes.homeRoute:
-                  return FadeTransitionRoute(child: const HomeScreen());
-                case AppRoutes.placesRoute:
-                  // Extract arguments and pass them to GovernoratesPlaces
-                  final args = settings.arguments as Map<String, dynamic>;
-                  return SlideRightRoute(
-                    child: GovernoratesPlaces(
-                      governorate: args['governorate'],
-                      places: args['places'],
-                    ),
-                  );
-                default:
-                  return MaterialPageRoute(
-                    builder: (_) => Scaffold(
-                      body: Center(child: Text('Route not found')),
-                    ),
-                  );
-              }
-            },
-            home: const SignupScreen(),
+            onGenerateRoute: onGenerateRoute,
+            home: const HomeScreen(),
           );
         },
       ),
     );
+  }
+}
+
+////////////////////////////////////////////
+/*-- On Generate page routes --*/
+Route<dynamic>? onGenerateRoute(RouteSettings settings) {
+  log('Navigating to: ${settings.name}');
+  switch (settings.name) {
+    case AppRoutes.signupRoute:
+      return SlideRightRoute(child: const SignupScreen());
+    case AppRoutes.loginRoute:
+      return SlideRightRoute(child: const LoginScreen());
+    case AppRoutes.homeRoute:
+      return FadeTransitionRoute(child: const HomeScreen());
+    case AppRoutes.placesRoute:
+      // Extract arguments and pass them to GovernoratesPlaces
+      final args = settings.arguments as Map<String, dynamic>;
+      return SlideRightRoute(
+        child: GovernoratesPlaces(
+          governorate: args['governorate'],
+          places: args['places'],
+        ),
+      );
+    default:
+      return MaterialPageRoute(
+        builder: (_) => Scaffold(
+          body: Center(child: Text('Route not found')),
+        ),
+      );
   }
 }

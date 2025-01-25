@@ -33,7 +33,6 @@ class EditableField extends StatelessWidget {
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            color: AppColors.black87Color,
           ),
         ),
         const SizedBox(height: 8),
@@ -67,7 +66,6 @@ class EditableField extends StatelessWidget {
                 isPassword ? '••••••••' : value,
                 style: TextStyle(
                   fontSize: 18,
-                  color:AppColors.black87Color,
                 ),
               ),
       ],
