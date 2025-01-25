@@ -44,8 +44,10 @@ class GovernoratesScreen extends StatelessWidget {
                 context,
                 AppRoutes.placesRoute,
                 arguments: {
-                  'governorate': governorate, // Pass the governorate object
-                  'places': listOfPlaces, // Pass the list of places
+                  // Pass the governorate object
+                  'governorate': governorate,
+                  // Pass the list of places
+                  'places': listOfPlaces,
                 },
               );
             },
