@@ -1,4 +1,6 @@
 import 'dart:developer';
+import 'package:egypt_tourists_app_bloc/controllers/auth_bloc/auth_bloc.dart';
+import 'package:egypt_tourists_app_bloc/controllers/auth_bloc/auth_states.dart';
 import 'package:egypt_tourists_app_bloc/controllers/places_bloc/places_bloc.dart';
 import 'package:egypt_tourists_app_bloc/core/app_routes.dart';
 import 'package:egypt_tourists_app_bloc/core/custom_page_routes.dart';
@@ -29,8 +31,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => PlacesBloc()..add(LoadPlacesEvent()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => AuthBloc()),
+        BlocProvider(create: (context) => PlacesBloc()..add(LoadPlacesEvent())),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(fontFamily: 'merriweather'),
@@ -38,7 +43,15 @@ class MyApp extends StatelessWidget {
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         onGenerateRoute: onGenerateRoute,
-        home: const HomeScreen(),
+        home: BlocBuilder<AuthBloc, AuthState>(
+          builder: (context, state) {
+            if (state is AuthAuthenticated) {
+              return const HomeScreen();
+            } else {
+              return const LoginScreen();
+            }
+          },
+        ),
       ),
     );
   }
