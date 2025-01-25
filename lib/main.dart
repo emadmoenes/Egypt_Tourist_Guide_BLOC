@@ -1,3 +1,5 @@
+import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_bloc.dart';
+import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_states.dart';
 import 'package:egypt_tourist_guide/core/Blocs/theme/theme_bloc.dart';
 import 'package:egypt_tourist_guide/services/shared_prefs_service.dart';
 import 'dart:developer';
@@ -38,6 +40,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => AuthBloc()),
         BlocProvider(
           create: (context) => PlacesBloc()..add(LoadPlacesEvent()),
         ),
@@ -63,7 +66,15 @@ class MyApp extends StatelessWidget {
             supportedLocales: context.supportedLocales,
             locale: context.locale,
             onGenerateRoute: onGenerateRoute,
-            home: const HomeScreen(),
+            home: BlocBuilder<AuthBloc, AuthState>(
+              builder: (context, state) {
+                if (state is AuthAuthenticated) {
+                  return const HomeScreen();
+                } else {
+                  return const LoginScreen();
+                }
+              },
+            ),
           );
         },
       ),
