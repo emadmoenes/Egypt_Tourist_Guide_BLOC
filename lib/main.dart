@@ -23,7 +23,7 @@ Future<void> main() async {
       fallbackLocale: const Locale('en'),
       child: BlocProvider<ThemeBloc>(
         create: (context) => ThemeBloc(theme),
-        child: MyApp(),
+        child: const MyApp(),
       ),
     ),
   );
@@ -91,7 +91,7 @@ class _MyAppState extends State<MyApp> {
                   );
               }
             },
-            home: SignupScreen(),
+            home: const SignupScreen(),
           );
         },
       ),
