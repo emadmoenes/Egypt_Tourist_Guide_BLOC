@@ -3,7 +3,7 @@
 ## Project General Description
 
 The **Egypt Tourist Guide** is a mobile application designed to help tourists explore landmarks, museums, and attractions across various Egyptian governorates. The app provides a user-friendly interface for discovering popular places, saving favorites, and managing user profiles. This project aims to enhance the tourism experience by offering curated suggestions and personalization.
-
+manages state using Bloc. (in controllers folder)
 ---
 
 ## Features
@@ -64,3 +64,12 @@ The **Egypt Tourist Guide** is a mobile application designed to help tourists ex
 2. **Home Page** → **Governorates Page** → **Landmarks Page**
 3. **Home Page** → **Favorites Page**
 4. **Home Page** → **Profile Page**
+
+-------
+
+## **Packages Used**
+- **SharedPreferences**: For local data storage and offline support ==> https://pub.dev/packages/shared_preferences.
+- **easy_localization**: For localization feature ==> https://pub.dev/packages/easy_localization.
+- **flutter_bloc**: For state management using bloc ==> https://pub.dev/packages/flutter_bloc.
+- **skeletonizer**: For skeleton loading effect and enhance user experience during web or app loading. ==> https://pub.dev/packages/skeletonizer.
+- **MVC Architecture**: For clean and maintainable code structure.
