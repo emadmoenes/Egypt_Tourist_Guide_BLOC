@@ -4,7 +4,7 @@ import 'package:egypt_tourist_guide/core/app_colors.dart';
 import 'package:egypt_tourist_guide/models/governorate_model.dart';
 import 'package:egypt_tourist_guide/models/place_model.dart';
 import 'package:egypt_tourist_guide/views/home/widgets/home_section_title.dart';
-import 'package:egypt_tourist_guide/views/home/widgets/recommended_places_grid.dart';
+import 'package:egypt_tourist_guide/views/home/widgets/suggested_places_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -36,8 +36,8 @@ class GovernoratesPlaces extends StatelessWidget {
           HomeSectionTitle(text: "places".tr()),
           BlocBuilder<PlacesBloc, PlacesState>(
             builder: (context, state) {
-              return RecommendedPlacesGrid(
-                recommendedPlaces: places,
+              return SuggestedPlacesGrid(
+                suggestedPlaces: places,
                 isWide: true,
               );
             },
