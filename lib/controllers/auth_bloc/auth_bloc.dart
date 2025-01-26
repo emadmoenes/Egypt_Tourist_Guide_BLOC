@@ -1,5 +1,6 @@
 import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_events.dart';
 import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_states.dart';
+import 'package:egypt_tourist_guide/core/app_strings_en.dart';
 import 'package:egypt_tourist_guide/core/services/shared_prefs_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,7 +14,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   //handle init auth event when app starts
   Future<void> _initAuth(InitAuthEvent event, Emitter<AuthState> emit) async {
-    String? token = await SharedPrefsService.getStringData(key: "token");
+    String? token =
+        await SharedPrefsService.getStringData(key: AppStringEn.tokenKey);
     if (token != null) {
       emit(AuthAuthenticated());
     }
@@ -30,7 +32,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           userData['password'] == event.password) {
         emit(AuthAuthenticated());
         // save dummy token
-        await SharedPrefsService.saveStringData(key: "token", value: "done");
+        await SharedPrefsService.saveStringData(
+            key: AppStringEn.tokenKey, value: "done");
       } else {
         emit(AuthError(message: 'Invalid credentials'));
       }
@@ -43,6 +46,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> _onSignUpRequested(
       SignUpRequested event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
+    await Future.delayed(const Duration(seconds: 1));
     try {
       await SharedPrefsService.saveUserData(
         fullName: event.fullName,
@@ -61,7 +65,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       LogoutRequested event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
     await SharedPrefsService.clearUserData();
-    await SharedPrefsService.clearStringData(key: "token");
+    await SharedPrefsService.clearStringData(key: AppStringEn.tokenKey);
     emit(AuthUnauthenticated());
   }
 }
