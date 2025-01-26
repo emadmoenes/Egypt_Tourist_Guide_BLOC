@@ -70,4 +70,9 @@ class SharedPrefsService {
     String? value = _sharedPreferences.getString(key);
     return value;
   }
+
+  static Future<bool> clearStringData({required String key}) async {
+    await _sharedPreferences.remove(key);
+    return true;
+  }
 }

@@ -61,6 +61,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       LogoutRequested event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
     await SharedPrefsService.clearUserData();
+    await SharedPrefsService.clearStringData(key: "token");
     emit(AuthUnauthenticated());
   }
 }
