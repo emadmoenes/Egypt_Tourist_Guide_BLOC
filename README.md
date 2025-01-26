@@ -27,11 +27,11 @@ The app contains four Blocs:
 - **Suggested Places to Visit**: Displays attractions in a grid view.
 - **Popular Places Section**: Displays horizontally scrollable cards for popular attractions.
   - Each card includes:
-    - Image of the place
-    - Name of the place
-    - Governorate name
-    - Discribtion
-    - A favorite icon (toggle on/off)
+    - Image of the place.
+    - Name of the place.
+    - Governorate name.
+    - The place's description.
+    - A favorite icon (toggle on/off).
 
 ### 4. Governorates Page
 - Displays a list of governorates.
