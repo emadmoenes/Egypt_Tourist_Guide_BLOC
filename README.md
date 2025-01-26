@@ -64,6 +64,7 @@ The app contains four Blocs:
 
 ### 9. Localization
 - Apply localization feature (Ar and En) to adapt the app to different languages and regions.
+- Using easy localization package.
 
 ### 10. Theme feature
 - Alllow manually toggle between light and dark modes.
