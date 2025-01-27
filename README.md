@@ -7,12 +7,12 @@ it manages state using Bloc. (in controllers folder)
 
 The app contains four Blocs:
                                       
- 1- **User Authentication**:                  
+1- **User Authentication**:                  
    - AuthBloc.
    - ProfileBloc.                        
- 2- **Settings**:                                       
+2- **Settings**:                                       
    - ThemeBloc.                                          
- 3- **Home screen & places**:                           
+3- **Home screen & places**:                           
   - PlacesBloc.
   
 
