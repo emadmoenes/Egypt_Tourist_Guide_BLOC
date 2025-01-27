@@ -9,12 +9,15 @@ The app contains four Blocs:
                                       
 1- **User Authentication**:                  
    - AuthBloc.
-   - ProfileBloc.                        
-2- **Settings**:                                       
-   - ThemeBloc.                                          
-3- **Home screen & places**:                           
+   - ProfileBloc.
+     
+2- **Settings**:                                                            
+   - ThemeBloc.
+     
+3- **Home screen & places**:                     
   - PlacesBloc.
-  
+
+  -------------------
 
 ## Features
 
