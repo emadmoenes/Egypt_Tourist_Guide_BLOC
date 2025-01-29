@@ -12,7 +12,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<InitAuthEvent>(_initAuth);
   }
 
-  //handle init auth event when app starts
+  // handle init auth event when app starts
   Future<void> _initAuth(InitAuthEvent event, Emitter<AuthState> emit) async {
     String? token =
         await SharedPrefsService.getStringData(key: AppStringEn.tokenKey);
@@ -64,7 +64,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> _onLogoutRequested(
       LogoutRequested event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
-    await SharedPrefsService.clearUserData();
     await SharedPrefsService.clearStringData(key: AppStringEn.tokenKey);
     emit(AuthUnauthenticated());
   }

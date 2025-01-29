@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:egypt_tourist_guide/controllers/places_bloc/places_bloc.dart';
+import 'package:egypt_tourist_guide/data.dart';
+import 'package:egypt_tourist_guide/models/governorate_model.dart';
 import 'package:egypt_tourist_guide/models/place_model.dart';
 import 'package:egypt_tourist_guide/views/widgets/favourite_icon.dart';
 import 'package:flutter/material.dart';
@@ -20,12 +22,17 @@ class PlaceCard extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.sizeOf(context).width;
     double textFactor = width / 415;
+    List<GovernorateModel> governorateList =
+        context.locale.toString() == 'ar' ? ARABICGOVERNORATES : GOVERNERATES;
+    GovernorateModel placeGovernorate = governorateList
+        .firstWhere((element) => element.id == place.governorateId);
     final placesBloc = context.read<PlacesBloc>();
+    double bigContainerHeight = isWide ? width * 0.81 * 0.75 : width * 0.48;
     var isFav = place.isFav;
     return InkWell(
       child: Container(
         width: isWide ? width * 0.81 : width * 0.25,
-        height: isWide ? width * 0.81 * 0.75 : width * 0.46,
+        height: bigContainerHeight,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
           color: AppColors.containerColor,
@@ -43,8 +50,8 @@ class PlaceCard extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         child: Container(
           width: double.infinity,
-          height: isWide ? width * 0.135 : width * 0.13,
-          padding: EdgeInsets.all(width * 0.02),
+          height: bigContainerHeight * 0.29,
+          padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 7.0),
           alignment: Alignment.center,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
@@ -55,19 +62,23 @@ class PlaceCard extends StatelessWidget {
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // place name and fav icon
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    // place name
                     Expanded(
                       child: Text(
                         place.name,
                         style: TextStyle(
-                          fontSize: isWide ? textFactor * 16 : textFactor * 14,
+                          fontSize:
+                              isWide ? textFactor * 16 : textFactor * 12.5,
                           color: AppColors.white,
                           overflow: TextOverflow.ellipsis,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w600,
                         ),
                         maxLines: 1,
                       ),
@@ -102,15 +113,27 @@ class PlaceCard extends StatelessWidget {
                   ],
                 ),
               ),
+              SizedBox(height: 2),
+              // Governorate name of the place
+              Text(
+                placeGovernorate.name,
+                style: TextStyle(
+                  fontSize: isWide ? textFactor * 11.2 : textFactor * 9,
+                  color: AppColors.white,
+                  overflow: TextOverflow.ellipsis,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              // place description
               Text(
                 place.description,
                 style: TextStyle(
-                  fontSize: isWide ? textFactor * 11.2 : textFactor * 10,
+                  fontSize: isWide ? textFactor * 11.2 : textFactor * 9,
                   color: AppColors.white,
                   overflow: TextOverflow.ellipsis,
                 ),
                 maxLines: 1,
-              )
+              ),
             ],
           ),
         ),

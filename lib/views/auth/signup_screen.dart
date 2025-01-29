@@ -1,6 +1,7 @@
 import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_bloc.dart';
 import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_events.dart';
 import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_states.dart';
+import 'package:egypt_tourist_guide/core/app_images.dart';
 import 'package:egypt_tourist_guide/core/app_routes.dart';
 import 'package:egypt_tourist_guide/views/auth/widgets/auth_button.dart';
 import 'package:egypt_tourist_guide/views/auth/widgets/text_form_field.dart';
@@ -28,28 +29,32 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthBloc, AuthState>(
+    bool isLoading = false;
+    AuthBloc authBloc = context.read<AuthBloc>();
+    return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthAuthenticated) {
           Navigator.pushNamedAndRemoveUntil(
             context,
-            AppRoutes.homeRoute,
+            AppRoutes.loginRoute,
             (route) => false,
           );
         } else if (state is AuthError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.message)),
           );
+        } else if (state is AuthLoading) {
+          isLoading = true;
         }
       },
-      child: Scaffold(
+      builder: (context, state) => Scaffold(
         backgroundColor: Colors.transparent,
         body: Stack(
           children: [
             Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/signup_bg.jpg'),
+                  image: AssetImage(AppImages.signupBackground),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -205,16 +210,17 @@ class _SignupScreenState extends State<SignupScreen> {
                           const SizedBox(height: 35),
                           AuthButton(
                             buttonText: 'signup'.tr(),
+                            isLoading: isLoading,
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
-                                context.read<AuthBloc>().add(
-                                      SignUpRequested(
-                                        fullName: _fullNameController.text,
-                                        email: _emailController.text,
-                                        password: _passwordController.text,
-                                        phoneNumber: _phoneController.text,
-                                      ),
-                                    );
+                                authBloc.add(
+                                  SignUpRequested(
+                                    fullName: _fullNameController.text,
+                                    email: _emailController.text,
+                                    password: _passwordController.text,
+                                    phoneNumber: _phoneController.text,
+                                  ),
+                                );
                               }
                             },
                           ),

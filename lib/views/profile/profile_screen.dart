@@ -1,5 +1,6 @@
 import 'package:egypt_tourist_guide/controllers/theme_bloc/theme_bloc.dart';
 import 'package:egypt_tourist_guide/core/app_colors.dart';
+import 'package:egypt_tourist_guide/core/app_images.dart';
 import 'package:egypt_tourist_guide/views/profile/widgets/log_out_button.dart';
 import 'package:egypt_tourist_guide/views/profile/widgets/profile_card.dart';
 import 'package:flutter/material.dart';
@@ -89,7 +90,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const SizedBox(height: 40),
                       CircleAvatar(
                         radius: 70,
-                        backgroundImage: AssetImage('assets/images/user.png'),
+                        backgroundImage: AssetImage(AppImages.user),
                       ),
                       const SizedBox(height: 15),
                       Row(

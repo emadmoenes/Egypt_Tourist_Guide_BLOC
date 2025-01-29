@@ -1,6 +1,7 @@
 import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_bloc.dart';
 import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_events.dart';
 import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_states.dart';
+import 'package:egypt_tourist_guide/core/app_images.dart';
 import 'package:egypt_tourist_guide/core/app_routes.dart';
 import 'package:egypt_tourist_guide/views/auth/widgets/auth_button.dart';
 import 'package:egypt_tourist_guide/views/auth/widgets/text_form_field.dart';
@@ -25,6 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     bool isLoading = false;
+    AuthBloc authBloc = context.read<AuthBloc>();
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthAuthenticated) {
@@ -47,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               Positioned.fill(
                 child: Image.asset(
-                  'assets/images/pyramids.png',
+                  AppImages.pyramids,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -79,7 +81,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           borderRadius: BorderRadius.circular(10),
                           boxShadow: [
                             BoxShadow(
-                              color: AppColors.blackColor.withValues(alpha: 0.2),
+                              color:
+                                  AppColors.blackColor.withValues(alpha: 0.2),
                               spreadRadius: 2,
                               blurRadius: 5,
                               offset: const Offset(0, 3),
@@ -151,12 +154,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               isLoading: isLoading,
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
-                                  context.read<AuthBloc>().add(
-                                        LoginRequested(
-                                          email: emailController.text,
-                                          password: passwordController.text,
-                                        ),
-                                      );
+                                  authBloc.add(
+                                    LoginRequested(
+                                      email: emailController.text,
+                                      password: passwordController.text,
+                                    ),
+                                  );
                                 }
                               },
                               buttonText: 'login'.tr(),
