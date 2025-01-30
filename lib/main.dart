@@ -3,6 +3,7 @@ import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_states.dart';
 import 'package:egypt_tourist_guide/controllers/theme_bloc/theme_bloc.dart';
 import 'dart:developer';
 import 'package:egypt_tourist_guide/controllers/places_bloc/places_bloc.dart';
+import 'package:egypt_tourist_guide/core/app_colors.dart';
 import 'package:egypt_tourist_guide/core/app_routes.dart';
 import 'package:egypt_tourist_guide/core/custom_page_routes.dart';
 import 'package:egypt_tourist_guide/core/services/shared_prefs_service.dart';
@@ -57,9 +58,29 @@ class MyApp extends StatelessWidget {
         builder: (context, state) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            theme: ThemeData(fontFamily: 'merriweather'),
+            theme: ThemeData(
+                fontFamily: 'merriweather',
+                iconButtonTheme: IconButtonThemeData(
+                  style: IconButton.styleFrom(
+                    foregroundColor: AppColors.lightPurple,
+                  ),
+                ),
+              dividerTheme: DividerThemeData(
+                color: AppColors.lightPurple,
+              ),
+            ),
             darkTheme: ThemeData(
-                fontFamily: 'merriweather', brightness: Brightness.dark),
+              fontFamily: 'merriweather',
+              brightness: Brightness.dark,
+              iconButtonTheme: IconButtonThemeData(
+                style: IconButton.styleFrom(
+                  foregroundColor: AppColors.deepPurpleAccent,
+                ),
+              ),
+              dividerTheme: DividerThemeData(
+                color: AppColors.deepPurpleAccent,
+              ),
+            ),
             themeMode: state.themeMode,
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,

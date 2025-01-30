@@ -39,6 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.message)),
           );
+          isLoading = false;
         } else if (state is AuthLoading) {
           isLoading = true;
         }
@@ -53,6 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   fit: BoxFit.cover,
                 ),
               ),
+              //--- Change lang button ---//
               Positioned(
                 top: 40,
                 right: 16,
@@ -192,5 +194,12 @@ class _LoginScreenState extends State<LoginScreen> {
         );
       },
     );
+  }
+
+  @override
+  dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 }

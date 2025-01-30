@@ -16,4 +16,5 @@ class AppColors {
   static const Color lightPurple2 = Color.fromARGB(255, 226, 166, 241);
   static const Color red = Color.fromRGBO(244, 67, 54, 1);
   static const Color green = Color.fromRGBO(76, 175, 80, 1);
+  static const Color deepPurpleAccent = Colors.deepPurpleAccent;
 }

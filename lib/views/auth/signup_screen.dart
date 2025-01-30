@@ -43,6 +43,7 @@ class _SignupScreenState extends State<SignupScreen> {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.message)),
           );
+          isLoading = false;
         } else if (state is AuthLoading) {
           isLoading = true;
         }

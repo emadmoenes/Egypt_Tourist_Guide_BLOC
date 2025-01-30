@@ -28,7 +28,7 @@ class PlaceCard extends StatelessWidget {
         .firstWhere((element) => element.id == place.governorateId);
     final placesBloc = context.read<PlacesBloc>();
     double bigContainerHeight = isWide ? width * 0.81 * 0.75 : width * 0.48;
-    var isFav = place.isFav;
+    bool? isFav = place.isFav;
     return InkWell(
       child: Container(
         width: isWide ? width * 0.81 : width * 0.25,
@@ -96,7 +96,7 @@ class PlaceCard extends StatelessWidget {
                       child: BlocConsumer<PlacesBloc, PlacesState>(
                         listener: (context, state) {
                           if (state is FavoriteToggledState) {
-                            isFav = state.place.isFav;
+                            isFav = state.place?.isFav;
                           }
                         },
                         builder: (context, state) {
@@ -104,7 +104,7 @@ class PlaceCard extends StatelessWidget {
                             backgroundColor: AppColors.white,
                             maxRadius: isWide ? 10 : 8,
                             child: FavouriteIcon(
-                              isFav: isFav,
+                              isFav: isFav ?? false,
                             ),
                           );
                         },
