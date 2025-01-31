@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:egypt_tourist_guide/core/app_colors.dart';
 import 'package:flutter/material.dart';
-import '../../../core/app_colors.dart';
 
 class LogOutButton extends StatelessWidget {
   const LogOutButton({
