@@ -24,7 +24,6 @@ class _GovernoratesScreenState extends State<GovernoratesScreen> {
     getGovernoratesFromFirebase();
   }
 
-// context.locale.toString() == 'ar'
   Future<void> getGovernoratesFromFirebase() async {
     var arabicGovernorateListFirebase =
         await GovernoratesService().getArabicGovernorates();
