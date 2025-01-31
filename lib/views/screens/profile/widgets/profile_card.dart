@@ -2,7 +2,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:egypt_tourist_guide/core/app_colors.dart';
 import 'package:egypt_tourist_guide/models/user_model.dart';
-import 'package:egypt_tourist_guide/views/profile/widgets/editable_field.dart';
+import 'package:egypt_tourist_guide/views/screens/profile/widgets/editable_field.dart';
 import 'package:flutter/material.dart';
 
 class ProfileCard extends StatelessWidget {

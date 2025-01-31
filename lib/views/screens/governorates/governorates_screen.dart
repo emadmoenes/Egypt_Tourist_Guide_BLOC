@@ -1,10 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:egypt_tourist_guide/core/app_routes.dart';
+import 'package:egypt_tourist_guide/data.dart';
 import 'package:egypt_tourist_guide/models/governorate_model.dart';
 import 'package:egypt_tourist_guide/models/place_model.dart';
-import 'package:egypt_tourist_guide/views/governorates/widgets/governorate_card.dart';
+import 'package:egypt_tourist_guide/views/screens/governorates/widgets/governorate_card.dart';
 import 'package:flutter/material.dart';
-import '../../data.dart';
+
 
 class GovernoratesScreen extends StatelessWidget {
   const GovernoratesScreen({super.key});

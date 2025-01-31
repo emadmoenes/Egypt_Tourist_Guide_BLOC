@@ -1,6 +1,6 @@
+import 'package:egypt_tourist_guide/core/app_colors.dart';
 import 'package:egypt_tourist_guide/models/governorate_model.dart';
 import 'package:flutter/material.dart';
-import '../../../core/app_colors.dart';
 import 'custom_text.dart';
 
 class GovernorateCard extends StatelessWidget {

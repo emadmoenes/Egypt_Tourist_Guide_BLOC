@@ -1,14 +1,14 @@
 import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_bloc.dart';
 import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_events.dart';
 import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_states.dart';
+import 'package:egypt_tourist_guide/core/app_colors.dart';
 import 'package:egypt_tourist_guide/core/app_images.dart';
 import 'package:egypt_tourist_guide/core/app_routes.dart';
-import 'package:egypt_tourist_guide/views/auth/widgets/auth_button.dart';
-import 'package:egypt_tourist_guide/views/auth/widgets/text_form_field.dart';
+import 'package:egypt_tourist_guide/views/screens/auth/widgets/auth_button.dart';
+import 'package:egypt_tourist_guide/views/screens/auth/widgets/text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
-import '../../core/app_colors.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
