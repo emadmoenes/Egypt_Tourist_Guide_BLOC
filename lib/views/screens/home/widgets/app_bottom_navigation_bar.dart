@@ -4,6 +4,7 @@ import 'package:egypt_tourist_guide/core/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+
 class AppBottomNavigationBar extends StatelessWidget {
   const AppBottomNavigationBar({super.key});
 

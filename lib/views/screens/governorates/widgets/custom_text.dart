@@ -1,6 +1,7 @@
 import 'package:egypt_tourist_guide/core/app_colors.dart';
 import 'package:flutter/material.dart';
 
+
 class CustomText extends StatelessWidget {
   const CustomText(
       {super.key,

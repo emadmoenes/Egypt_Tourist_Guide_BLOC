@@ -30,6 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthAuthenticated) {
+          isLoading = false;
           Navigator.pushNamedAndRemoveUntil(
             context,
             AppRoutes.homeRoute,

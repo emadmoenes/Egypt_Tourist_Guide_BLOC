@@ -6,7 +6,7 @@ sealed class ProfileEvent {}
 class LoadProfileEvent extends ProfileEvent {}
 
 class UpdateProfileEvent extends ProfileEvent {
-  final User user;
+  final UserModel user;
 
   UpdateProfileEvent(this.user);
 }

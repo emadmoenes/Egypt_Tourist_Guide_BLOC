@@ -11,13 +11,18 @@ import 'package:egypt_tourist_guide/views/screens/auth/login_screen.dart';
 import 'package:egypt_tourist_guide/views/screens/auth/signup_screen.dart';
 import 'package:egypt_tourist_guide/views/screens/governorates/governoarates_places.dart';
 import 'package:egypt_tourist_guide/views/screens/home/home_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'controllers/auth_bloc/auth_events.dart';
+import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await EasyLocalization.ensureInitialized();
   await SharedPrefsService.init();
 
@@ -59,12 +64,12 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
-                fontFamily: 'merriweather',
-                iconButtonTheme: IconButtonThemeData(
-                  style: IconButton.styleFrom(
-                    foregroundColor: AppColors.lightPurple,
-                  ),
+              fontFamily: 'merriweather',
+              iconButtonTheme: IconButtonThemeData(
+                style: IconButton.styleFrom(
+                  foregroundColor: AppColors.lightPurple,
                 ),
+              ),
               dividerTheme: DividerThemeData(
                 color: AppColors.lightPurple,
               ),

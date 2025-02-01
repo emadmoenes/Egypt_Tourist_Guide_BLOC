@@ -43,7 +43,7 @@ class ProfileScreen extends StatelessWidget {
         ProfileBloc profileBloc = context.read<ProfileBloc>();
         AuthBloc authBloc = context.read<AuthBloc>();
         bool isEditing = profileBloc.isEditing;
-        User user = profileBloc.user;
+        UserModel user = profileBloc.user;
         if (state is ProfileLoadingState) {
           return Center(
             child: CircularProgressIndicator(),
