@@ -16,9 +16,8 @@ class PlacesBloc extends Bloc<PlacesEvent, PlacesState> {
     //-- Handle load more places event --//
     on<LoadMorePlacesEvent>(_loadMorePlaces);
     //-- Handle Toggle Favourite event --//
-    on<ToggleFavouriteEvent>(_toggleFavourite);
+    // on<ToggleFavouriteEvent>(_toggleFavourite);
     //-- Handle bottom navigation event --//
-    on<ChangeBottomNavigationIndexEvent>(_changeBottomNavigationIndex);
   }
 
   // handle load places event
@@ -40,30 +39,24 @@ class PlacesBloc extends Bloc<PlacesEvent, PlacesState> {
   }
 
   // handle Toggle Favourite event
-  Future<void> _toggleFavourite(
-      ToggleFavouriteEvent event, Emitter<PlacesState> emit) async {
-    PlacesModel place = event.place;
-    bool isArabic = event.isArabic;
-    List<PlacesModel> places = [];
-    final index = PLACES.indexWhere((p) => p.id == place.id);
-    if (isArabic) {
-      ARABICPLACES[index].isFav = !ARABICPLACES[index].isFav;
-      places = ARABICPLACES;
-    }
-    if (index != -1) {
-      PLACES[index].isFav = !PLACES[index].isFav;
-      places = PLACES;
-    }
-    if (!PLACES.contains(place)) {
-      emit(PlacesError());
-    }
-    emit(FavoriteToggledState(places: places, place: place));
-  }
+  // Future<void> _toggleFavourite(
+  //     //todo: implement FirestoreService.toggleLike function
+  //     ToggleFavouriteEvent event, Emitter<PlacesState> emit) async {
+  //   PlacesModel place = event.place;
+  //   bool isArabic = event.isArabic;
+  //   List<PlacesModel> places = [];
+  //   final index = PLACES.indexWhere((p) => p.id == place.id);
+  //   if (isArabic) {
+  //     ARABICPLACES[index].isFav = !ARABICPLACES[index].isFav;
+  //     places = ARABICPLACES;
+  //   }
+  //   if (index != -1) {
+  //     PLACES[index].isFav = !PLACES[index].isFav;
+  //     places = PLACES;
+  //   }
+  //   if (!PLACES.contains(place)) {
+  //     emit(PlacesError());
+  //   }
+  // }
 
-  // handle bottom navigation event
-  Future<void> _changeBottomNavigationIndex(
-      ChangeBottomNavigationIndexEvent event, Emitter<PlacesState> emit) async {
-    currentPageIndex = event.index;
-    emit(BottomNavigationChangedState(currentPageIndex));
-  }
 }

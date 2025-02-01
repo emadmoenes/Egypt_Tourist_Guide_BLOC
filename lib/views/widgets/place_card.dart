@@ -86,18 +86,18 @@ class PlaceCard extends StatelessWidget {
                     /*------- Favourite icon -------*/
                     InkWell(
                       onTap: () {
-                        placesBloc.add(
-                          ToggleFavouriteEvent(
-                            place,
-                            context.locale.toString() == 'ar',
-                          ),
-                        );
+                        // placesBloc.add(
+                        //   ToggleFavouriteEvent(
+                        //     place,
+                        //     context.locale.toString() == 'ar',
+                        //   ),
+                        // );
                       },
                       child: BlocConsumer<PlacesBloc, PlacesState>(
                         listener: (context, state) {
-                          if (state is FavoriteToggledState) {
-                            isFav = state.place?.isFav;
-                          }
+                          // if (state is FavoriteToggledState) {
+                          //   isFav = state.place?.isFav;
+                          // }
                         },
                         builder: (context, state) {
                           return CircleAvatar(

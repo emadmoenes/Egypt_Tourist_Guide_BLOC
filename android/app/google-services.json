@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "839209705389",
+    "project_id": "tourist-guide-81f59",
+    "storage_bucket": "tourist-guide-81f59.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:839209705389:android:7d97ed44d1b663b9b9cb24",
+        "android_client_info": {
+          "package_name": "com.example.egypt_tourist_guide"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqEmvnvjQHw6P5vjyapvPYc7V63Qmfl3Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

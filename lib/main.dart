@@ -1,5 +1,6 @@
 import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_bloc.dart';
 import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_states.dart';
+import 'package:egypt_tourist_guide/controllers/nav_bar/nav_bar_cubit.dart';
 import 'package:egypt_tourist_guide/controllers/theme_bloc/theme_bloc.dart';
 import 'dart:developer';
 import 'package:egypt_tourist_guide/controllers/places_bloc/places_bloc.dart';
@@ -7,10 +8,12 @@ import 'package:egypt_tourist_guide/core/app_colors.dart';
 import 'package:egypt_tourist_guide/core/app_routes.dart';
 import 'package:egypt_tourist_guide/core/custom_page_routes.dart';
 import 'package:egypt_tourist_guide/core/services/shared_prefs_service.dart';
+import 'package:egypt_tourist_guide/firebase_options.dart';
 import 'package:egypt_tourist_guide/views/screens/auth/login_screen.dart';
 import 'package:egypt_tourist_guide/views/screens/auth/signup_screen.dart';
 import 'package:egypt_tourist_guide/views/screens/governorates/governoarates_places.dart';
 import 'package:egypt_tourist_guide/views/screens/home/home_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -20,6 +23,9 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await SharedPrefsService.init();
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // );
 
   runApp(
     EasyLocalization(
@@ -45,6 +51,9 @@ class MyApp extends StatelessWidget {
         }),
         BlocProvider(
           create: (context) => PlacesBloc()..add(LoadPlacesEvent()),
+        ),
+        BlocProvider(
+          create: (context) => NavBarCubit()
         ),
         BlocProvider(
           create: (context) {

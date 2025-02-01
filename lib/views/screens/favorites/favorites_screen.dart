@@ -17,9 +17,9 @@ class FavoritesScreen extends StatelessWidget {
     double width = MediaQuery.sizeOf(context).width;
     return BlocBuilder<PlacesBloc, PlacesState>(
       builder: (context, state) {
-        if (state is FavoriteToggledState) {
-          favoritePlaces = state.places.where((place) => place.isFav).toList();
-        }
+        // if (state is FavoriteToggledState) {
+        //   favoritePlaces = state.places.where((place) => place.isFav).toList();
+        // }
 
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,

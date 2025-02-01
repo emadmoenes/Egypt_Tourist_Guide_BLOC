@@ -1,4 +1,5 @@
-import 'package:egypt_tourist_guide/controllers/places_bloc/places_bloc.dart';
+import 'package:egypt_tourist_guide/controllers/nav_bar/nav_bar_cubit.dart';
+import 'package:egypt_tourist_guide/controllers/nav_bar/nav_bar_states.dart';
 import 'package:egypt_tourist_guide/controllers/profile_bloc/profile_bloc.dart';
 import 'package:egypt_tourist_guide/controllers/theme_bloc/theme_bloc.dart';
 import 'package:egypt_tourist_guide/core/app_colors.dart';
@@ -7,10 +8,10 @@ import 'package:egypt_tourist_guide/views/screens/favorites/favorites_screen.dar
 import 'package:egypt_tourist_guide/views/screens/governorates/governorates_screen.dart';
 import 'package:egypt_tourist_guide/views/screens/home/widgets/app_bottom_navigation_bar.dart';
 import 'package:egypt_tourist_guide/views/screens/home/widgets/home_screen_body.dart';
+import 'package:egypt_tourist_guide/views/screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
-import '../profile/profile_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -31,11 +32,11 @@ class HomeScreen extends StatelessWidget {
         bottomNavigationBar: AppBottomNavigationBar(),
         appBar: AppBar(
             elevation: 0.5,
-            title: BlocBuilder<PlacesBloc, PlacesState>(
+            title: BlocBuilder<NavBarCubit, NavBarStates>(
               builder: (context, state) {
-                final placesBloc = context.read<PlacesBloc>();
+                NavBarCubit navBarCubit = context.read<NavBarCubit>();
                 return Text(
-                  screens[placesBloc.currentPageIndex].title,
+                  screens[navBarCubit.currentNavBarIndex].title,
                 );
               },
             ),
@@ -64,10 +65,10 @@ class HomeScreen extends StatelessWidget {
             ]),
         body: SafeArea(
           minimum: EdgeInsets.symmetric(vertical: 11),
-          child: BlocBuilder<PlacesBloc, PlacesState>(
+          child: BlocBuilder<NavBarCubit, NavBarStates>(
             builder: (context, state) {
-              final placesBloc = context.read<PlacesBloc>();
-              return screens[placesBloc.currentPageIndex].body;
+              NavBarCubit navBarCubit = context.read<NavBarCubit>();
+              return screens[navBarCubit.currentNavBarIndex].body;
             },
           ),
         ),
