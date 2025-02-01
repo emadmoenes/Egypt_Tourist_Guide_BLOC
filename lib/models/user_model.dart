@@ -1,4 +1,4 @@
-class User {
+class UserModel {
   String fullName;
   String email;
   String password;
@@ -6,7 +6,7 @@ class User {
   String? profilePicUrl;
   String? address;
 
-  User({
+  UserModel({
     required this.fullName,
     required this.email,
     required this.password,
@@ -26,8 +26,8 @@ class User {
     };
   }
 
-  factory User.fromMap(Map<String, dynamic> map) {
-    return User(
+  factory UserModel.fromMap(Map<String, dynamic> map) {
+    return UserModel(
       fullName: map['fullName'],
       email: map['email'],
       password: map['password'],

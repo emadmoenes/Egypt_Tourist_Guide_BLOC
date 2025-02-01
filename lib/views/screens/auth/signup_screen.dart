@@ -33,7 +33,11 @@ class _SignupScreenState extends State<SignupScreen> {
     AuthBloc authBloc = context.read<AuthBloc>();
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
-        if (state is AuthAuthenticated) {
+        if (state is AccountCreated) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Account created successfully')),
+          );
+          isLoading = false;
           Navigator.pushNamedAndRemoveUntil(
             context,
             AppRoutes.loginRoute,

@@ -15,7 +15,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<TogglePasswordVisibilityEvent>(_togglePasswordProfileVisibility);
   }
 
-  User user = User(
+  UserModel user = UserModel(
     fullName: 'User Name',
     email: 'user@example.com',
     password: 'Password123@',
@@ -41,7 +41,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     // get user data from shared prefs
     try {
       final userData = await SharedPrefsService.getUserData();
-      user = User.fromMap(userData);
+      user = UserModel.fromMap(userData);
       emit(ProfileLoadedState());
     } catch (e) {
       emit(ProfileErrorState());
