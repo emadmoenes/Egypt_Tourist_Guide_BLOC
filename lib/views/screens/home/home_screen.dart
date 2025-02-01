@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // List of different screens using Screen Model
+    // List of different screens using Screen Modell
     List<ScreenModel> screens = [
       ScreenModel(title: 'app_title'.tr(), body: HomeScreenBody()),
       ScreenModel(title: 'governorates'.tr(), body: GovernoratesScreen()),
