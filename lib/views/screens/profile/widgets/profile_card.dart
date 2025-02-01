@@ -14,7 +14,7 @@ class ProfileCard extends StatelessWidget {
     required this.isPasswordVisible,
   });
 
-  final User user;
+  final UserModel user;
   final bool isEditing;
   final bool isPasswordVisible;
   final void Function()? onTogglePasswordVisibility;
