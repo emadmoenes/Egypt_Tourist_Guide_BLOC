@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:egypt_tourist_guide/core/services/firebase_models/firebase_usermodel.dart';
 import 'package:egypt_tourist_guide/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -34,6 +35,15 @@ class FirebaseService {
 
   // database instance
   static FirebaseFirestore db = FirebaseFirestore.instance;
+  Future<List<UserFromFirebaseModel>> getUsersFromFirebase() async {
+    List<UserFromFirebaseModel> users = [];
+    await db.collection("users").get().then((event) {
+      for (var doc in event.docs) {
+        users.add(UserFromFirebaseModel.fromFirestore(doc));
+      }
+    });
+    return users;
+  }
 
   // create a collection called users
   static CollectionReference users = db.collection('users');

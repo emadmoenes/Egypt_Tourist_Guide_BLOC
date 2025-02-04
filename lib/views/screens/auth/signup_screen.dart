@@ -4,6 +4,8 @@ import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_states.dart';
 import 'package:egypt_tourist_guide/core/app_colors.dart';
 import 'package:egypt_tourist_guide/core/app_images.dart';
 import 'package:egypt_tourist_guide/core/app_routes.dart';
+import 'package:egypt_tourist_guide/core/services/firebase_models/firebase_usermodel.dart';
+import 'package:egypt_tourist_guide/core/services/firebase_service.dart';
 import 'package:egypt_tourist_guide/views/screens/auth/widgets/auth_button.dart';
 import 'package:egypt_tourist_guide/views/screens/auth/widgets/text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +28,20 @@ class _SignupScreenState extends State<SignupScreen> {
   final _phoneController = TextEditingController();
   bool _isPasswordVisible = false;
   bool _isConfirmPasswordVisible = false;
+  List<UserFromFirebaseModel> users = [];
+
+  @override
+  void initState() {
+    super.initState();
+     getUserFromFirebase();
+  }
+
+  getUserFromFirebase() async {
+    var usersFromFirebase = await FirebaseService().getUsersFromFirebase();
+    setState(() {
+      users = usersFromFirebase;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
