@@ -34,6 +34,7 @@ class FirebaseService {
 
   // database instance
   static FirebaseFirestore db = FirebaseFirestore.instance;
+  static final String _usersCollection = 'users';
 
   // create a collection called users
   static CollectionReference users = db.collection('users');
@@ -44,5 +45,15 @@ class FirebaseService {
   }) {
     // Call the user's CollectionReference to add a new user
     return users.add(user.toMap());
+  }
+
+  static saveUserDataInSignUp({required String uid, required String name})async{
+    await db.collection(_usersCollection).add(
+      {
+        'uid': uid,
+        'name': name,
+        'favPlaces': []
+      }
+    );
   }
 }
