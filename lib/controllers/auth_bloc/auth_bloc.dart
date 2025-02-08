@@ -92,6 +92,5 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoading());
     await FirebaseService.signOut();
     await SharedPrefsService.clearStringData(key: AppStringEn.tokenKey);
-    emit(AuthUnauthenticated());
   }
 }

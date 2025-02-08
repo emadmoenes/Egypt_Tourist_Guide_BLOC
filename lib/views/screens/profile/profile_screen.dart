@@ -156,6 +156,10 @@ class ProfileScreen extends StatelessWidget {
                       child: LogOutButton(
                         logOutFunction: () {
                           authBloc.add(LogoutRequested());
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                            AppRoutes.loginRoute,
+                                (route) => false,
+                          );
                         },
                       ),
                     ),
