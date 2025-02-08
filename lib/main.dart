@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'controllers/auth_bloc/auth_events.dart';
+import 'controllers/profile_bloc/profile_bloc.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -52,6 +53,9 @@ class MyApp extends StatelessWidget {
           create: (context) => PlacesBloc()..add(LoadPlacesEvent()),
         ),
         BlocProvider(
+          create: (context) => ProfileBloc()..add(LoadProfileEvent()),
+        ),
+        BlocProvider(
           create: (context) {
             final themeBloc = ThemeBloc();
             themeBloc.add(InitEvent());
@@ -70,6 +74,10 @@ class MyApp extends StatelessWidget {
                   foregroundColor: AppColors.lightPurple,
                 ),
               ),
+              appBarTheme: AppBarTheme(
+                iconTheme: IconThemeData(color: AppColors.blackColor),
+                elevation: 0.8,
+              ),
               dividerTheme: DividerThemeData(
                 color: AppColors.lightPurple,
               ),
@@ -81,6 +89,10 @@ class MyApp extends StatelessWidget {
                 style: IconButton.styleFrom(
                   foregroundColor: AppColors.deepPurpleAccent,
                 ),
+              ),
+              appBarTheme: AppBarTheme(
+                iconTheme: IconThemeData(color: AppColors.white),
+                elevation: 0.8,
               ),
               dividerTheme: DividerThemeData(
                 color: AppColors.deepPurpleAccent,
@@ -95,9 +107,12 @@ class MyApp extends StatelessWidget {
               builder: (context, state) {
                 if (state is AuthAuthenticated) {
                   return const HomeScreen();
-                } else {
-                  return const LoginScreen();
+                } else if (state is AuthUnauthenticated) {
+                  return LoginScreen();
                 }
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
               },
             ),
           );

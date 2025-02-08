@@ -22,6 +22,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         await SharedPrefsService.getStringData(key: AppStringEn.tokenKey);
     if (token != null) {
       emit(AuthAuthenticated());
+    } else{
+      emit(AuthUnauthenticated());
     }
   }
 
