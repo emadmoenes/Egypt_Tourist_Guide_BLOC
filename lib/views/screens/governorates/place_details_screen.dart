@@ -23,7 +23,7 @@ class _PlaceDetailsScreenState extends State<PlaceDetailsScreen> {
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
 
-  // initialize map render
+  // initialize map render (to solve did not frame error)
   void _initializeMapRenderer() {
     final GoogleMapsFlutterPlatform mapsImplementation =
         GoogleMapsFlutterPlatform.instance;

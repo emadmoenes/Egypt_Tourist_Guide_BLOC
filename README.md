@@ -75,7 +75,7 @@ The app contains four Blocs:
 - Using easy localization package.
 
 ### 10. Theme feature
-- Alllow manually toggle between light and dark modes.
+- Allow manually toggle between light and dark modes.
 - Using theme bloc.
                                                                                        
 **New**----------------------------
@@ -83,6 +83,7 @@ The app contains four Blocs:
 - Enhance the Government Page by including Google Maps functionality for each landmark.
 - Display a Google Map widget in each landmark's details page with a marker indicating the landmark's location.
 - When the map is clicked, the user is redirected to Google Maps with the landmark's longitude and latitude to start navigation.
+- The output image of place details with google map => in assets/images with name of place_details_output.
 ---
 
 ## Navigation Flow
