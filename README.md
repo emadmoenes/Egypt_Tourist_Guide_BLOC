@@ -77,6 +77,7 @@ The app contains four Blocs:
 ### 10. Theme feature
 - Alllow manually toggle between light and dark modes.
 - Using theme bloc.
+                                                                                       
 **New**----------------------------
 ### 11. Google Maps Integration for Landmarks
 - Enhance the Government Page by including Google Maps functionality for each landmark.
@@ -96,7 +97,7 @@ The app contains four Blocs:
 - **SharedPreferences**: For local data storage and offline support ==> https://pub.dev/packages/shared_preferences.
 - **easy_localization**: For localization feature ==> https://pub.dev/packages/easy_localization.
 - **flutter_bloc**: For state management using bloc ==> https://pub.dev/packages/flutter_bloc.
-- **skeletonizer**: For skeleton loading effect and enhance user experience during web or app loading. ==> https://pub.dev/packages/skeletonizer.
+- **skeletonizer**: For skeleton loading effect and enhance user experience during web or app loading. ==> https://pub.dev/packages/skeletonizer.                                               
 - **New**------------------------
 - **google_maps_flutter**: For using google maps ==> https://pub.dev/packages/google_maps_flutter.
 - **url_launcher**: For launching google maps outside the app  ==> https://pub.dev/packages/url_launcher
