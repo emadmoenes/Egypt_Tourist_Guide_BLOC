@@ -6,6 +6,7 @@ import 'package:egypt_tourist_guide/models/governorate_model.dart';
 import 'package:egypt_tourist_guide/models/place_model.dart';
 import 'package:egypt_tourist_guide/views/screens/governorates/widgets/governorate_card.dart';
 import 'package:flutter/material.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class GovernoratesScreen extends StatefulWidget {
   const GovernoratesScreen({super.key});
@@ -21,10 +22,11 @@ class _GovernoratesScreenState extends State<GovernoratesScreen> {
   @override
   void initState() {
     super.initState();
-    getGovernoratesFromFirebase();
+    _getGovernoratesFromFirebase();
   }
 
-  Future<void> getGovernoratesFromFirebase() async {
+  //--- Get governorates from firebase ---//
+  Future<void> _getGovernoratesFromFirebase() async {
     var arabicGovernorateListFirebase =
         await GovernoratesService().getArabicGovernorates();
     var governorateListFirebase = await GovernoratesService().getGovernorates();
@@ -34,8 +36,20 @@ class _GovernoratesScreenState extends State<GovernoratesScreen> {
     });
   }
 
-  //--- Get governorate data ---//
-  List<PlacesModel> getGovernorateData(String governorateId) {
+  //--- Get governorates static data ---//
+  List<GovernorateModel> _getGovernoratesStaticData() {
+    final List<GovernorateModel> staticGovernoratesData = [];
+
+    if (context.locale.toString() == 'ar') {
+      staticGovernoratesData.addAll(ARABICGOVERNORATES);
+    } else {
+      staticGovernoratesData.addAll(GOVERNERATES);
+    }
+    return staticGovernoratesData;
+  }
+
+  //--- Get governorate places data ---//
+  List<PlacesModel> _getGovernorateData(String governorateId) {
     return context.locale.toString() == 'ar'
         ? ARABICPLACES
             .where((place) => place.governorateId == governorateId)
@@ -52,43 +66,51 @@ class _GovernoratesScreenState extends State<GovernoratesScreen> {
 
     return Padding(
       padding: const EdgeInsets.all(14.0),
-      child: ListView.separated(
-        scrollDirection: Axis.vertical,
-        itemBuilder: (context, index) {
-          var governorate = context.locale.toString() == 'ar'
-              ? arabicGovernorateList[index]
-              : governorateList[index];
-          return GovernorateCard(
-            governorate: governorate,
-            width: width,
-            height: height,
-            onTap: () {
-              // Go to governorate places
-              List<PlacesModel> listOfPlaces =
-                  getGovernorateData(governorate.id);
+      child: Skeletonizer(
+        enabled: governorateList.isEmpty || arabicGovernorateList.isEmpty,
+        child: ListView.separated(
+          scrollDirection: Axis.vertical,
+          itemBuilder: (context, index) {
+            var governorate =
+                arabicGovernorateList.isEmpty || governorateList.isEmpty
+                    ? _getGovernoratesStaticData()[index]
+                    : context.locale.toString() == 'ar'
+                        ? arabicGovernorateList[index]
+                        : governorateList[index];
+            return GovernorateCard(
+              governorate: governorate,
+              width: width,
+              height: height,
+              onTap: () {
+                // Go to governorate places
+                List<PlacesModel> listOfPlaces =
+                    _getGovernorateData(governorate.id);
 
-              // Navigate to GovernoratesPlaces with arguments
-              Navigator.pushNamed(
-                context,
-                AppRoutes.placesRoute,
-                arguments: {
-                  // Pass the governorate object
-                  'governorate': governorate,
-                  // Pass the list of places
-                  'places': listOfPlaces,
-                },
-              );
-            },
-          );
-        },
-        separatorBuilder: (context, counter) {
-          return const SizedBox(
-            height: 20,
-          );
-        },
-        itemCount: context.locale.toString() == 'ar'
-            ? arabicGovernorateList.length
-            : governorateList.length,
+                // Navigate to GovernoratesPlaces with arguments
+                Navigator.pushNamed(
+                  context,
+                  AppRoutes.placesRoute,
+                  arguments: {
+                    // Pass the governorate object
+                    'governorate': governorate,
+                    // Pass the list of places
+                    'places': listOfPlaces,
+                  },
+                );
+              },
+            );
+          },
+          separatorBuilder: (context, counter) {
+            return const SizedBox(
+              height: 20,
+            );
+          },
+          itemCount: arabicGovernorateList.isEmpty || governorateList.isEmpty
+              ? _getGovernoratesStaticData().length
+              : context.locale.toString() == 'ar'
+                  ? arabicGovernorateList.length
+                  : governorateList.length,
+        ),
       ),
     );
   }

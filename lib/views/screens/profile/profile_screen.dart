@@ -149,7 +149,7 @@ class ProfileScreen extends StatelessWidget {
                           Navigator.pushNamedAndRemoveUntil(
                             context,
                             AppRoutes.loginRoute,
-                            (route) => false,
+                                (route) => false,
                           );
                         }
                       },

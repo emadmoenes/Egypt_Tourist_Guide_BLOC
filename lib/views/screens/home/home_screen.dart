@@ -1,5 +1,4 @@
 import 'package:egypt_tourist_guide/controllers/places_bloc/places_bloc.dart';
-import 'package:egypt_tourist_guide/controllers/profile_bloc/profile_bloc.dart';
 import 'package:egypt_tourist_guide/controllers/theme_bloc/theme_bloc.dart';
 import 'package:egypt_tourist_guide/core/app_colors.dart';
 import 'package:egypt_tourist_guide/models/screen_model.dart';
@@ -24,52 +23,47 @@ class HomeScreen extends StatelessWidget {
       ScreenModel(title: 'favorites_title'.tr(), body: FavoritesScreen()),
       ScreenModel(title: 'settings_title'.tr(), body: ProfileScreen()),
     ];
-
-    return BlocProvider(
-      create: (context) => ProfileBloc()..add(LoadProfileEvent()),
-      child: Scaffold(
-        bottomNavigationBar: AppBottomNavigationBar(),
-        appBar: AppBar(
-            elevation: 0.5,
-            title: BlocBuilder<PlacesBloc, PlacesState>(
+    return Scaffold(
+      bottomNavigationBar: AppBottomNavigationBar(),
+      appBar: AppBar(
+          title: BlocBuilder<PlacesBloc, PlacesState>(
+            builder: (context, state) {
+              final placesBloc = context.read<PlacesBloc>();
+              return Text(
+                screens[placesBloc.currentPageIndex].title,
+              );
+            },
+          ),
+          actions: [
+            BlocBuilder<ThemeBloc, ThemeState>(
               builder: (context, state) {
-                final placesBloc = context.read<PlacesBloc>();
-                return Text(
-                  screens[placesBloc.currentPageIndex].title,
+                ThemeBloc themeBloc = context.read<ThemeBloc>();
+                return IconButton(
+                  icon: Icon(
+                    Icons.language,
+                    color: themeBloc.theme == 'light'
+                        ? AppColors.black87Color
+                        : AppColors.white,
+                    size: 30,
+                  ),
+                  onPressed: () {
+                    // Toggle between English and Arabic
+                    final newLocale = context.locale.languageCode == 'en'
+                        ? Locale('ar')
+                        : Locale('en');
+                    context.setLocale(newLocale);
+                  },
                 );
               },
             ),
-            actions: [
-              BlocBuilder<ThemeBloc, ThemeState>(
-                builder: (context, state) {
-                  ThemeBloc themeBloc = context.read<ThemeBloc>();
-                  return IconButton(
-                    icon: Icon(
-                      Icons.language,
-                      color: themeBloc.theme == 'light'
-                          ? AppColors.black87Color
-                          : AppColors.white,
-                      size: 30,
-                    ),
-                    onPressed: () {
-                      // Toggle between English and Arabic
-                      final newLocale = context.locale.languageCode == 'en'
-                          ? Locale('ar')
-                          : Locale('en');
-                      context.setLocale(newLocale);
-                    },
-                  );
-                },
-              ),
-            ]),
-        body: SafeArea(
-          minimum: EdgeInsets.symmetric(vertical: 11),
-          child: BlocBuilder<PlacesBloc, PlacesState>(
-            builder: (context, state) {
-              final placesBloc = context.read<PlacesBloc>();
-              return screens[placesBloc.currentPageIndex].body;
-            },
-          ),
+          ]),
+      body: SafeArea(
+        minimum: EdgeInsets.symmetric(vertical: 11),
+        child: BlocBuilder<PlacesBloc, PlacesState>(
+          builder: (context, state) {
+            final placesBloc = context.read<PlacesBloc>();
+            return screens[placesBloc.currentPageIndex].body;
+          },
         ),
       ),
     );

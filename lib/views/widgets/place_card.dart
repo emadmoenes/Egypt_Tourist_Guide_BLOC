@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:egypt_tourist_guide/controllers/places_bloc/places_bloc.dart';
+import 'package:egypt_tourist_guide/core/app_routes.dart';
 import 'package:egypt_tourist_guide/data.dart';
 import 'package:egypt_tourist_guide/models/governorate_model.dart';
 import 'package:egypt_tourist_guide/models/place_model.dart';
@@ -30,6 +31,12 @@ class PlaceCard extends StatelessWidget {
     double bigContainerHeight = isWide ? width * 0.81 * 0.75 : width * 0.48;
     bool? isFav = place.isFav;
     return InkWell(
+      // on Tab go to place details
+      onTap: () => Navigator.pushNamed(
+        context,
+        AppRoutes.placeDetailsRoute,
+        arguments: place,
+      ),
       child: Container(
         width: isWide ? width * 0.81 : width * 0.25,
         height: bigContainerHeight,

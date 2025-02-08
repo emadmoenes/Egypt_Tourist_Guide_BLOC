@@ -1,3 +1,4 @@
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'models/governorate_model.dart';
 import 'models/place_model.dart';
 
@@ -45,6 +46,21 @@ final List<GovernorateModel> GOVERNERATES = [
   ),
 ];
 
+// Places positions
+final Map<String, dynamic> placesPositions = {
+  'Corniche': LatLng(31.2156, 29.9060),
+  'Library of Alexandria': LatLng(31.2089, 29.9092),
+  'Quitbai Citadel': LatLng(31.2140, 29.8856),
+  'Cairo Tower': LatLng(30.0459, 31.2243),
+  'Elmoez Street': LatLng(30.0505, 31.2613),
+  'Mosque of Muhammad Ali': LatLng(30.0286, 31.2599),
+  'Pyramids of Giza': LatLng(29.9792, 31.1342),
+  'Sphinx': LatLng(29.9753, 31.1376),
+  'El Gouna': LatLng(27.4025, 33.6515),
+  'Hurghada Grand Aquarium': LatLng(27.1215, 33.8281),
+  'Karnak Temple': LatLng(25.7188, 32.6573),
+  'Colossi of Memnon': LatLng(25.7204, 32.6100),
+};
 // List of Places
 final List<PlacesModel> PLACES = [
   PlacesModel(
@@ -55,6 +71,7 @@ final List<PlacesModel> PLACES = [
     description: 'A scenic waterfront promenade in Alexandria.',
     image: 'assets/cities/alexandria/corniche.jpg',
     isFav: false,
+    location: placesPositions['Corniche'],
   ),
   PlacesModel(
     id: 2,
@@ -65,6 +82,7 @@ final List<PlacesModel> PLACES = [
         'A modern library and cultural center commemorating the ancient Library of Alexandria.',
     image: 'assets/cities/alexandria/library_of_alexandria.jpg',
     isFav: false,
+    location: placesPositions['Library of Alexandria'],
   ),
   PlacesModel(
     id: 3,
@@ -74,6 +92,7 @@ final List<PlacesModel> PLACES = [
     description: 'A historic fortress located on the Mediterranean coast.',
     image: 'assets/cities/alexandria/quitbai_citidal.jpg',
     isFav: false,
+    location: placesPositions['Quitbai Citadel'],
   ),
   PlacesModel(
     id: 4,
@@ -83,6 +102,7 @@ final List<PlacesModel> PLACES = [
     description: 'A iconic tower offering panoramic views of Cairo.',
     image: 'assets/cities/cairo/cairo_tower.webp',
     isFav: false,
+    location: placesPositions['Cairo Tower'],
   ),
   PlacesModel(
     id: 5,
@@ -93,6 +113,7 @@ final List<PlacesModel> PLACES = [
         'A historic street in Islamic Cairo with stunning architecture.',
     image: 'assets/cities/cairo/elmoez_street.jpg',
     isFav: false,
+    location: placesPositions['Elmoez Street'],
   ),
   PlacesModel(
     id: 6,
@@ -103,6 +124,7 @@ final List<PlacesModel> PLACES = [
         'A stunning Ottoman-style mosque located in the Cairo Citadel.',
     image: 'assets/cities/cairo/mosque_of_muhammad_ali.webp',
     isFav: false,
+    location: placesPositions['Mosque of Muhammad Ali'],
   ),
   PlacesModel(
     id: 7,
@@ -112,6 +134,7 @@ final List<PlacesModel> PLACES = [
     description: 'The last remaining wonder of the ancient world.',
     image: 'assets/cities/giza/pyramids.jpg',
     isFav: false,
+    location: placesPositions['Pyramids of Giza'],
   ),
   PlacesModel(
     id: 8,
@@ -122,6 +145,7 @@ final List<PlacesModel> PLACES = [
         'A mythical creature with the body of a lion and the head of a human.',
     image: 'assets/cities/giza/sphinx_and_pyramid_in_giza.jpeg',
     isFav: false,
+    location: placesPositions['Sphinx'],
   ),
   PlacesModel(
     id: 9,
@@ -131,6 +155,7 @@ final List<PlacesModel> PLACES = [
     description: 'A luxurious resort town on the Red Sea.',
     image: 'assets/cities/hurghada/el_gouna_festival_plaza.jpeg',
     isFav: false,
+    location: placesPositions['El Gouna'],
   ),
   PlacesModel(
     id: 10,
@@ -140,6 +165,7 @@ final List<PlacesModel> PLACES = [
     description: 'A large aquarium showcasing marine life from the Red Sea.',
     image: 'assets/cities/hurghada/hurghada_grand_aquarium.jpg',
     isFav: false,
+    location: placesPositions['Hurghada Grand Aquarium'],
   ),
   PlacesModel(
     id: 11,
@@ -149,6 +175,7 @@ final List<PlacesModel> PLACES = [
     description: 'A vast temple complex dedicated to the god Amun.',
     image: 'assets/cities/luxor/karnak_temple.jpg',
     isFav: false,
+    location: placesPositions['Karnak Temple'],
   ),
   PlacesModel(
     id: 12,
@@ -158,6 +185,7 @@ final List<PlacesModel> PLACES = [
     description: 'Two massive stone statues of Pharaoh Amenhotep III.',
     image: 'assets/cities/luxor/colossi_of_memnon.jpg',
     isFav: false,
+    location: placesPositions['Colossi of Memnon'],
   ),
 ];
 
@@ -200,98 +228,122 @@ final List<GovernorateModel> ARABICGOVERNORATES = [
 final List<PlacesModel> ARABICPLACES = [
   PlacesModel(
     id: 1,
-    governorateId: '1', // الإسكندرية
+    governorateId: '1',
+    // الإسكندرية
     name: 'الكورنيش',
     description: 'واجهة بحرية خلابة في الإسكندرية.',
     image: 'assets/cities/alexandria/corniche.jpg',
     isFav: false,
+    location: placesPositions['Corniche'],
   ),
   PlacesModel(
     id: 2,
-    governorateId: '1', // الإسكندرية
+    governorateId: '1',
+    // الإسكندرية
     name: 'مكتبة الإسكندرية',
     description: 'مكتبة حديثة ومركز ثقافي لإحياء ذكرى المكتبة القديمة.',
     image: 'assets/cities/alexandria/library_of_alexandria.jpg',
     isFav: false,
+    location: placesPositions['Library of Alexandria'],
   ),
   PlacesModel(
     id: 3,
-    governorateId: '1', // الإسكندرية
+    governorateId: '1',
+    // الإسكندرية
     name: 'قلعة قايتباي',
     description: 'قلعة تاريخية تقع على ساحل البحر المتوسط.',
     image: 'assets/cities/alexandria/quitbai_citidal.jpg',
     isFav: false,
+    location: placesPositions['Quitbai Citadel'],
   ),
   PlacesModel(
     id: 4,
-    governorateId: '2', // القاهرة
+    governorateId: '2',
+    // القاهرة
     name: 'برج القاهرة',
     description: 'برج أيقوني يوفر إطلالة بانورامية على القاهرة.',
     image: 'assets/cities/cairo/cairo_tower.webp',
     isFav: false,
+    location: placesPositions['Cairo Tower'],
   ),
   PlacesModel(
     id: 5,
-    governorateId: '2', // القاهرة
+    governorateId: '2',
+    // القاهرة
     name: 'شارع المعز',
     description: 'شارع تاريخي في القاهرة الإسلامية يتميز بالعمارة الرائعة.',
     image: 'assets/cities/cairo/elmoez_street.jpg',
     isFav: false,
+    location: placesPositions['Elmoez Street'],
   ),
   PlacesModel(
     id: 6,
-    governorateId: '2', // القاهرة
+    governorateId: '2',
+    // القاهرة
     name: 'مسجد محمد علي',
     description: 'مسجد رائع على الطراز العثماني يقع في قلعة القاهرة.',
     image: 'assets/cities/cairo/mosque_of_muhammad_ali.webp',
     isFav: false,
+    location: placesPositions['Mosque of Muhammad Ali'],
   ),
   PlacesModel(
     id: 7,
-    governorateId: '3', // الجيزة
+    governorateId: '3',
+    // الجيزة
     name: 'أهرامات الجيزة',
     description: 'آخر عجائب الدنيا السبع الباقية من العالم القديم.',
     image: 'assets/cities/giza/pyramids.jpg',
     isFav: false,
+    location: placesPositions['Pyramids of Giza'],
   ),
   PlacesModel(
     id: 8,
-    governorateId: '3', // الجيزة
+    governorateId: '3',
+    // الجيزة
     name: 'أبو الهول',
     description: 'مخلوق أسطوري بجسم أسد ورأس إنسان.',
     image: 'assets/cities/giza/sphinx_and_pyramid_in_giza.jpeg',
     isFav: false,
+    location: placesPositions['Sphinx'],
   ),
   PlacesModel(
     id: 9,
-    governorateId: '4', // الغردقة
+    governorateId: '4',
+    // الغردقة
     name: 'الجونة',
     description: 'مدينة منتجعية فاخرة على البحر الأحمر.',
     image: 'assets/cities/hurghada/el_gouna_festival_plaza.jpeg',
     isFav: false,
+    location: placesPositions['El Gouna'],
   ),
   PlacesModel(
     id: 10,
-    governorateId: '4', // الغردقة
+    governorateId: '4',
+    // الغردقة
     name: 'أكواريوم الغردقة',
     description: 'أكواريوم كبير يعرض الحياة البحرية في البحر الأحمر.',
     image: 'assets/cities/hurghada/hurghada_grand_aquarium.jpg',
     isFav: false,
+    location: placesPositions['Hurghada Grand Aquarium'],
   ),
   PlacesModel(
     id: 11,
-    governorateId: '5', // الأقصر
+    governorateId: '5',
+    // الأقصر
     name: 'معبد الكرنك',
     description: 'مجمع معابد ضخم مخصص للإله آمون.',
     image: 'assets/cities/luxor/karnak_temple.jpg',
     isFav: false,
+    location: placesPositions['Karnak Temple'],
   ),
   PlacesModel(
     id: 12,
-    governorateId: '5', // الأقصر
+    governorateId: '5',
+    // الأقصر
     name: 'تمثالي ممنون',
     description: 'تمثالان ضخمان من الحجر للفرعون أمنحتب الثالث.',
     image: 'assets/cities/luxor/colossi_of_memnon.jpg',
     isFav: false,
+    location: placesPositions['Colossi of Memnon'],
   ),
 ];
