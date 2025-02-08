@@ -47,7 +47,8 @@ class CustomGoogleMapWidget extends StatelessWidget {
       onMapCreated: onMapCreated,
     );
   }
-///////////////////////////
+
+  ///////////////////////////
   // Go to google maps using url launcher
   void _goToGoogleMaps(double latitude, double longitude) async {
     final Uri url = Uri.parse(
