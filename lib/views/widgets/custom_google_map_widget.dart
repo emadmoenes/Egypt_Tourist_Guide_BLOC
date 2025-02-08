@@ -11,6 +11,7 @@ class CustomGoogleMapWidget extends StatelessWidget {
     required this.placeName,
   });
 
+  ////////////////////////
   final CameraPosition initialPosition;
   final void Function(GoogleMapController)? onMapCreated;
   final String placeName;
