@@ -22,6 +22,13 @@ final class FavoriteToggledState extends PlacesState {
   FavoriteToggledState({required this.places, this.place});
 }
 
+class FavouritePlacesLoading extends PlacesState{}
+
+class FavouritePlacesSuccess extends PlacesState {
+  final List<PlacesModel> places;
+  FavouritePlacesSuccess({required this.places});
+}
+
 final class BottomNavigationChangedState extends PlacesState {
   final int pageIndex;
 
