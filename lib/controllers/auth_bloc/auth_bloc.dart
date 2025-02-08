@@ -22,6 +22,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         await SharedPrefsService.getStringData(key: AppStringEn.tokenKey);
     if (token != null) {
       emit(AuthAuthenticated());
+    } else {
+      emit(AuthUnauthenticated());
     }
   }
 
@@ -90,6 +92,5 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoading());
     await FirebaseService.signOut();
     await SharedPrefsService.clearStringData(key: AppStringEn.tokenKey);
-    emit(AuthUnauthenticated());
   }
 }

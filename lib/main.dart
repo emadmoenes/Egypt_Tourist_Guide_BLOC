@@ -110,11 +110,12 @@ class MyApp extends StatelessWidget {
               builder: (context, state) {
                 if (state is AuthAuthenticated) {
                   return HomeScreen();
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
+                } else if (state is AuthUnauthenticated) {
+                  return LoginScreen();
                 }
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
               },
             ),
           );
