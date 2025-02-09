@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,23 +47,43 @@ class PlacesBloc extends Bloc<PlacesEvent, PlacesState> {
   // handle Toggle Favourite event
   Future<void> _toggleFavourite(
       ToggleFavouriteEvent event, Emitter<PlacesState> emit) async {
-    PlacesModel place = event.place;
-    bool isArabic = event.isArabic;
-    List<PlacesModel> places = [];
-    final index = PLACES.indexWhere((p) => p.id == place.id);
-    if (isArabic) {
-      ARABICPLACES[index].isFav = !ARABICPLACES[index].isFav;
-      places = ARABICPLACES;
-    }
-    if (index != -1) {
-      PLACES[index].isFav = !PLACES[index].isFav;
-      places = PLACES;
-    }
-    if (!PLACES.contains(place)) {
+    try {
+      PlacesModel place = event.place;
+      User? user = FirebaseService.authInstance.currentUser;
+
+      if (user == null) {
+        emit(PlacesError());
+        return;
+      }
+
+      String uid = user.uid;
+
+      // Get favourite places of that user
+      final snapshot = await FirebaseService.users.where('uid', isEqualTo: uid).get();
+      if (snapshot.docs.isEmpty) {
+        emit(PlacesError());
+        return;
+      }
+
+      DocumentReference userDoc = snapshot.docs.first.reference;
+      List<dynamic> favPlaces = snapshot.docs.first['favPlaces'] ?? [];
+
+      // check if that place is favourite or not
+      if (favPlaces.contains(place.id)) {
+        favPlaces.remove(place.id);
+      } else {
+        favPlaces.add(place.id);
+      }
+
+      // update current favPlaces on firestore
+      await userDoc.update({'favPlaces': favPlaces});
+
+      emit(FavoriteToggledState(places: [], place: place));
+    } catch (e) {
       emit(PlacesError());
     }
-    emit(FavoriteToggledState(places: places, place: place));
   }
+
 
   // handle bottom navigation event
   Future<void> _changeBottomNavigationIndex(
@@ -80,6 +101,8 @@ class PlacesBloc extends Bloc<PlacesEvent, PlacesState> {
     for(int id in placesId){
       places.add(await FirebaseService.getPlaceById(id: id, isEnglish: event.isEnglish));
     }
+    //Making the places isFav true for all places
+    for (var place in places) {place.isFav=true;}
     emit(FavouritePlacesSuccess(places: places));
   }
 }
