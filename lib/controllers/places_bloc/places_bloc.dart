@@ -75,10 +75,10 @@ class PlacesBloc extends Bloc<PlacesEvent, PlacesState> {
   Future<void> _getFavouritePlaces(
       GetFavouritePlaces event, Emitter<PlacesState> emit) async {
     emit(FavouritePlacesLoading());
-    List<int> placesId = await FirebaseService.getUserFavouritePlacesId(uid: FirebaseAuth.instance.currentUser!.uid);
+    List<int> placesId = await FirebaseService.getUserFavouritePlacesId(uid: FirebaseAuth.instance.currentUser!.uid, isEnglish: event.isEnglish);
     List<PlacesModel> places = [];
     for(int id in placesId){
-      places.add(await FirebaseService.getPlaceById(id: id));
+      places.add(await FirebaseService.getPlaceById(id: id, isEnglish: event.isEnglish));
     }
     emit(FavouritePlacesSuccess(places: places));
   }

@@ -19,8 +19,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    context.read<PlacesBloc>().add(GetFavouritePlaces());
     bool isEnglish = context.locale.toString() == 'en';
+    context.read<PlacesBloc>().add(GetFavouritePlaces(isEnglish));
     double width = MediaQuery.sizeOf(context).width;
     return BlocBuilder<PlacesBloc, PlacesState>(
       builder: (context, state) {

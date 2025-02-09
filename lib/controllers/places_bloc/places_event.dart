@@ -14,7 +14,10 @@ class ToggleFavouriteEvent extends PlacesEvent {
   ToggleFavouriteEvent(this.place, this.isArabic);
 }
 
-class GetFavouritePlaces extends PlacesEvent{}
+class GetFavouritePlaces extends PlacesEvent{
+  final bool isEnglish;
+  GetFavouritePlaces(this.isEnglish);
+}
 
 class ChangeBottomNavigationIndexEvent extends PlacesEvent {
   final int index;

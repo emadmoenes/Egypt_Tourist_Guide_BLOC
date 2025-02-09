@@ -47,7 +47,7 @@ class FirebaseService {
     return users.add(user.toMap());
   }
 
-  static Future<List<int>> getUserFavouritePlacesId({required uid})async{
+  static Future<List<int>> getUserFavouritePlacesId({required String uid, required bool isEnglish})async{
     final snapshot = await users.where('uid', isEqualTo: uid).get();
 
     // Extract the likedPlaces array from the document
@@ -67,8 +67,8 @@ class FirebaseService {
     );
   }
   
-  static Future<PlacesModel> getPlaceById({required int id})async{
-    final snapshot = await db.collection('places').where('id', isEqualTo: id).get();
+  static Future<PlacesModel> getPlaceById({required int id, required bool isEnglish})async{
+    final snapshot = await db.collection(isEnglish? 'places':'arabic_places').where('id', isEqualTo: id).get();
     return PlacesModel.fromMap(snapshot.docs.first.data());
   }
 }
