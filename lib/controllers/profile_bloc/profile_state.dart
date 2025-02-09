@@ -10,6 +10,8 @@ final class ProfileLoadedState extends ProfileState {}
 
 final class ProfileUpdatedState extends ProfileState {}
 
+final class UpdateProfileImageState extends ProfileState {}
+
 final class ProfileErrorState extends ProfileState {}
 
 final class ProfileEditingToggledState extends ProfileState {}

@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_events.dart';
 import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_states.dart';
 import 'package:egypt_tourist_guide/core/app_strings_en.dart';
@@ -87,6 +86,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoading());
     await FirebaseService.signOut();
     await SharedPrefsService.clearStringData(key: AppStringEn.tokenKey);
+    await SharedPrefsService.clearUserData();
     emit(AuthUnauthenticated());
   }
 }

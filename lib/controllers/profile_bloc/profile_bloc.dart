@@ -10,6 +10,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<UpdateProfileEvent>(_updateProfileData);
     on<ToggleEditingEvent>(_toggleEditing);
     on<TogglePasswordVisibilityEvent>(_togglePasswordProfileVisibility);
+    on<UpdateProfileImageEvent>(_updateProfileImage);
   }
 
   UserModel user = UserModel(
@@ -69,5 +70,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       ToggleEditingEvent event, Emitter<ProfileState> emit) async {
     isEditing = !isEditing;
     emit(ProfileEditingToggledState());
+  }
+
+  _updateProfileImage(UpdateProfileImageEvent event, Emitter<ProfileState> emit){
+    emit(UpdateProfileImageState());
   }
 }

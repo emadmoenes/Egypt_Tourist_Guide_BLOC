@@ -10,6 +10,8 @@ class UpdateProfileEvent extends ProfileEvent {
   UpdateProfileEvent(this.user);
 }
 
+class UpdateProfileImageEvent extends ProfileEvent{}
+
 class ToggleEditingEvent extends ProfileEvent {}
 
 class TogglePasswordVisibilityEvent extends ProfileEvent {}

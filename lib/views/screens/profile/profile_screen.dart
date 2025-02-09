@@ -4,10 +4,10 @@ import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_states.dart';
 import 'package:egypt_tourist_guide/controllers/profile_bloc/profile_bloc.dart';
 import 'package:egypt_tourist_guide/controllers/theme_bloc/theme_bloc.dart';
 import 'package:egypt_tourist_guide/core/app_colors.dart';
-import 'package:egypt_tourist_guide/core/app_images.dart';
 import 'package:egypt_tourist_guide/core/app_routes.dart';
 import 'package:egypt_tourist_guide/views/screens/profile/widgets/log_out_button.dart';
 import 'package:egypt_tourist_guide/views/screens/profile/widgets/profile_card.dart';
+import 'package:egypt_tourist_guide/views/screens/profile/widgets/profile_pic.dart';
 import 'package:flutter/material.dart';
 import 'package:egypt_tourist_guide/models/user_model.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -61,10 +61,7 @@ class ProfileScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SizedBox(height: 40),
-                    CircleAvatar(
-                      radius: 70,
-                      backgroundImage: AssetImage(AppImages.user),
-                    ),
+                    ProfilePic(),
                     const SizedBox(height: 15),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
