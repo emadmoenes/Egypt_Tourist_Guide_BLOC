@@ -1,7 +1,4 @@
 import 'package:egypt_tourist_guide/controllers/places_bloc/places_bloc.dart';
-import 'package:egypt_tourist_guide/core/services/firebase_service.dart';
-import 'package:egypt_tourist_guide/data.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:egypt_tourist_guide/views/widgets/place_card.dart';
 import 'package:easy_localization/easy_localization.dart';
