@@ -1,6 +1,5 @@
 import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_bloc.dart';
 import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_events.dart';
-import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_states.dart';
 import 'package:egypt_tourist_guide/controllers/profile_bloc/profile_bloc.dart';
 import 'package:egypt_tourist_guide/controllers/theme_bloc/theme_bloc.dart';
 import 'package:egypt_tourist_guide/core/app_colors.dart';
@@ -143,25 +142,14 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
                     //---- Logout Button ------//
-                    BlocListener<AuthBloc, AuthState>(
-                      listener: (context, state) {
-                        if (state is AuthUnauthenticated) {
-                          Navigator.pushNamedAndRemoveUntil(
-                            context,
-                            AppRoutes.loginRoute,
-                            (route) => false,
-                          );
-                        }
+                    LogOutButton(
+                      logOutFunction: () {
+                        authBloc.add(LogoutRequested());
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                          AppRoutes.loginRoute,
+                              (route) => false,
+                        );
                       },
-                      child: LogOutButton(
-                        logOutFunction: () {
-                          authBloc.add(LogoutRequested());
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                            AppRoutes.loginRoute,
-                                (route) => false,
-                          );
-                        },
-                      ),
                     ),
                   ],
                 ),
