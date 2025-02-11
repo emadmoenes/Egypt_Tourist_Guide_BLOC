@@ -45,7 +45,7 @@ class ProfileScreen extends StatelessWidget {
         bool isEditing = profileBloc.isEditing;
         UserModel user = profileBloc.user;
         if (state is ProfileLoadingState) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }
