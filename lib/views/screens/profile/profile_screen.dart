@@ -61,7 +61,7 @@ class ProfileScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SizedBox(height: 40),
-                    CircleAvatar(
+                    const CircleAvatar(
                       radius: 70,
                       backgroundImage: AssetImage(AppImages.user),
                     ),
@@ -90,7 +90,7 @@ class ProfileScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 10),
-                    Divider(
+                    const Divider(
                       thickness: 1,
                     ),
                     Row(
@@ -128,7 +128,7 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Divider(
+                    const Divider(
                       thickness: 1,
                     ),
                     ProfileCard(
