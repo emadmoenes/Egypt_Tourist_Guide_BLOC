@@ -46,7 +46,7 @@ class _GovernoratesScreenState extends State<GovernoratesScreen> {
     }
     return staticGovernoratesData;
   }
-  //--- Get governorate places data ---//
+  //--- Get governorate's places data ---//
   List<PlacesModel> getGovernorateData(String governorateId) {
     return context.locale.toString() == 'ar'
         ? ARABICPLACES

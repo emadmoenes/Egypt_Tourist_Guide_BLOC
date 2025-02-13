@@ -68,6 +68,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     }
   }
 
+  // handle toggle editing
   Future<void> _toggleEditing(
       ToggleEditingEvent event, Emitter<ProfileState> emit) async {
     isEditing = !isEditing;
