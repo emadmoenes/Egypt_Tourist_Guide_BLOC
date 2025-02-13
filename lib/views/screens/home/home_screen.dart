@@ -59,8 +59,8 @@ class HomeScreen extends StatelessWidget {
               },
             ),
           ]),
-      body: SafeArea(
-        minimum: EdgeInsets.symmetric(vertical: 11),
+      body: Padding(
+        padding: EdgeInsets.symmetric(vertical: 11),
         child: BlocBuilder<PlacesBloc, PlacesState>(
           builder: (context, state) {
             final placesBloc = context.read<PlacesBloc>();
