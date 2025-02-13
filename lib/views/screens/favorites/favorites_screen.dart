@@ -13,8 +13,6 @@ class FavoritesScreen extends StatefulWidget {
 }
 
 class _FavoritesScreenState extends State<FavoritesScreen> {
-
-
   @override
   Widget build(BuildContext context) {
     bool isEnglish = context.locale.toString() == 'en';
@@ -23,44 +21,44 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     List<PlacesModel> places = [];
     return BlocBuilder<PlacesBloc, PlacesState>(
       builder: (context, state) {
-        if(state is FavoriteToggledState){
+        if (state is FavoriteToggledState) {
           places = state.places;
-        }else if(state is FavouritePlacesSuccess){
+        } else if (state is FavouritePlacesSuccess) {
           places = state.places;
-        }else if(state is FavouritePlacesLoading){
+        } else if (state is FavouritePlacesLoading) {
           return Center(child: CircularProgressIndicator());
-        }else if(state is PlacesError){
+        } else if (state is PlacesError) {
           return Center(
             child: Text(state.message),
           );
         }
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              (places.isEmpty)
-                  ? Center(
-                child: Text('no_favorites'.tr()),
-              )
-                  : Expanded(
-                child: ListView.builder(
-                  itemCount: places.length,
-                  itemBuilder: (context, index) {
-                    final place = places[index];
-                    return Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: width * 0.05,
-                        vertical: width * 0.02,
-                      ),
-                      child: PlaceCard(
-                        place: place,
-                        isWide: true,
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
-          );
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            (places.isEmpty)
+                ? Center(
+                    child: Text('no_favorites'.tr()),
+                  )
+                : Expanded(
+                    child: ListView.builder(
+                      itemCount: places.length,
+                      itemBuilder: (context, index) {
+                        final place = places[index];
+                        return Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: width * 0.05,
+                            vertical: width * 0.02,
+                          ),
+                          child: PlaceCard(
+                            place: place,
+                            isWide: true,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+          ],
+        );
       },
     );
   }

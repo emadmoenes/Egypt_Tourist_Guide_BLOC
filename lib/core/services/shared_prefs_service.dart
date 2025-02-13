@@ -78,7 +78,7 @@ class SharedPrefsService {
     return true;
   }
 
-  static String getProfilePhoto(){
-    return _sharedPreferences.getString(userProfilePicture)?? AppImages.user;
+  static String getProfilePhoto() {
+    return _sharedPreferences.getString(userProfilePicture) ?? AppImages.user;
   }
 }

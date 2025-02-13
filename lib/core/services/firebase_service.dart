@@ -47,7 +47,8 @@ class FirebaseService {
     return users.add(user.toMap());
   }
 
-  static Future<List<int>> getUserFavouritePlacesId({required String uid, required bool isEnglish})async{
+  static Future<List<int>> getUserFavouritePlacesId(
+      {required String uid, required bool isEnglish}) async {
     final snapshot = await users.where('uid', isEqualTo: uid).get();
 
     // Extract the likedPlaces array from the document
@@ -57,18 +58,17 @@ class FirebaseService {
     return favPlacesDynamic.map((item) => item as int).toList();
   }
 
-  static saveUserDataInSignUp({required String uid, required String name})async{
-    await users.add(
-      {
-        'uid': uid,
-        'name': name,
-        'favPlaces': []
-      }
-    );
+  static saveUserDataInSignUp(
+      {required String uid, required String name}) async {
+    await users.add({'uid': uid, 'name': name, 'favPlaces': []});
   }
-  
-  static Future<PlacesModel> getPlaceById({required int id, required bool isEnglish})async{
-    final snapshot = await db.collection(isEnglish? 'places':'arabic_places').where('id', isEqualTo: id).get();
+
+  static Future<PlacesModel> getPlaceById(
+      {required int id, required bool isEnglish}) async {
+    final snapshot = await db
+        .collection(isEnglish ? 'places' : 'arabic_places')
+        .where('id', isEqualTo: id)
+        .get();
     return PlacesModel.fromMap(snapshot.docs.first.data());
   }
 }
