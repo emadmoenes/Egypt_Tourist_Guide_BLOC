@@ -1,13 +1,14 @@
 abstract class AuthEvent {}
 
-// InitAuthEvent when the app starts
-class InitAuthEvent extends AuthEvent {}
+// Login event
 class LoginRequested extends AuthEvent {
   final String email;
   final String password;
+
   LoginRequested({required this.email, required this.password});
 }
 
+// sign up event
 class SignUpRequested extends AuthEvent {
   final String fullName;
   final String email;
@@ -22,4 +23,5 @@ class SignUpRequested extends AuthEvent {
   });
 }
 
+// log out event
 class LogoutRequested extends AuthEvent {}

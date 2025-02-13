@@ -12,18 +12,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LoginRequested>(_onLoginRequested);
     on<SignUpRequested>(_onSignUpRequested);
     on<LogoutRequested>(_onLogoutRequested);
-    on<InitAuthEvent>(_initAuth);
-  }
-
-  // handle init auth event when app starts
-  Future<void> _initAuth(InitAuthEvent event, Emitter<AuthState> emit) async {
-    String? token =
-        await SharedPrefsService.getStringData(key: AppStringEn.tokenKey);
-    if (token != null) {
-      emit(AuthAuthenticated());
-    } else{
-      emit(AuthUnauthenticated());
-    }
   }
 
   // handle login request event
@@ -68,7 +56,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       log(user!.uid);
 
       //--> save user data in firestore database
-      await FirebaseService.saveUserDataInSignUp(uid: user.uid, name: event.fullName);
+      await FirebaseService.saveUserDataInSignUp(
+          uid: user.uid, name: event.fullName);
 
       emit(AccountCreated());
     } on FirebaseAuthException catch (e) {
