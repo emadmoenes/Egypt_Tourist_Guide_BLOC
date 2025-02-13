@@ -13,18 +13,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LoginRequested>(_onLoginRequested);
     on<SignUpRequested>(_onSignUpRequested);
     on<LogoutRequested>(_onLogoutRequested);
-    on<InitAuthEvent>(_initAuth);
-  }
-
-  // handle init auth event when app starts
-  Future<void> _initAuth(InitAuthEvent event, Emitter<AuthState> emit) async {
-    String? token =
-        await SharedPrefsService.getStringData(key: AppStringEn.tokenKey);
-    if (token != null) {
-      emit(AuthAuthenticated());
-    } else {
-      emit(AuthUnauthenticated());
-    }
   }
 
   // handle login request event
@@ -67,13 +55,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         password: event.password,
       );
       log(user!.uid);
-      //--> save user data in firestore database then, save doc id in shared prefs ----
-      // await SharedPrefsService.saveUserData(
-      //   fullName: event.fullName,
-      //   email: event.email,
-      //   password: event.password,
-      //   phoneNumber: event.phoneNumber,
-      // );
+      await SharedPrefsService.saveUserData(
+        fullName: event.fullName,
+        email: event.email,
+        password: event.password,
+        phoneNumber: event.phoneNumber,
+      );
       emit(AccountCreated());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
