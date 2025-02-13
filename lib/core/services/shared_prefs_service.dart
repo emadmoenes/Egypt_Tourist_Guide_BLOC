@@ -8,7 +8,7 @@ class SharedPrefsService {
   static const String _userPhoneKey = 'user_phone';
   static const String _userProfilePicKey = 'user_profile_pic';
   static const String _userAddressKey = 'user_address';
-  static const String userProfilePicture = 'profile_picture';
+  static String userProfilePicture = AppImages.user;
   static late SharedPreferences _sharedPreferences;
 
   static init() async {
@@ -58,7 +58,6 @@ class SharedPrefsService {
     await _sharedPreferences.remove(_userPhoneKey);
     await _sharedPreferences.remove(_userProfilePicKey);
     await _sharedPreferences.remove(_userAddressKey);
-    await _sharedPreferences.setString(userProfilePicture, AppImages.user);
   }
 
   /*-------------- Save string data ---------------*/

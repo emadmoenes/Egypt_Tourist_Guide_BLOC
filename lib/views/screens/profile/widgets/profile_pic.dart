@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:egypt_tourist_guide/controllers/profile_bloc/profile_bloc.dart';
+import 'package:egypt_tourist_guide/core/app_images.dart';
 import 'package:egypt_tourist_guide/core/services/shared_prefs_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,7 +28,6 @@ class ProfilePic extends StatelessWidget {
       // Return the saved file path
       return savedFile.path;
     } catch (e) {
-      print('Error saving photo: $e');
       return null;
     }
   }
@@ -75,17 +75,24 @@ class ProfilePic extends StatelessWidget {
                   try {
                     Navigator.pop(context);
                     final ImagePicker picker = ImagePicker();
-                    final XFile? image =
-                        await picker.pickImage(source: ImageSource.gallery);
+                    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
                     if (image != null) {
-                      SharedPrefsService.saveStringData(
+                      // Save the photo locally and get the file path
+                      final String? savedFilePath = await savePhotoLocally(image);
+                      if (savedFilePath != null) {
+                        // Save the file path to SharedPreferences
+                        SharedPrefsService.saveStringData(
                           key: SharedPrefsService.userProfilePicture,
-                          value: image.path);
-                      profileBloc.add(UpdateProfileImageEvent());
+                          value: savedFilePath,
+                        );
+                        // Trigger the profile image update event
+                        profileBloc.add(UpdateProfileImageEvent());
+                      }
                     }
                   } catch (e) {
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(SnackBar(content: Text(e.toString())));
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(e.toString())),
+                    );
                   }
                 },
               ),
@@ -98,11 +105,14 @@ class ProfilePic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final String imagePath = SharedPrefsService.getProfilePhoto();
     return InkWell(
         onTap: () => _showImagePickerOptions(context),
         child:
             CircleAvatar(
-                radius: 70, backgroundImage: AssetImage(SharedPrefsService.getProfilePhoto())
+                radius: 70,
+                // To check if the saved image existed or to show the default one
+                backgroundImage: imagePath == AppImages.user ? AssetImage(imagePath):FileImage(File(SharedPrefsService.getProfilePhoto()))
             )
     );
   }

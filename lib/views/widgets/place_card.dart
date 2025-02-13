@@ -88,7 +88,7 @@ class PlaceCard extends StatelessWidget {
                       placesBloc.add(
                         ToggleFavouriteEvent(
                           place,
-                          context.locale.toString() == 'ar',
+                          context.locale.toString() == 'en',
                         ),
                       );
                     },
