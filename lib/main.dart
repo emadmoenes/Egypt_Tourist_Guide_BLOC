@@ -1,10 +1,10 @@
 import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_bloc.dart';
-import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_states.dart';
 import 'package:egypt_tourist_guide/controllers/theme_bloc/theme_bloc.dart';
 import 'dart:developer';
 import 'package:egypt_tourist_guide/controllers/places_bloc/places_bloc.dart';
 import 'package:egypt_tourist_guide/core/app_colors.dart';
 import 'package:egypt_tourist_guide/core/app_routes.dart';
+import 'package:egypt_tourist_guide/core/app_strings_en.dart';
 import 'package:egypt_tourist_guide/core/custom_page_routes.dart';
 import 'package:egypt_tourist_guide/core/services/shared_prefs_service.dart';
 import 'package:egypt_tourist_guide/models/place_model.dart';
@@ -17,41 +17,48 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'controllers/auth_bloc/auth_events.dart';
 import 'controllers/profile_bloc/profile_bloc.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await EasyLocalization.ensureInitialized();
   await SharedPrefsService.init();
+  String? token =
+      await SharedPrefsService.getStringData(key: AppStringEn.tokenKey);
+  Widget startWidget = LoginScreen();
+  if (token != null) {
+    startWidget = HomeScreen();
+  }
 
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('ar')],
       path: 'assets/lang',
       fallbackLocale: const Locale('en'),
-      child: MyApp(),
+      child: MyApp(
+        startPage: startWidget,
+      ),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({
+    super.key,
+    required this.startPage,
+  });
+
+  final Widget startPage;
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) {
-          final authBloc = AuthBloc();
-          authBloc.add(InitAuthEvent());
-          return authBloc;
-        }),
+        BlocProvider(create: (context) => AuthBloc()),
         BlocProvider(
           create: (context) => PlacesBloc()..add(LoadPlacesEvent()),
         ),
@@ -106,18 +113,7 @@ class MyApp extends StatelessWidget {
             supportedLocales: context.supportedLocales,
             locale: context.locale,
             onGenerateRoute: onGenerateRoute,
-            home: BlocBuilder<AuthBloc, AuthState>(
-              builder: (context, state) {
-                if (state is AuthAuthenticated) {
-                  return HomeScreen();
-                } else if (state is AuthUnauthenticated) {
-                  return LoginScreen();
-                }
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              },
-            ),
+            home: startPage,
           );
         },
       ),
