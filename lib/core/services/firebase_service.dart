@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:egypt_tourist_guide/models/place_model.dart';
 import 'package:egypt_tourist_guide/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -44,5 +45,30 @@ class FirebaseService {
   }) {
     // Call the user's CollectionReference to add a new user
     return users.add(user.toMap());
+  }
+
+  static Future<List<int>> getUserFavouritePlacesId(
+      {required String uid, required bool isEnglish}) async {
+    final snapshot = await users.where('uid', isEqualTo: uid).get();
+
+    // Extract the likedPlaces array from the document
+    List<dynamic> favPlacesDynamic = snapshot.docs.first['favPlaces'];
+
+    // Convert the dynamic list to a List<int>
+    return favPlacesDynamic.map((item) => item as int).toList();
+  }
+
+  static saveUserDataInSignUp(
+      {required String uid, required String name}) async {
+    await users.add({'uid': uid, 'name': name, 'favPlaces': []});
+  }
+
+  static Future<PlacesModel> getPlaceById(
+      {required int id, required bool isEnglish}) async {
+    final snapshot = await db
+        .collection(isEnglish ? 'places' : 'arabic_places')
+        .where('id', isEqualTo: id)
+        .get();
+    return PlacesModel.fromMap(snapshot.docs.first.data());
   }
 }

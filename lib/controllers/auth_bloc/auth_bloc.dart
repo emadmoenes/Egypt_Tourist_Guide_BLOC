@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_events.dart';
 import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_states.dart';
 import 'package:egypt_tourist_guide/core/app_strings_en.dart';
@@ -67,13 +66,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         password: event.password,
       );
       log(user!.uid);
-      //--> save user data in firestore database then, save doc id in shared prefs ----
-      // await SharedPrefsService.saveUserData(
-      //   fullName: event.fullName,
-      //   email: event.email,
-      //   password: event.password,
-      //   phoneNumber: event.phoneNumber,
-      // );
+
+      //--> save user data in firestore database
+      await FirebaseService.saveUserDataInSignUp(uid: user.uid, name: event.fullName);
+
       emit(AccountCreated());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

@@ -14,4 +14,15 @@ class PlacesModel {
     required this.image,
     required this.isFav,
   });
+
+  factory PlacesModel.fromMap(Map<String, dynamic> map) {
+    return PlacesModel(
+      id: map['id'] as int,
+      governorateId: map['governorateID'] as String,
+      name: map['name'] as String,
+      description: map['description'] as String,
+      image: map['image'] as String,
+      isFav: map['isFav'] as bool,
+    );
+  }
 }

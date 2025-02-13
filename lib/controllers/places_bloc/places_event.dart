@@ -9,9 +9,14 @@ class LoadMorePlacesEvent extends PlacesEvent {}
 
 class ToggleFavouriteEvent extends PlacesEvent {
   final PlacesModel place;
-  final bool isArabic;
+  final bool isEnglish;
 
-  ToggleFavouriteEvent(this.place, this.isArabic);
+  ToggleFavouriteEvent(this.place, this.isEnglish);
+}
+
+class GetFavouritePlaces extends PlacesEvent{
+  final bool isEnglish;
+  GetFavouritePlaces(this.isEnglish);
 }
 
 class ChangeBottomNavigationIndexEvent extends PlacesEvent {

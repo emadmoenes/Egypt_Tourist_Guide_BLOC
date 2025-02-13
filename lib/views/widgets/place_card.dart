@@ -29,113 +29,111 @@ class PlaceCard extends StatelessWidget {
     final placesBloc = context.read<PlacesBloc>();
     double bigContainerHeight = isWide ? width * 0.81 * 0.75 : width * 0.48;
     bool? isFav = place.isFav;
-    return InkWell(
-      child: Container(
-        width: isWide ? width * 0.81 : width * 0.25,
-        height: bigContainerHeight,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          color: AppColors.containerColor,
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.greyColor.withValues(alpha: 0.3),
-              spreadRadius: 2,
-              blurRadius: 3,
-              offset: Offset(2, 6),
-            ),
-          ],
-          image:
-              DecorationImage(image: AssetImage(place.image), fit: BoxFit.fill),
-        ),
-        alignment: Alignment.bottomCenter,
-        child: Container(
-          width: double.infinity,
-          height: bigContainerHeight * 0.29,
-          padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 7.0),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              bottomRight: Radius.circular(10),
-              bottomLeft: Radius.circular(10),
-            ),
-            color: AppColors.secGrey,
+    return Container(
+      width: isWide ? width * 0.81 : width * 0.25,
+      height: bigContainerHeight,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        color: AppColors.containerColor,
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.greyColor.withValues(alpha: 0.3),
+            spreadRadius: 2,
+            blurRadius: 3,
+            offset: Offset(2, 6),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // place name and fav icon
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // place name
-                    Expanded(
-                      child: Text(
-                        place.name,
-                        style: TextStyle(
-                          fontSize:
-                              isWide ? textFactor * 16 : textFactor * 12.5,
-                          color: AppColors.white,
-                          overflow: TextOverflow.ellipsis,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        maxLines: 1,
+        ],
+        image:
+            DecorationImage(image: AssetImage(place.image), fit: BoxFit.fill),
+      ),
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        width: double.infinity,
+        height: bigContainerHeight * 0.29,
+        padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 7.0),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            bottomRight: Radius.circular(10),
+            bottomLeft: Radius.circular(10),
+          ),
+          color: AppColors.secGrey,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // place name and fav icon
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // place name
+                  Expanded(
+                    child: Text(
+                      place.name,
+                      style: TextStyle(
+                        fontSize:
+                            isWide ? textFactor * 16 : textFactor * 12.5,
+                        color: AppColors.white,
+                        overflow: TextOverflow.ellipsis,
+                        fontWeight: FontWeight.w600,
                       ),
+                      maxLines: 1,
                     ),
-                    /*------- Favourite icon -------*/
-                    InkWell(
-                      onTap: () {
-                        placesBloc.add(
-                          ToggleFavouriteEvent(
-                            place,
-                            context.locale.toString() == 'ar',
+                  ),
+                  /*------- Favourite icon -------*/
+                  InkWell(
+                    onTap: () {
+                      placesBloc.add(
+                        ToggleFavouriteEvent(
+                          place,
+                          context.locale.toString() == 'en',
+                        ),
+                      );
+                    },
+                    child: BlocConsumer<PlacesBloc, PlacesState>(
+                      listener: (context, state) {
+                        if (state is FavoriteToggledState) {
+                          isFav = state.place?.isFav;
+                        }
+                      },
+                      builder: (context, state) {
+                        return CircleAvatar(
+                          backgroundColor: AppColors.white,
+                          maxRadius: isWide ? 10 : 8,
+                          child: FavouriteIcon(
+                            isFav: isFav ?? false,
                           ),
                         );
                       },
-                      child: BlocConsumer<PlacesBloc, PlacesState>(
-                        listener: (context, state) {
-                          if (state is FavoriteToggledState) {
-                            isFav = state.place?.isFav;
-                          }
-                        },
-                        builder: (context, state) {
-                          return CircleAvatar(
-                            backgroundColor: AppColors.white,
-                            maxRadius: isWide ? 10 : 8,
-                            child: FavouriteIcon(
-                              isFav: isFav ?? false,
-                            ),
-                          );
-                        },
-                      ),
-                    )
-                  ],
-                ),
+                    ),
+                  )
+                ],
               ),
-              SizedBox(height: 2),
-              // Governorate name of the place
-              Text(
-                placeGovernorate.name,
-                style: TextStyle(
-                  fontSize: isWide ? textFactor * 11.2 : textFactor * 9,
-                  color: AppColors.white,
-                  overflow: TextOverflow.ellipsis,
-                  fontWeight: FontWeight.w500,
-                ),
+            ),
+            SizedBox(height: 2),
+            // Governorate name of the place
+            Text(
+              placeGovernorate.name,
+              style: TextStyle(
+                fontSize: isWide ? textFactor * 11.2 : textFactor * 9,
+                color: AppColors.white,
+                overflow: TextOverflow.ellipsis,
+                fontWeight: FontWeight.w500,
               ),
-              // place description
-              Text(
-                place.description,
-                style: TextStyle(
-                  fontSize: isWide ? textFactor * 11.2 : textFactor * 9,
-                  color: AppColors.white,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                maxLines: 1,
+            ),
+            // place description
+            Text(
+              place.description,
+              style: TextStyle(
+                fontSize: isWide ? textFactor * 11.2 : textFactor * 9,
+                color: AppColors.white,
+                overflow: TextOverflow.ellipsis,
               ),
-            ],
-          ),
+              maxLines: 1,
+            ),
+          ],
         ),
       ),
     );

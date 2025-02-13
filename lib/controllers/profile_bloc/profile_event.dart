@@ -1,6 +1,5 @@
 part of 'profile_bloc.dart';
 
-@immutable
 sealed class ProfileEvent {}
 
 class LoadProfileEvent extends ProfileEvent {}
@@ -10,6 +9,8 @@ class UpdateProfileEvent extends ProfileEvent {
 
   UpdateProfileEvent(this.user);
 }
+
+class UpdateProfileImageEvent extends ProfileEvent{}
 
 class ToggleEditingEvent extends ProfileEvent {}
 

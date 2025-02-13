@@ -48,5 +48,6 @@
   "appTitle": "Egypt Tourist Guide",
   "governorates": "Governorates",
   "logout": "Log Out",
-  "dark_theme" : "Dark Theme"
+  "dark_theme" : "Dark Theme",
+  "no_user_found": "No user found"
 }
