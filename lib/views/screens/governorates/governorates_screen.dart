@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:egypt_tourist_guide/core/app_routes.dart';
-import 'package:egypt_tourist_guide/core/services/governorates_service.dart';
+import 'package:egypt_tourist_guide/core/services/firebase_service.dart';
 import 'package:egypt_tourist_guide/data.dart';
 import 'package:egypt_tourist_guide/models/governorate_model.dart';
 import 'package:egypt_tourist_guide/models/place_model.dart';
@@ -28,8 +28,8 @@ class _GovernoratesScreenState extends State<GovernoratesScreen> {
   //--- Get governorates from firebase ---//
   Future<void> getGovernoratesFromFirebase() async {
     var arabicGovernorateListFirebase =
-        await GovernoratesService().getArabicGovernorates();
-    var governorateListFirebase = await GovernoratesService().getGovernorates();
+        await FirebaseService.getArabicGovernorates();
+    var governorateListFirebase = await FirebaseService.getGovernorates();
     setState(() {
       governorateList = governorateListFirebase;
       arabicGovernorateList = arabicGovernorateListFirebase;

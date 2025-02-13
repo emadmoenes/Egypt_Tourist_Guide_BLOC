@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:egypt_tourist_guide/models/governorate_model.dart';
 import 'package:egypt_tourist_guide/models/place_model.dart';
 import 'package:egypt_tourist_guide/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,7 +8,7 @@ class FirebaseService {
   //------- Firebase auth feature ------//
   static FirebaseAuth authInstance = FirebaseAuth.instance;
 
-  // sign in with email and password
+  //--- Sign in with email and password method ---//
   static Future<User?> signInWithEmailAndPassword(
       String email, String password) async {
     final credentials = await authInstance.signInWithEmailAndPassword(
@@ -17,7 +18,7 @@ class FirebaseService {
     return credentials.user;
   }
 
-  // create user with email and password
+  //--- Create user with email and password ---//
   static Future<User?> createUserWithEmailAndPassword(
       {required String email, required String password}) async {
     final credential = await authInstance.createUserWithEmailAndPassword(
@@ -27,7 +28,7 @@ class FirebaseService {
     return credential.user;
   }
 
-  // log out from firebase auth
+  // Log out from firebase auth
   static Future<void> signOut() async => await authInstance.signOut();
 
   /////////////////////////////////////////////////
@@ -45,6 +46,31 @@ class FirebaseService {
   }) {
     // Call the user's CollectionReference to add a new user
     return users.add(user.toMap());
+  }
+
+  // create a collection called governorates
+  // static CollectionReference governorates = db.collection('governorates');
+
+  //--- Get english governorates method ---//
+  static Future<List<GovernorateModel>> getGovernorates() async {
+    List<GovernorateModel> governorates = [];
+    await db.collection("governorates").get().then((event) {
+      for (var doc in event.docs) {
+        governorates.add(GovernorateModel.fromFirestore(doc));
+      }
+    });
+    return governorates;
+  }
+
+  //--- Get arabic governorates method ---//
+  static Future<List<GovernorateModel>> getArabicGovernorates() async {
+    List<GovernorateModel> arabicGovernorates = [];
+    await db.collection("arabic_governorates").get().then((event) {
+      for (var doc in event.docs) {
+        arabicGovernorates.add(GovernorateModel.fromFirestore(doc));
+      }
+    });
+    return arabicGovernorates;
   }
 
   static Future<List<int>> getUserFavouritePlacesId(
