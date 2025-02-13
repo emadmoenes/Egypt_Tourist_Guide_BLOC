@@ -3,8 +3,17 @@
 ## Project General Description
 
 The **Egypt Tourist Guide** is a mobile application designed to help tourists explore landmarks, museums, and attractions across various Egyptian governorates. The app provides a user-friendly interface for discovering popular places, saving favorites, and managing user profiles. This project aims to enhance the tourism experience by offering curated suggestions and personalization.
-it manages state using Bloc. (in controllers folder)
+it manages state using Bloc (in controllers folder).
 
+# Connect App to Firebase
+Project configuration with firebase --> done using the flutterfire CLI and flutterfire configure command.                                                    
+
+After the project is configured, firebase options file is added to lib folder.                                                         
+Then, we add firebase core, firebase_auth, cloud_firestore packages to the pubspec.yaml file.                                             
+
+And initialize firebase in main.dart file.
+
+# Controllers
 The app contains four Blocs:
                                       
 1- **User Authentication**:                  
@@ -93,4 +102,8 @@ The app contains four Blocs:
 - **easy_localization**: For localization feature ==> https://pub.dev/packages/easy_localization.
 - **flutter_bloc**: For state management using bloc ==> https://pub.dev/packages/flutter_bloc.
 - **skeletonizer**: For skeleton loading effect and enhance user experience during web or app loading. ==> https://pub.dev/packages/skeletonizer.
+- New------------------------------------------
+- **firebase_core**:  For using the Firebase Core API ==> https://pub.dev/packages/firebase_core
+- **firebase_auth**: For using Firebase Auth and enabling authentication using email and password. ==> https://pub.dev/packages/firebase_auth
+- **cloud_firestore**: for Cloud Firestore, a cloud-hosted, noSQL database with live synchronization and offline support. ==> https://pub.dev/packages/cloud_firestore
 - **MVC Architecture**: For clean and maintainable code structure.
