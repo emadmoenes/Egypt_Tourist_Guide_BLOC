@@ -55,13 +55,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         password: event.password,
       );
       log(user!.uid);
-      //--> save user data in firestore database then, save doc id in shared prefs ----
-      // await SharedPrefsService.saveUserData(
-      //   fullName: event.fullName,
-      //   email: event.email,
-      //   password: event.password,
-      //   phoneNumber: event.phoneNumber,
-      // );
+      await SharedPrefsService.saveUserData(
+        fullName: event.fullName,
+        email: event.email,
+        password: event.password,
+        phoneNumber: event.phoneNumber,
+      );
       emit(AccountCreated());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
