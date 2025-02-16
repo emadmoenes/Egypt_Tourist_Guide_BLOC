@@ -27,7 +27,6 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       bottomNavigationBar: AppBottomNavigationBar(),
       appBar: AppBar(
-          elevation: 0.5,
           title: BlocBuilder<PlacesBloc, PlacesState>(
             builder: (context, state) {
               final placesBloc = context.read<PlacesBloc>();
