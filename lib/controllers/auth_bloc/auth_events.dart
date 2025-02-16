@@ -1,3 +1,5 @@
+import '../../models/user_model.dart';
+
 abstract class AuthEvent {}
 
 class LoginRequested extends AuthEvent {
@@ -7,18 +9,14 @@ class LoginRequested extends AuthEvent {
   LoginRequested({required this.email, required this.password});
 }
 
+// sign up event
 class SignUpRequested extends AuthEvent {
-  final String fullName;
-  final String email;
-  final String password;
-  final String? phoneNumber;
+  final UserModel user;
 
   SignUpRequested({
-    required this.fullName,
-    required this.email,
-    required this.password,
-    this.phoneNumber,
+    required this.user,
   });
 }
 
+// log out event
 class LogoutRequested extends AuthEvent {}

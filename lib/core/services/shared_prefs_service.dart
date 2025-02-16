@@ -1,3 +1,4 @@
+import 'package:egypt_tourist_guide/core/app_images.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefsService {
@@ -7,6 +8,7 @@ class SharedPrefsService {
   static const String _userPhoneKey = 'user_phone';
   static const String _userProfilePicKey = 'user_profile_pic';
   static const String _userAddressKey = 'user_address';
+  static String userProfilePicture = AppImages.user;
   static late SharedPreferences _sharedPreferences;
 
   static init() async {
@@ -66,7 +68,7 @@ class SharedPrefsService {
   }
 
   /*------------ Get String data from shared prefs --------------*/
-  static Future<String?> getStringData({required String key}) async {
+  static String? getStringData({required String key}) {
     String? value = _sharedPreferences.getString(key);
     return value;
   }
@@ -74,5 +76,9 @@ class SharedPrefsService {
   static Future<bool> clearStringData({required String key}) async {
     await _sharedPreferences.remove(key);
     return true;
+  }
+
+  static String getProfilePhoto() {
+    return _sharedPreferences.getString(userProfilePicture) ?? AppImages.user;
   }
 }

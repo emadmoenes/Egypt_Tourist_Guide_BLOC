@@ -1,12 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:egypt_tourist_guide/core/app_routes.dart';
-import 'package:egypt_tourist_guide/core/services/governorates_service.dart';
+import 'package:egypt_tourist_guide/core/services/firebase_service.dart';
 import 'package:egypt_tourist_guide/data.dart';
 import 'package:egypt_tourist_guide/models/governorate_model.dart';
 import 'package:egypt_tourist_guide/models/place_model.dart';
 import 'package:egypt_tourist_guide/views/screens/governorates/widgets/governorate_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import '../../../controllers/places_bloc/places_bloc.dart';
+
 
 class GovernoratesScreen extends StatefulWidget {
   const GovernoratesScreen({super.key});
@@ -26,10 +29,11 @@ class _GovernoratesScreenState extends State<GovernoratesScreen> {
   }
 
   //--- Get governorates from firebase ---//
-  Future<void> _getGovernoratesFromFirebase() async {
+  Future<void> getGovernoratesFromFirebase() async {
+
     var arabicGovernorateListFirebase =
-        await GovernoratesService().getArabicGovernorates();
-    var governorateListFirebase = await GovernoratesService().getGovernorates();
+        await FirebaseService.getArabicGovernorates();
+    var governorateListFirebase = await FirebaseService.getGovernorates();
     setState(() {
       governorateList = governorateListFirebase;
       arabicGovernorateList = arabicGovernorateListFirebase;
@@ -48,21 +52,19 @@ class _GovernoratesScreenState extends State<GovernoratesScreen> {
     return staticGovernoratesData;
   }
 
-  //--- Get governorate places data ---//
-  List<PlacesModel> _getGovernorateData(String governorateId) {
-    return context.locale.toString() == 'ar'
-        ? ARABICPLACES
-            .where((place) => place.governorateId == governorateId)
-            .toList()
-        : PLACES
-            .where((place) => place.governorateId == governorateId)
-            .toList();
-  }
 
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.sizeOf(context).height;
     double width = MediaQuery.sizeOf(context).width;
+    //--- Get governorate's places data ---//
+    List<PlacesModel> getGovernorateData(String governorateId) {
+      final placesBloc = context.read<PlacesBloc>();
+
+      return placesBloc.placesV
+          .where((place) => place.governorateId == governorateId)
+          .toList();
+    }
 
     return Padding(
       padding: const EdgeInsets.all(14.0),
@@ -84,7 +86,7 @@ class _GovernoratesScreenState extends State<GovernoratesScreen> {
               onTap: () {
                 // Go to governorate places
                 List<PlacesModel> listOfPlaces =
-                    _getGovernorateData(governorate.id);
+                    getGovernorateData(governorate.id);
 
                 // Navigate to GovernoratesPlaces with arguments
                 Navigator.pushNamed(

@@ -13,13 +13,25 @@ final class PlacesLoaded extends PlacesState {
   PlacesLoaded({required this.places});
 }
 
-final class PlacesError extends PlacesState {}
+final class PlacesError extends PlacesState {
+  final String message;
+
+  PlacesError({required this.message});
+}
 
 final class FavoriteToggledState extends PlacesState {
   final List<PlacesModel> places;
   final PlacesModel? place;
 
   FavoriteToggledState({required this.places, this.place});
+}
+
+class FavouritePlacesLoading extends PlacesState {}
+
+class FavouritePlacesSuccess extends PlacesState {
+  final List<PlacesModel> places;
+
+  FavouritePlacesSuccess({required this.places});
 }
 
 final class BottomNavigationChangedState extends PlacesState {

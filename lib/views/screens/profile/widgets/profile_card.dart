@@ -69,27 +69,6 @@ class ProfileCard extends StatelessWidget {
               isPassword: true,
               isPasswordVisible: isPasswordVisible,
               onTogglePasswordVisibility: onTogglePasswordVisibility,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'validation_password_empty'.tr();
-                }
-                if (value.length < 8) {
-                  return 'validation_password_length'.tr();
-                }
-                if (!value.contains(RegExp(r'[A-Z]'))) {
-                  return 'validation_password_uppercase'.tr();
-                }
-                if (!value.contains(RegExp(r'[a-z]'))) {
-                  return 'validation_password_lowercase'.tr();
-                }
-                if (!value.contains(RegExp(r'[0-9]'))) {
-                  return 'validation_password_digit'.tr();
-                }
-                if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-                  return 'validation_password_special'.tr();
-                }
-                return null;
-              },
             ),
             const Divider(height: 20),
             EditableField(
@@ -113,12 +92,6 @@ class ProfileCard extends StatelessWidget {
               value: user.address ?? '',
               onChanged: (value) => user.address = value,
               isEditing: isEditing,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'validation_address_empty'.tr();
-                }
-                return null;
-              },
             ),
           ],
         ),

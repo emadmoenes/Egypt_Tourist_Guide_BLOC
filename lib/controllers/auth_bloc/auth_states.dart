@@ -12,6 +12,5 @@ class AuthUnauthenticated extends AuthState {}
 
 class AuthError extends AuthState {
   final String message;
-
   AuthError({required this.message});
 }

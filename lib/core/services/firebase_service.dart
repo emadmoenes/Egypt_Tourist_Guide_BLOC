@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:egypt_tourist_guide/models/governorate_model.dart';
+import 'package:egypt_tourist_guide/models/place_model.dart';
 import 'package:egypt_tourist_guide/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -6,7 +8,7 @@ class FirebaseService {
   //------- Firebase auth feature ------//
   static FirebaseAuth authInstance = FirebaseAuth.instance;
 
-  // sign in with email and password
+  //--- Sign in with email and password method ---//
   static Future<User?> signInWithEmailAndPassword(
       String email, String password) async {
     final credentials = await authInstance.signInWithEmailAndPassword(
@@ -16,7 +18,7 @@ class FirebaseService {
     return credentials.user;
   }
 
-  // create user with email and password
+  //--- Create user with email and password ---//
   static Future<User?> createUserWithEmailAndPassword(
       {required String email, required String password}) async {
     final credential = await authInstance.createUserWithEmailAndPassword(
@@ -26,7 +28,7 @@ class FirebaseService {
     return credential.user;
   }
 
-  // log out from firebase auth
+  // Log out from firebase auth
   static Future<void> signOut() async => await authInstance.signOut();
 
   /////////////////////////////////////////////////
@@ -39,10 +41,131 @@ class FirebaseService {
   static CollectionReference users = db.collection('users');
 
   // Add user document to the collection users in database after sign up
-  static Future<void> addUser({
+  static Future<String> addUser({
+    required String uid, // user id of user while authenticating
     required UserModel user,
-  }) {
+  }) async {
+    var docId = '';
     // Call the user's CollectionReference to add a new user
-    return users.add(user.toMap());
+    users.add({
+      'uid': uid,
+      'name': user.fullName,
+      'email': user.email,
+      'phoneNumber': user.phoneNumber,
+      'favPlaces': [],
+      'address': user.address ?? '',
+    }).then(
+      (document) => docId = document.id,
+    );
+    return docId;
+  }
+
+  // Get user data from firestore
+  static Future<UserModel> getUserData() async {
+    UserModel? user;
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+    await users.where('uid', isEqualTo: userId).get().then(
+      (value) {
+        user = UserModel.fromMap(
+            value.docs.first.data() as Map<String, dynamic>);
+      },
+    ).catchError((e) {
+      print(e);
+    });
+    return user!;
+  }
+
+  // Update user data
+  static Future<void> updateUserData({
+    required UserModel user,
+  }) async {
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+
+    users.where('uid', isEqualTo: userId).get().then((value) {
+      users.doc(value.docs.first.id).update(user.toMap());
+    });
+  }
+
+  // Create a collection called governorates
+  static CollectionReference<Map<String, dynamic>> governoratesCollection =
+      db.collection('governorates');
+
+  //--- Get english governorates method ---//
+  static Future<List<GovernorateModel>> getGovernorates() async {
+    List<GovernorateModel> governorates = [];
+    await governoratesCollection.get().then((event) {
+      for (var doc in event.docs) {
+        governorates.add(GovernorateModel.fromFirestore(doc));
+      }
+    });
+    return governorates;
+  }
+
+  // Create a collection called arabic governorates
+  static CollectionReference<Map<String, dynamic>> governoratesACollection =
+      db.collection('arabic_governorates');
+
+  //--- Get arabic governorates method ---//
+  static Future<List<GovernorateModel>> getArabicGovernorates() async {
+    List<GovernorateModel> arabicGovernorates = [];
+    await governoratesACollection.get().then((event) {
+      for (var doc in event.docs) {
+        arabicGovernorates.add(GovernorateModel.fromFirestore(doc));
+      }
+    });
+    return arabicGovernorates;
+  }
+
+  // Create a collection called places
+  static CollectionReference<Map<String, dynamic>> placesCollection =
+      db.collection('places');
+
+  //--- Get places method ---//
+  static Future<List<PlacesModel>> getPlaces() async {
+    List<PlacesModel> places = [];
+    await placesCollection.get().then((event) {
+      for (var doc in event.docs) {
+        places.add(PlacesModel.fromMap(doc.data()));
+      }
+    });
+    return places;
+  }
+
+  // Create a collection called arabic places
+  static CollectionReference<Map<String, dynamic>> placesACollection =
+      db.collection('arabic_places');
+
+  //--- Get places method ---//
+  static Future<List<PlacesModel>> getArabicPlaces() async {
+    List<PlacesModel> arabicPlaces = [];
+    await placesACollection.get().then((event) {
+      for (var doc in event.docs) {
+        arabicPlaces.add(PlacesModel.fromMap(doc.data()));
+      }
+    });
+    return arabicPlaces;
+  }
+
+  //--- Get user favourite places Method ---//
+  static Future<List<int>> getUserFavouritePlacesId({
+    required String uid,
+    required bool isEnglish,
+  }) async {
+    final snapshot = await users.where('uid', isEqualTo: uid).get();
+
+    // Extract the likedPlaces array from the document
+    List<dynamic> favPlacesDynamic = snapshot.docs.first['favPlaces'];
+
+    // Convert the dynamic list to a List<int>
+    return favPlacesDynamic.map((item) => item as int).toList();
+  }
+
+  static Future<PlacesModel> getPlaceById(
+      {required int id, required bool isEnglish}) async {
+    final snapshot = await db
+        .collection(isEnglish ? 'places' : 'arabic_places')
+        .where('id', isEqualTo: id)
+        .get();
+    return PlacesModel.fromMap(snapshot.docs.first.data());
   }
 }

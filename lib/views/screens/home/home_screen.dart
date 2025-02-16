@@ -23,6 +23,7 @@ class HomeScreen extends StatelessWidget {
       ScreenModel(title: 'favorites_title'.tr(), body: FavoritesScreen()),
       ScreenModel(title: 'settings_title'.tr(), body: ProfileScreen()),
     ];
+
     return Scaffold(
       bottomNavigationBar: AppBottomNavigationBar(),
       appBar: AppBar(
@@ -38,6 +39,8 @@ class HomeScreen extends StatelessWidget {
             BlocBuilder<ThemeBloc, ThemeState>(
               builder: (context, state) {
                 ThemeBloc themeBloc = context.read<ThemeBloc>();
+                final placesBloc = context.read<PlacesBloc>();
+
                 return IconButton(
                   icon: Icon(
                     Icons.language,
@@ -46,19 +49,22 @@ class HomeScreen extends StatelessWidget {
                         : AppColors.white,
                     size: 30,
                   ),
-                  onPressed: () {
+                  onPressed: () async{
                     // Toggle between English and Arabic
                     final newLocale = context.locale.languageCode == 'en'
                         ? Locale('ar')
                         : Locale('en');
                     context.setLocale(newLocale);
+                    await Future.delayed(Duration(milliseconds: 300));
+                    placesBloc.add(
+                        LoadPlacesEvent(context.locale.languageCode == 'en'));
                   },
                 );
               },
             ),
           ]),
-      body: SafeArea(
-        minimum: EdgeInsets.symmetric(vertical: 11),
+      body: Padding(
+        padding: EdgeInsets.symmetric(vertical: 11),
         child: BlocBuilder<PlacesBloc, PlacesState>(
           builder: (context, state) {
             final placesBloc = context.read<PlacesBloc>();

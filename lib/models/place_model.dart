@@ -1,7 +1,7 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 class PlacesModel {
   final int id;
-  final String governorateId;
+  final String? governorateId;
   final String name;
   final String description;
   final String image;
@@ -17,4 +17,15 @@ class PlacesModel {
     required this.isFav,
     required this.location,
   });
+
+  factory PlacesModel.fromMap(Map<String, dynamic> map) {
+    return PlacesModel(
+      id: map['id'] as int,
+      governorateId: map['governorateID'] as String?,
+      name: map['name'] as String,
+      description: map['description'] as String,
+      image: map['image'] as String,
+      isFav: map['isFav'] as bool,
+    );
+  }
 }

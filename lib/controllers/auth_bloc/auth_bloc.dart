@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_events.dart';
 import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_states.dart';
 import 'package:egypt_tourist_guide/core/app_strings_en.dart';
@@ -51,15 +50,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       // sign up using firebase auth
       final user = await FirebaseService.createUserWithEmailAndPassword(
-        email: event.email,
-        password: event.password,
+        email: event.user.email,
+        password: event.user.password,
       );
-      log(user!.uid);
-      await SharedPrefsService.saveUserData(
-        fullName: event.fullName,
-        email: event.email,
-        password: event.password,
-        phoneNumber: event.phoneNumber,
+      log('user id is : ${user?.uid}');
+      //--> Save user data in firestore database
+      await FirebaseService.addUser(
+        uid: user!.uid,
+        user: event.user,
       );
       emit(AccountCreated());
     } on FirebaseAuthException catch (e) {

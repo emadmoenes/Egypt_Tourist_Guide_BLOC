@@ -1,7 +1,11 @@
+import 'dart:io';
+
+import 'package:egypt_tourist_guide/core/services/firebase_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:egypt_tourist_guide/core/services/shared_prefs_service.dart';
 import 'package:egypt_tourist_guide/models/user_model.dart';
-import 'package:meta/meta.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 part 'profile_event.dart';
 
@@ -13,6 +17,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<UpdateProfileEvent>(_updateProfileData);
     on<ToggleEditingEvent>(_toggleEditing);
     on<TogglePasswordVisibilityEvent>(_togglePasswordProfileVisibility);
+    on<UpdateProfileImageFromCamEvent>(_updateProfileImageFromCam);
+    on<UpdateProfileImageFromGallEvent>(_updateProfileImageFromGal);
+    on<RemoveProfileImageEvent>(_removeProfileImage);
   }
 
   UserModel user = UserModel(
@@ -33,18 +40,21 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     emit(PasswordVisibilityToggledState());
   }
 
+  String imagePath = SharedPrefsService.getProfilePhoto();
+
   // handle load profile data event
   Future<void> _loadProfileData(
       LoadProfileEvent event, Emitter<ProfileState> emit) async {
     emit(ProfileLoadingState());
-    await Future.delayed(const Duration(seconds: 1));
-    // get user data from shared prefs
+    await Future.delayed(const Duration(milliseconds: 500));
     try {
-      final userData = await SharedPrefsService.getUserData();
-      user = UserModel.fromMap(userData);
+      // Get user data from firebase
+      user = await FirebaseService.getUserData();
+      imagePath = SharedPrefsService.getProfilePhoto();
+
       emit(ProfileLoadedState());
     } catch (e) {
-      emit(ProfileErrorState());
+      emit(ProfileErrorState(message: e.toString()));
     }
   }
 
@@ -52,19 +62,15 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   Future<void> _updateProfileData(
       UpdateProfileEvent event, Emitter<ProfileState> emit) async {
     try {
-      await SharedPrefsService.saveUserData(
-        fullName: event.user.fullName,
-        email: event.user.email,
-        password: event.user.password,
-        phoneNumber: event.user.phoneNumber,
-        address: event.user.address,
+      // Update user data in firebase
+      await FirebaseService.updateUserData(
+        user: event.user,
       );
-
       emit(ProfileUpdatedState());
       isEditing = !isEditing;
       emit(ProfileEditingToggledState());
     } catch (e) {
-      emit(ProfileErrorState());
+      emit(ProfileErrorState(message: e.toString()));
     }
   }
 
@@ -72,5 +78,80 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       ToggleEditingEvent event, Emitter<ProfileState> emit) async {
     isEditing = !isEditing;
     emit(ProfileEditingToggledState());
+  }
+
+  //----- Save photo locally -----//
+  Future<String?> savePhotoLocally(XFile image) async {
+    try {
+      // Get the application documents directory
+      final Directory appDir = await getApplicationDocumentsDirectory();
+
+      // Generate a unique file name (e.g., using a timestamp)
+      final String fileName =
+          'profile_photo_${DateTime.now().millisecondsSinceEpoch}.jpg';
+
+      // Create the file path
+      final String filePath = '${appDir.path}/$fileName';
+
+      // Save the photo to the application folder
+      final File savedFile = File(filePath);
+      await savedFile.writeAsBytes(await image.readAsBytes());
+
+      // Return the saved file path
+      return savedFile.path;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  final ImagePicker picker = ImagePicker();
+
+  // handle update profile image from camera event
+  _updateProfileImageFromCam(
+      UpdateProfileImageFromCamEvent event, Emitter<ProfileState> emit) async {
+    final XFile? image = await picker.pickImage(source: ImageSource.camera);
+    if (image != null) {
+      // Save the photo locally and get the file path
+      final String? savedFilePath = await savePhotoLocally(image);
+      if (savedFilePath != null) {
+        // Save the file path to SharedPreferences
+        SharedPrefsService.saveStringData(
+          key: SharedPrefsService.userProfilePicture,
+          value: savedFilePath,
+        );
+      }
+      imagePath = SharedPrefsService.getProfilePhoto();
+      emit(ProfileImageUpdatedState());
+    }
+  }
+
+  // handle update profile image from gallery event
+  _updateProfileImageFromGal(
+      UpdateProfileImageFromGallEvent event, Emitter<ProfileState> emit) async {
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      // Save the photo locally and get the file path
+      final String? savedFilePath = await savePhotoLocally(image);
+      if (savedFilePath != null) {
+        // Save the file path to SharedPreferences
+        SharedPrefsService.saveStringData(
+          key: SharedPrefsService.userProfilePicture,
+          value: savedFilePath,
+        );
+      }
+      imagePath = SharedPrefsService.getProfilePhoto();
+      emit(ProfileImageUpdatedState());
+    }
+  }
+
+  // handle remove profile image event
+  _removeProfileImage(
+      RemoveProfileImageEvent event, Emitter<ProfileState> emit) async {
+    // Delete photo saved in shared pref
+    await SharedPrefsService.clearStringData(
+      key: SharedPrefsService.userProfilePicture,
+    );
+    imagePath = SharedPrefsService.getProfilePhoto();
+    emit(ProfileImageUpdatedState());
   }
 }

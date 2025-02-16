@@ -301,7 +301,7 @@ final List<PlacesModel> ARABICPLACES = [
     governorateId: '3',
     // الجيزة
     name: 'أبو الهول',
-    description: 'مخلوق أسطوري بجسم أسد ورأس إنسان.',
+    description: 'تمثال أسطوري بجسم أسد ورأس إنسان.',
     image: 'assets/cities/giza/sphinx_and_pyramid_in_giza.jpeg',
     isFav: false,
     location: placesPositions['Sphinx'],

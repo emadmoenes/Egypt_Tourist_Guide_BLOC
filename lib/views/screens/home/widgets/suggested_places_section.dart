@@ -7,26 +7,31 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
+import '../../../../models/place_model.dart';
+
 class SuggestedPlacesSection extends StatelessWidget {
   const SuggestedPlacesSection({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PlacesBloc, PlacesState>(builder: (context, state) {
+      List<PlacesModel> places = PLACES;
       if (state is PlacesLoaded) {
         if (state.places.isEmpty) {
           return Center(
             child: Text('no_data'.tr()),
           );
+        } else {
+          places = state.places;
         }
       } else if (state is PlacesError) {
-        return AppErrorWidget();
+        print(state.message);
+        return AppErrorWidget(errorMessage: state.message);
       }
       return Skeletonizer(
         enabled: state is PlacesLoading,
         child: SuggestedPlacesGrid(
-          suggestedPlaces:
-              context.locale.toString() == 'ar' ? ARABICPLACES : PLACES,
+          suggestedPlaces: places,
         ),
       );
     });
