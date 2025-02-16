@@ -25,7 +25,7 @@ class _GovernoratesScreenState extends State<GovernoratesScreen> {
   @override
   void initState() {
     super.initState();
-    _getGovernoratesFromFirebase();
+    getGovernoratesFromFirebase();
   }
 
   //--- Get governorates from firebase ---//
