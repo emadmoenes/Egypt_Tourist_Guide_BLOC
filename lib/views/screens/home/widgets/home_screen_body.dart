@@ -1,7 +1,9 @@
+import 'package:egypt_tourist_guide/controllers/places_bloc/places_bloc.dart';
 import 'package:egypt_tourist_guide/views/screens/home/widgets/popular_places_section.dart';
 import 'package:egypt_tourist_guide/views/screens/home/widgets/suggested_places_section.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'home_section_title.dart';
 
 class HomeScreenBody extends StatelessWidget {
@@ -13,9 +15,17 @@ class HomeScreenBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          HomeSectionTitle(text: 'popular-places'.tr()),
+          BlocBuilder<PlacesBloc, PlacesState>(
+            builder: (context, state) {
+              return HomeSectionTitle(text: 'popular-places'.tr());
+            },
+          ),
           PopularPlacesSection(),
-          HomeSectionTitle(text: 'suggested_places'.tr()),
+          BlocBuilder<PlacesBloc, PlacesState>(
+            builder: (context, state) {
+              return HomeSectionTitle(text: 'suggested_places'.tr());
+            },
+          ),
           SuggestedPlacesSection(),
         ],
       ),

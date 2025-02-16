@@ -53,5 +53,6 @@
   "no_user_found": "لم يتحدد المستخدم",
   "take_photo": "التقط صورة",
   "choose_from_gallery": "اختر من المعرض",
-  "remove-photo": "إزالة الصورة"
+  "remove-photo": "إزالة الصورة",
+  "Location": "الموقع"
 }

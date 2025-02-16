@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import '../../../controllers/places_bloc/places_bloc.dart';
 
+
 class GovernoratesScreen extends StatefulWidget {
   const GovernoratesScreen({super.key});
 
@@ -24,11 +25,12 @@ class _GovernoratesScreenState extends State<GovernoratesScreen> {
   @override
   void initState() {
     super.initState();
-    getGovernoratesFromFirebase();
+    _getGovernoratesFromFirebase();
   }
 
   //--- Get governorates from firebase ---//
   Future<void> getGovernoratesFromFirebase() async {
+
     var arabicGovernorateListFirebase =
         await FirebaseService.getArabicGovernorates();
     var governorateListFirebase = await FirebaseService.getGovernorates();
@@ -49,6 +51,7 @@ class _GovernoratesScreenState extends State<GovernoratesScreen> {
     }
     return staticGovernoratesData;
   }
+
 
   @override
   Widget build(BuildContext context) {
