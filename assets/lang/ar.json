@@ -41,6 +41,7 @@
   "unknown_error": "خطأ غير معروف",
   "fix_form_errors": "الرجاء إصلاح الأخطاء في النموذج.",
   "profile_updated_successfully": "تم تحديث الملف الشخصي بنجاح!",
+  "profile_photo_updated_successfully": "تم تحديث الصورة الشخصية بنجاح!",
   "profile_details": "تفاصيل الملف الشخصي",
   "validation_phone_number_empty": "رقم الهاتف مطلوب",
   "validation_phone_number_invalid": "أدخل رقم هاتف صالح",
@@ -49,5 +50,8 @@
   "governorates": "المحافظات",
   "logout": "تسجيل خروج",
   "dark_theme": "الاضاءة الليلية",
-  "no_user_found": "لم يتحدد المستخدم"
+  "no_user_found": "لم يتحدد المستخدم",
+  "take_photo": "التقط صورة",
+  "choose_from_gallery": "اختر من المعرض",
+  "remove-photo": "إزالة الصورة"
 }

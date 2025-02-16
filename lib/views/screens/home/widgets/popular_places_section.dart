@@ -1,5 +1,6 @@
 import 'package:egypt_tourist_guide/controllers/places_bloc/places_bloc.dart';
 import 'package:egypt_tourist_guide/data.dart';
+import 'package:egypt_tourist_guide/models/place_model.dart';
 import 'package:egypt_tourist_guide/views/screens/home/widgets/popular_places_list_view.dart';
 import 'package:egypt_tourist_guide/views/widgets/error_widget.dart';
 import 'package:flutter/material.dart';
@@ -13,10 +14,17 @@ class PopularPlacesSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.sizeOf(context).width;
-
+    final placesBloc = context.read<PlacesBloc>();
+    List<PlacesModel> places =
+        placesBloc.placesV.isEmpty ? PLACES : placesBloc.placesV;
     return SizedBox(
       height: width * 0.81 * 0.75,
-      child: BlocBuilder<PlacesBloc, PlacesState>(
+      child: BlocConsumer<PlacesBloc, PlacesState>(
+        listener: (context, state) {
+          if (state is PlacesLoaded) {
+            places = state.places;
+          }
+        },
         builder: (context, state) {
           if (state is PlacesLoaded) {
             if (state.places.isEmpty) {
@@ -25,13 +33,14 @@ class PopularPlacesSection extends StatelessWidget {
               );
             }
           } else if (state is PlacesError) {
-            return AppErrorWidget();
+            return AppErrorWidget(
+              errorMessage: state.message,
+            );
           }
           return Skeletonizer(
             enabled: state is PlacesLoading,
             child: PopularPlacesListView(
-              popularPlacesList:
-                  context.locale.toString() == 'ar' ? ARABICPLACES : PLACES,
+              popularPlacesList: places,
             ),
           );
         },

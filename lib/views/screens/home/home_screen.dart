@@ -40,6 +40,8 @@ class HomeScreen extends StatelessWidget {
             BlocBuilder<ThemeBloc, ThemeState>(
               builder: (context, state) {
                 ThemeBloc themeBloc = context.read<ThemeBloc>();
+                final placesBloc = context.read<PlacesBloc>();
+
                 return IconButton(
                   icon: Icon(
                     Icons.language,
@@ -48,12 +50,15 @@ class HomeScreen extends StatelessWidget {
                         : AppColors.white,
                     size: 30,
                   ),
-                  onPressed: () {
+                  onPressed: () async{
                     // Toggle between English and Arabic
                     final newLocale = context.locale.languageCode == 'en'
                         ? Locale('ar')
                         : Locale('en');
                     context.setLocale(newLocale);
+                    await Future.delayed(Duration(milliseconds: 300));
+                    placesBloc.add(
+                        LoadPlacesEvent(context.locale.languageCode == 'en'));
                   },
                 );
               },

@@ -68,7 +68,7 @@ class SharedPrefsService {
   }
 
   /*------------ Get String data from shared prefs --------------*/
-  static Future<String?> getStringData({required String key}) async {
+  static String? getStringData({required String key}) {
     String? value = _sharedPreferences.getString(key);
     return value;
   }

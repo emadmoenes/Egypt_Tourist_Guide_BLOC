@@ -1,9 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class UserModel {
   String fullName;
   String email;
   String password;
   String? phoneNumber;
-  String? profilePicUrl;
   String? address;
 
   UserModel({
@@ -11,29 +12,34 @@ class UserModel {
     required this.email,
     required this.password,
     this.phoneNumber,
-    this.profilePicUrl,
     this.address,
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'fullName': fullName,
+      'name': fullName,
       'email': email,
-      'password': password,
       'phoneNumber': phoneNumber,
       'address': address,
-      'profilePicUrl': profilePicUrl,
     };
   }
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      fullName: map['fullName'],
+      fullName: map['name'],
       email: map['email'],
-      password: map['password'],
+      password: '',
       phoneNumber: map['phoneNumber'],
-      address: map['address'],
-      profilePicUrl: map['profilePicUrl'],
+    );
+  }
+  factory UserModel.fromFirestore(
+      DocumentSnapshot<Map<String, dynamic>> snapshot) {
+    final data = snapshot.data();
+    return UserModel(
+      fullName: data?['name'],
+      email: data?['email'],
+      password: '',
+      phoneNumber: data?['phoneNumber'],
     );
   }
 }

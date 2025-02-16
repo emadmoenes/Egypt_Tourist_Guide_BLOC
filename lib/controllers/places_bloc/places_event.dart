@@ -3,7 +3,10 @@ part of 'places_bloc.dart';
 @immutable
 sealed class PlacesEvent {}
 
-class LoadPlacesEvent extends PlacesEvent {}
+class LoadPlacesEvent extends PlacesEvent {
+  final bool isEnglish;
+  LoadPlacesEvent(this.isEnglish);
+}
 
 class LoadMorePlacesEvent extends PlacesEvent {}
 

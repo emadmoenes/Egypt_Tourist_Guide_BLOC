@@ -5,27 +5,25 @@ import 'package:egypt_tourist_guide/views/widgets/place_card.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class FavoritesScreen extends StatefulWidget {
+class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({super.key});
 
   @override
-  State<FavoritesScreen> createState() => _FavoritesScreenState();
-}
-
-class _FavoritesScreenState extends State<FavoritesScreen> {
-  @override
   Widget build(BuildContext context) {
-    bool isEnglish = context.locale.toString() == 'en';
-    context.read<PlacesBloc>().add(GetFavouritePlaces(isEnglish));
+    // bool isEnglish = context.locale.toString() == 'en';
+    // context.read<PlacesBloc>().add(GetFavouritePlaces(isEnglish));
     double width = MediaQuery.sizeOf(context).width;
-    List<PlacesModel> places = [];
-    return BlocBuilder<PlacesBloc, PlacesState>(
-      builder: (context, state) {
+    List<PlacesModel> places = context.read<PlacesBloc>().favPlacesP;
+    return BlocConsumer<PlacesBloc, PlacesState>(
+      listener: (context, state) {
         if (state is FavoriteToggledState) {
           places = state.places;
         } else if (state is FavouritePlacesSuccess) {
           places = state.places;
-        } else if (state is FavouritePlacesLoading) {
+        }
+      },
+      builder: (context, state) {
+        if (state is FavouritePlacesLoading) {
           return Center(child: CircularProgressIndicator());
         } else if (state is PlacesError) {
           return Center(

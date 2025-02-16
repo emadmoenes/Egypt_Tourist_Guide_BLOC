@@ -29,10 +29,18 @@ class ProfileScreen extends StatelessWidget {
             ),
           );
         }
+        if (state is ProfileImageUpdatedState) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('profile_photo_updated_successfully'.tr()),
+              backgroundColor: AppColors.green,
+            ),
+          );
+        }
         if (state is ProfileErrorState) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('fix_form_errors'.tr()),
+              content: Text(state.message),
               backgroundColor: AppColors.red,
             ),
           );
@@ -107,7 +115,7 @@ class ProfileScreen extends StatelessWidget {
                           ),
                           onPressed: () {
                             if (isEditing) {
-                              if (_formKey.currentState!.validate()) {
+                              if (_formKey.currentState!.validate() ) {
                                 profileBloc.add(UpdateProfileEvent(user));
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(

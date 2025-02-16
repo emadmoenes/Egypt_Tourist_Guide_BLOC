@@ -6,7 +6,9 @@ import 'package:egypt_tourist_guide/models/governorate_model.dart';
 import 'package:egypt_tourist_guide/models/place_model.dart';
 import 'package:egypt_tourist_guide/views/screens/governorates/widgets/governorate_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import '../../../controllers/places_bloc/places_bloc.dart';
 
 class GovernoratesScreen extends StatefulWidget {
   const GovernoratesScreen({super.key});
@@ -48,21 +50,18 @@ class _GovernoratesScreenState extends State<GovernoratesScreen> {
     return staticGovernoratesData;
   }
 
-  //--- Get governorate's places data ---//
-  List<PlacesModel> getGovernorateData(String governorateId) {
-    return context.locale.toString() == 'ar'
-        ? ARABICPLACES
-            .where((place) => place.governorateId == governorateId)
-            .toList()
-        : PLACES
-            .where((place) => place.governorateId == governorateId)
-            .toList();
-  }
-
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.sizeOf(context).height;
     double width = MediaQuery.sizeOf(context).width;
+    //--- Get governorate's places data ---//
+    List<PlacesModel> getGovernorateData(String governorateId) {
+      final placesBloc = context.read<PlacesBloc>();
+
+      return placesBloc.placesV
+          .where((place) => place.governorateId == governorateId)
+          .toList();
+    }
 
     return Padding(
       padding: const EdgeInsets.all(14.0),

@@ -41,6 +41,7 @@
   "unknown_error": "Unknown error",
   "fix_form_errors": "Please fix the errors in the form.",
   "profile_updated_successfully": "Profile updated successfully!",
+  "profile_photo_updated_successfully": "Profile Photo updated successfully!",
   "profile_details": "Profile Details",
   "validation_phone_number_empty": "Phone number is required",
   "validation_phone_number_invalid": "Enter a valid phone number",
@@ -49,5 +50,8 @@
   "governorates": "Governorates",
   "logout": "Log Out",
   "dark_theme" : "Dark Theme",
-  "no_user_found": "No user found"
+  "no_user_found": "No user found",
+  "take_photo": "Take a Photo",
+  "choose_from_gallery": "Choose from Gallery",
+  "remove-photo": "Remove photo"
 }
