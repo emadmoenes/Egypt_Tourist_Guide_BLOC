@@ -2,7 +2,6 @@ import '../../models/user_model.dart';
 
 abstract class AuthEvent {}
 
-// Login event
 class LoginRequested extends AuthEvent {
   final String email;
   final String password;

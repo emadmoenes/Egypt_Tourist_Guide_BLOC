@@ -59,7 +59,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         uid: user!.uid,
         user: event.user,
       );
-
       emit(AccountCreated());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

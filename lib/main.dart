@@ -7,9 +7,11 @@ import 'package:egypt_tourist_guide/core/app_routes.dart';
 import 'package:egypt_tourist_guide/core/app_strings_en.dart';
 import 'package:egypt_tourist_guide/core/custom_page_routes.dart';
 import 'package:egypt_tourist_guide/core/services/shared_prefs_service.dart';
+import 'package:egypt_tourist_guide/models/place_model.dart';
 import 'package:egypt_tourist_guide/views/screens/auth/login_screen.dart';
 import 'package:egypt_tourist_guide/views/screens/auth/signup_screen.dart';
 import 'package:egypt_tourist_guide/views/screens/governorates/governoarates_places.dart';
+import 'package:egypt_tourist_guide/views/screens/governorates/place_details_screen.dart';
 import 'package:egypt_tourist_guide/views/screens/home/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +28,7 @@ Future<void> main() async {
   await SharedPrefsService.init();
   String? token =
       SharedPrefsService.getStringData(key: AppStringEn.tokenKey);
+
   Widget startWidget = LoginScreen();
   if (token != null) {
     startWidget = HomeScreen();
@@ -44,7 +47,11 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key, required this.startPage});
+
+  const MyApp({
+    super.key,
+    required this.startPage,
+  });
 
   final Widget startPage;
 
@@ -62,6 +69,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => ProfileBloc()..add(LoadProfileEvent()),
         ),
+    
         BlocProvider(
           create: (context) {
             final themeBloc = ThemeBloc();
@@ -76,6 +84,10 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
               fontFamily: 'merriweather',
+              appBarTheme: AppBarTheme(
+                iconTheme: IconThemeData(color: AppColors.blackColor),
+                elevation: 0.8,
+              ),
               iconButtonTheme: IconButtonThemeData(
                 style: IconButton.styleFrom(
                   foregroundColor: AppColors.lightPurple,
@@ -92,6 +104,10 @@ class MyApp extends StatelessWidget {
             darkTheme: ThemeData(
               fontFamily: 'merriweather',
               brightness: Brightness.dark,
+              appBarTheme: AppBarTheme(
+                iconTheme: IconThemeData(color: AppColors.white),
+                elevation: 0.8,
+              ),
               iconButtonTheme: IconButtonThemeData(
                 style: IconButton.styleFrom(
                   foregroundColor: AppColors.deepPurpleAccent,
@@ -128,7 +144,10 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     case AppRoutes.loginRoute:
       return SlideRightRoute(child: const LoginScreen());
     case AppRoutes.homeRoute:
-      return FadeTransitionRoute(child: const HomeScreen());
+      return FadeTransitionRoute(child: HomeScreen());
+    case AppRoutes.placeDetailsRoute:
+      final args = settings.arguments as PlacesModel;
+      return SlideRightRoute(child: PlaceDetailsScreen(placeModel: args));
     case AppRoutes.placesRoute:
       // Extract arguments and pass them to GovernoratesPlaces
       final args = settings.arguments as Map<String, dynamic>;

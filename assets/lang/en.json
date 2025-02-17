@@ -53,5 +53,6 @@
   "no_user_found": "No user found",
   "take_photo": "Take a Photo",
   "choose_from_gallery": "Choose from Gallery",
-  "remove-photo": "Remove photo"
+  "remove-photo": "Remove photo",
+  "Location": "Location"
 }
