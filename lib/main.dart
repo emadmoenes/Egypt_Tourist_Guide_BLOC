@@ -26,7 +26,6 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await EasyLocalization.ensureInitialized();
-
   await SharedPrefsService.init();
   String? token = SharedPrefsService.getStringData(key: AppStringEn.tokenKey);
 
