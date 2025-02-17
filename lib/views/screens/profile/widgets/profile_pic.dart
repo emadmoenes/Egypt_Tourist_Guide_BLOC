@@ -29,7 +29,7 @@ class ProfilePic extends StatelessWidget {
                   onTap: () {
                     try {
                       Navigator.pop(context);
-                      profileBloc.add(UpdateProfileImageFromCamEvent());
+                      profileBloc.add(UpdateAvatarEvent(true));
                     } catch (e) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content: Text('Cannot change profile photo')));
@@ -43,7 +43,7 @@ class ProfilePic extends StatelessWidget {
                   onTap: () {
                     try {
                       Navigator.pop(context);
-                      profileBloc.add(UpdateProfileImageFromGallEvent());
+                      profileBloc.add(UpdateAvatarEvent(false));
                     } catch (e) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(

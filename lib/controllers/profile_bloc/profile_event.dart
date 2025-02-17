@@ -10,12 +10,14 @@ class UpdateProfileEvent extends ProfileEvent {
   UpdateProfileEvent(this.user);
 }
 
-class UpdateProfileImageFromCamEvent extends ProfileEvent{}
-class UpdateProfileImageFromGallEvent extends ProfileEvent{}
-class RemoveProfileImageEvent extends ProfileEvent{}
+class UpdateAvatarEvent extends ProfileEvent {
+  final bool isFromCamera;
+
+  UpdateAvatarEvent(this.isFromCamera);
+}
+
+class RemoveProfileImageEvent extends ProfileEvent {}
 
 class ToggleEditingEvent extends ProfileEvent {}
 
 class TogglePasswordVisibilityEvent extends ProfileEvent {}
-
-class UpdateAvatarEvent extends ProfileEvent {}

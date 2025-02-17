@@ -16,8 +16,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<UpdateProfileEvent>(_updateProfileData);
     on<ToggleEditingEvent>(_toggleEditing);
     on<TogglePasswordVisibilityEvent>(_togglePasswordProfileVisibility);
-    on<UpdateProfileImageFromCamEvent>(_updateProfileImageFromCam);
-    on<UpdateProfileImageFromGallEvent>(_updateProfileImageFromGal);
+    on<UpdateAvatarEvent>(_updateProfileImage);
     on<RemoveProfileImageEvent>(_removeProfileImage);
   }
 
@@ -104,36 +103,15 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }
 
   final ImagePicker picker = ImagePicker();
-
-  // handle update profile image from camera event
-  _updateProfileImageFromCam(
-    UpdateProfileImageFromCamEvent event,
-    Emitter<ProfileState> emit,
-  ) async {
-    final XFile? image = await picker.pickImage(
-      source: ImageSource.camera,
-    );
-    if (image != null) {
-      // Save the photo locally and get the file path
-      final String? savedFilePath = await savePhotoLocally(image);
-      if (savedFilePath != null) {
-        // Save the file path to SharedPreferences
-        SharedPrefsService.saveStringData(
-          key: SharedPrefsService.userProfilePicture,
-          value: savedFilePath,
-        );
-      }
-      imagePath = SharedPrefsService.getProfilePhoto();
-      emit(ProfileImageUpdatedState());
+  // handle update profile image event
+  _updateProfileImage(
+      UpdateAvatarEvent event, Emitter<ProfileState> emit) async {
+    final XFile? image;
+    if (event.isFromCamera) {
+      image = await picker.pickImage(source: ImageSource.camera);
+    } else {
+      image = await picker.pickImage(source: ImageSource.gallery);
     }
-  }
-
-  // handle update profile image from gallery event
-  _updateProfileImageFromGal(
-      UpdateProfileImageFromGallEvent event, Emitter<ProfileState> emit) async {
-    final XFile? image = await picker.pickImage(
-      source: ImageSource.gallery,
-    );
     if (image != null) {
       // Save the photo locally and get the file path
       final String? savedFilePath = await savePhotoLocally(image);
