@@ -15,4 +15,5 @@ class ToggleEditingEvent extends ProfileEvent {}
 
 class TogglePasswordVisibilityEvent extends ProfileEvent {}
 
+// This event will be used in next version
 class UpdateAvatarEvent extends ProfileEvent {}
