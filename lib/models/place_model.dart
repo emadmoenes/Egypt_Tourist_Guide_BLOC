@@ -26,7 +26,7 @@ class PlacesModel {
       description: map['description'] as String,
       image: map['image'] as String,
       isFav: map['isFav'] as bool,
-      location: LatLng(25.7204, 32.6100),
+      location: const LatLng(25.7204, 32.6100),
     );
   }
 }

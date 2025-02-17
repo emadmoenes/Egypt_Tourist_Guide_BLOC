@@ -29,9 +29,9 @@ Future<void> main() async {
   await SharedPrefsService.init();
   String? token = SharedPrefsService.getStringData(key: AppStringEn.tokenKey);
 
-  Widget startWidget = LoginScreen();
+  Widget startWidget = const LoginScreen();
   if (token != null) {
-    startWidget = HomeScreen();
+    startWidget = const HomeScreen();
   }
 
   runApp(
