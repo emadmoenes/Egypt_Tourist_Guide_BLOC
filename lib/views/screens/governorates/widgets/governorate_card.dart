@@ -39,7 +39,7 @@ class GovernorateCard extends StatelessWidget {
                   color: AppColors.greyColor.withValues(alpha: 0.2),
                   spreadRadius: 1,
                   blurRadius: 2,
-                  offset: Offset(2, 6),
+                  offset: const Offset(2, 6),
                 ),
               ],
               image: DecorationImage(
@@ -77,8 +77,8 @@ class GreyContainer extends StatelessWidget {
       width: double.infinity,
       height: baseContainerHeight * 0.23,
       alignment: Alignment.center,
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.all(10),
+      decoration: const BoxDecoration(
         borderRadius: BorderRadius.only(
           bottomRight: Radius.circular(10),
           bottomLeft: Radius.circular(10),
