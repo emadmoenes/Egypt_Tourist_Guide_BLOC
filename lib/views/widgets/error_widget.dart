@@ -13,7 +13,7 @@ class AppErrorWidget extends StatelessWidget {
         child: Text(
           'error_message'.tr(args: [errorMessage ?? 'unknown_error'.tr()]),
           textAlign: TextAlign.center,
-          style: TextStyle(color:AppColors.red, fontSize: 20),
+          style: const TextStyle(color:AppColors.red, fontSize: 20),
         ),
       ),
     );

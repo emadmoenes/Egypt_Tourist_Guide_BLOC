@@ -16,7 +16,7 @@ class SuggestedPlacesGrid extends StatelessWidget {
     return GridView.builder(
       padding: EdgeInsets.symmetric(horizontal: width * 0.05),
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: width * 0.03,

@@ -59,106 +59,102 @@ class ProfileScreen extends StatelessWidget {
         return SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(13.0),
-            child: Align(
-              alignment: Alignment.center,
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(height: 40),
-                    ProfilePic(),
-                    const SizedBox(height: 15),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'dark_theme'.tr(),
-                          style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                          ),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 40),
+                  const ProfilePic(),
+                  const SizedBox(height: 15),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'dark_theme'.tr(),
+                        style: const TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
                         ),
-                        BlocBuilder<ThemeBloc, ThemeState>(
-                          builder: (context, state) {
-                            ThemeBloc themeBloc = context.read<ThemeBloc>();
-                            return Switch(
-                                value: themeBloc.theme == 'dark',
-                                splashRadius: 10,
-                                onChanged: (value) {
-                                  themeBloc.add(ToggleThemeEvent());
-                                });
-                          },
+                      ),
+                      BlocBuilder<ThemeBloc, ThemeState>(
+                        builder: (context, state) {
+                          ThemeBloc themeBloc = context.read<ThemeBloc>();
+                          return Switch(
+                              value: themeBloc.theme == 'dark',
+                              splashRadius: 10,
+                              onChanged: (value) {
+                                themeBloc.add(ToggleThemeEvent());
+                              });
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  const Divider(
+                    thickness: 1,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'profile_details'.tr(),
+                        style: const TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
                         ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    const Divider(
-                      thickness: 1,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'profile_details'.tr(),
-                          style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      ),
+                      // Save Button
+                      IconButton(
+                        icon: Icon(
+                          isEditing ? Icons.save : Icons.edit_note_rounded,
+                          size: 30,
                         ),
-                        // Save Button
-                        IconButton(
-                          icon: Icon(
-                            isEditing ? Icons.save : Icons.edit_note_rounded,
-                            size: 30,
-                          ),
-                          onPressed: () {
-                            if (isEditing) {
-                              if (_formKey.currentState!.validate() ) {
-                                profileBloc.add(UpdateProfileEvent(user));
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text('fix_form_errors'.tr()),
-                                    backgroundColor: AppColors.red,
-                                  ),
-                                );
-                              }
+                        onPressed: () {
+                          if (isEditing) {
+                            if (_formKey.currentState!.validate() ) {
+                              profileBloc.add(UpdateProfileEvent(user));
                             } else {
-                              profileBloc.add(ToggleEditingEvent());
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('fix_form_errors'.tr()),
+                                  backgroundColor: AppColors.red,
+                                ),
+                              );
                             }
-                          },
-                        ),
-                      ],
-                    ),
-                    const Divider(
-                      thickness: 1,
-                    ),
-                    ProfileCard(
-                      user: user,
-                      isEditing: isEditing,
-                      isPasswordVisible: profileBloc.isVisibleProfilePassword,
-                      onTogglePasswordVisibility: () {
-                        profileBloc.add(
-                          TogglePasswordVisibilityEvent(),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                    //---- Logout Button ------//
-                    LogOutButton(
-                      logOutFunction: () {
-                        authBloc.add(LogoutRequested());
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                          AppRoutes.loginRoute,
-                              (route) => false,
-                        );
-                      },
+                          } else {
+                            profileBloc.add(ToggleEditingEvent());
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                  const Divider(
+                    thickness: 1,
+                  ),
+                  ProfileCard(
+                    user: user,
+                    isEditing: isEditing,
+                    isPasswordVisible: profileBloc.isVisibleProfilePassword,
+                    onTogglePasswordVisibility: () {
+                      profileBloc.add(
+                        TogglePasswordVisibilityEvent(),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  //---- Logout Button ------//
+                  LogOutButton(
+                    logOutFunction: () {
+                      authBloc.add(LogoutRequested());
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                        AppRoutes.loginRoute,
+                            (route) => false,
+                      );
+                    },
 
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

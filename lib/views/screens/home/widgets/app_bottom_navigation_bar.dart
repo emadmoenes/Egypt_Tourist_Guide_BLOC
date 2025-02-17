@@ -23,19 +23,19 @@ class AppBottomNavigationBar extends StatelessWidget {
           unselectedItemColor: AppColors.grey,
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
+              icon: const Icon(Icons.home_outlined),
               label: 'home'.tr(),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.location_on_outlined),
+              icon: const Icon(Icons.location_on_outlined),
               label: 'governorates'.tr(),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.favorite_outline_rounded),
+              icon: const Icon(Icons.favorite_outline_rounded),
               label: 'liked'.tr(),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle_outlined),
+              icon: const Icon(Icons.account_circle_outlined),
               label: 'settings'.tr(),
             ),
           ],

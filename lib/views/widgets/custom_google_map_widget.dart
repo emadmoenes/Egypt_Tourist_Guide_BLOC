@@ -24,7 +24,6 @@ class CustomGoogleMapWidget extends StatelessWidget {
         initialPosition.target.latitude,
         initialPosition.target.longitude,
       ),
-      mapType: MapType.normal,
       // map position
       initialCameraPosition: initialPosition,
       zoomControlsEnabled: false,

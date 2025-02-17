@@ -31,7 +31,7 @@ class ProfilePic extends StatelessWidget {
                       Navigator.pop(context);
                       profileBloc.add(UpdateProfileImageFromCamEvent());
                     } catch (e) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content: Text('Cannot change profile photo')));
                     }
                   },
@@ -45,8 +45,11 @@ class ProfilePic extends StatelessWidget {
                       Navigator.pop(context);
                       profileBloc.add(UpdateProfileImageFromGallEvent());
                     } catch (e) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text('Cannot change profile photo')));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Cannot change profile photo'),
+                        ),
+                      );
                     }
                   },
                 ),
@@ -59,8 +62,11 @@ class ProfilePic extends StatelessWidget {
                       Navigator.pop(context);
                       profileBloc.add(RemoveProfileImageEvent());
                     } catch (e) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text('Cannot change profile photo')));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Cannot change profile photo'),
+                        ),
+                      );
                     }
                   },
                 ),
@@ -96,7 +102,7 @@ class ProfilePic extends StatelessWidget {
                 backgroundColor: AppColors.greyColor.withValues(alpha: 0.8),
                 child: IconButton(
                   onPressed: () => showImagePickerOptions(context),
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.edit,
                     color: AppColors.white,
                   ),

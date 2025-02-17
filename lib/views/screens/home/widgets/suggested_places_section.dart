@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:egypt_tourist_guide/controllers/places_bloc/places_bloc.dart';
 import 'package:egypt_tourist_guide/data.dart';
 import 'package:egypt_tourist_guide/views/screens/home/widgets/suggested_places_grid.dart';
@@ -6,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-
 import '../../../../models/place_model.dart';
 
 class SuggestedPlacesSection extends StatelessWidget {
@@ -15,7 +15,8 @@ class SuggestedPlacesSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PlacesBloc, PlacesState>(builder: (context, state) {
-      List<PlacesModel> places = PLACES;
+      final placesBloc = context.read<PlacesBloc>();
+      List<PlacesModel> places = placesBloc.placesV;
       if (state is PlacesLoaded) {
         if (state.places.isEmpty) {
           return Center(
@@ -25,13 +26,13 @@ class SuggestedPlacesSection extends StatelessWidget {
           places = state.places;
         }
       } else if (state is PlacesError) {
-        print(state.message);
+        log(state.message);
         return AppErrorWidget(errorMessage: state.message);
       }
       return Skeletonizer(
         enabled: state is PlacesLoading,
         child: SuggestedPlacesGrid(
-          suggestedPlaces: places,
+          suggestedPlaces: places.isEmpty ? PLACES : places,
         ),
       );
     });

@@ -19,7 +19,7 @@ class PopularPlacesListView extends StatelessWidget {
         place: popularPlacesList[index],
         isWide: true,
       ),
-      separatorBuilder: (context, counter) => SizedBox(
+      separatorBuilder: (context, counter) => const SizedBox(
         width: 20,
       ),
       itemCount: popularPlacesList.length,

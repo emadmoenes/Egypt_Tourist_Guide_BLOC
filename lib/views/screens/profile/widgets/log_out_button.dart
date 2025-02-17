@@ -23,7 +23,7 @@ class LogOutButton extends StatelessWidget {
       ),
       child: Text(
         'logout'.tr(),
-        style: TextStyle(color: AppColors.white, fontSize: 18),
+        style: const TextStyle(color: AppColors.white, fontSize: 18),
       ),
     );
   }

@@ -72,7 +72,7 @@ class _PlaceDetailsScreenState extends State<PlaceDetailsScreen> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10.0,
           ),
           HomeSectionTitle(text: 'Location'.tr()),

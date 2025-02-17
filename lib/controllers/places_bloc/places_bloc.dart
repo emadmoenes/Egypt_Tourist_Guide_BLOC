@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,7 +7,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:egypt_tourist_guide/data.dart';
 import 'package:egypt_tourist_guide/models/place_model.dart';
 import '../../core/services/firebase_service.dart';
+
 part 'places_event.dart';
+
 part 'places_state.dart';
 
 class PlacesBloc extends Bloc<PlacesEvent, PlacesState> {
@@ -32,6 +33,7 @@ class PlacesBloc extends Bloc<PlacesEvent, PlacesState> {
   Future<void> _loadPlaces(
       LoadPlacesEvent event, Emitter<PlacesState> emit) async {
     emit(PlacesLoading());
+    await Future.delayed(const Duration(milliseconds: 600));
     // Get places from firebase
     placesV = [];
     if (event.isEnglish) {
@@ -50,6 +52,7 @@ class PlacesBloc extends Bloc<PlacesEvent, PlacesState> {
   Future<void> _loadMorePlaces(
       LoadMorePlacesEvent event, Emitter<PlacesState> emit) async {
     emit(PlacesLoading());
+    await Future.delayed(const Duration(milliseconds: 600));
     emit(PlacesLoaded(places: PLACES));
   }
 
@@ -105,14 +108,6 @@ class PlacesBloc extends Bloc<PlacesEvent, PlacesState> {
       emit(FavouritePlacesSuccess(places: favPlacesP));
 
       emit(FavoriteToggledState(places: favPlacesP, place: placeE));
-      // placesV
-      //     .where(
-      //       (place) => place.id == placeE.id
-      //           ? place.isFav = placeE.isFav
-      //           : place.isFav,
-      //     )
-      //     .toList();
-      // emit(PlacesLoaded(places: placesV));
     } catch (e) {
       emit(PlacesError(message: e.toString()));
     }
@@ -127,10 +122,11 @@ class PlacesBloc extends Bloc<PlacesEvent, PlacesState> {
 
   List<PlacesModel> favPlacesP = [];
 
-  // handle get favourite places event
+  //-- handle get favourite places event --//
   Future<void> _getFavouritePlaces(
       GetFavouritePlaces event, Emitter<PlacesState> emit) async {
     emit(FavouritePlacesLoading());
+    await Future.delayed(const Duration(milliseconds: 600));
     favPlacesP = [];
     try {
       List<int> placesId = await FirebaseService.getUserFavouritePlacesId(
@@ -140,18 +136,12 @@ class PlacesBloc extends Bloc<PlacesEvent, PlacesState> {
         favPlacesP.add(await FirebaseService.getPlaceById(
             id: id, isEnglish: event.isEnglish));
       }
-      //Making the places isFav true for all places
+      // Making the places isFav true for places in fav places list
       for (var place in favPlacesP) {
         place.isFav = true;
       }
       emit(FavouritePlacesSuccess(places: favPlacesP));
       log('favourite places success with length: ${favPlacesP.length}');
-      // placesV
-      //     .where(
-      //       (place) => favPlacesP.contains(place) ? place.isFav = true : false,
-      //     )
-      //     .toList();
-      // emit(PlacesLoaded(places: placesV));
     } catch (e) {
       emit(PlacesError(message: e.toString()));
     }

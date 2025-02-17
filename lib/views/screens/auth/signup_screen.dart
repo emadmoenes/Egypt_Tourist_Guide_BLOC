@@ -36,7 +36,7 @@ class _SignupScreenState extends State<SignupScreen> {
       listener: (context, state) {
         if (state is AccountCreated) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Account created successfully')),
+            const SnackBar(content: Text('Account created successfully')),
           );
           isLoading = false;
           Navigator.pushNamedAndRemoveUntil(
@@ -58,7 +58,7 @@ class _SignupScreenState extends State<SignupScreen> {
         body: Stack(
           children: [
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(AppImages.signupBackground),
                   fit: BoxFit.cover,
@@ -69,11 +69,15 @@ class _SignupScreenState extends State<SignupScreen> {
               top: 40,
               right: 16,
               child: IconButton(
-                icon: Icon(Icons.language, color: Colors.white, size: 30),
+                icon: const Icon(
+                  Icons.language,
+                  color: Colors.white,
+                  size: 30,
+                ),
                 onPressed: () {
                   final newLocale = context.locale.languageCode == 'en'
-                      ? Locale('ar')
-                      : Locale('en');
+                      ? const Locale('ar')
+                      : const Locale('en');
                   context.setLocale(newLocale);
                 },
               ),
@@ -85,7 +89,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 width: MediaQuery.of(context).size.width * 1,
                 decoration: BoxDecoration(
                   color: AppColors.white.withValues(alpha: 0.5),
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(40),
                     topRight: Radius.circular(40),
                   ),
@@ -100,7 +104,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           const SizedBox(height: 20),
                           Text(
                             'signup'.tr(),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 32,
                               fontWeight: FontWeight.bold,
                               color: AppColors.black87Color,

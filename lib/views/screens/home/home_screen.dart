@@ -25,7 +25,7 @@ class HomeScreen extends StatelessWidget {
     ];
 
     return Scaffold(
-      bottomNavigationBar: AppBottomNavigationBar(),
+      bottomNavigationBar: const AppBottomNavigationBar(),
       appBar: AppBar(
           title: BlocBuilder<PlacesBloc, PlacesState>(
             builder: (context, state) {
@@ -52,10 +52,10 @@ class HomeScreen extends StatelessWidget {
                   onPressed: () async{
                     // Toggle between English and Arabic
                     final newLocale = context.locale.languageCode == 'en'
-                        ? Locale('ar')
-                        : Locale('en');
+                        ? const Locale('ar')
+                        : const Locale('en');
                     context.setLocale(newLocale);
-                    await Future.delayed(Duration(milliseconds: 300));
+                    await Future.delayed(const Duration(milliseconds: 300));
                     placesBloc.add(
                         LoadPlacesEvent(context.locale.languageCode == 'en'));
                   },
@@ -64,7 +64,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ]),
       body: Padding(
-        padding: EdgeInsets.symmetric(vertical: 11),
+        padding: const EdgeInsets.symmetric(vertical: 11),
         child: BlocBuilder<PlacesBloc, PlacesState>(
           builder: (context, state) {
             final placesBloc = context.read<PlacesBloc>();

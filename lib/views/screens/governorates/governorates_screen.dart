@@ -10,7 +10,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import '../../../controllers/places_bloc/places_bloc.dart';
 
-
 class GovernoratesScreen extends StatefulWidget {
   const GovernoratesScreen({super.key});
 
@@ -30,10 +29,10 @@ class _GovernoratesScreenState extends State<GovernoratesScreen> {
 
   //--- Get governorates from firebase ---//
   Future<void> getGovernoratesFromFirebase() async {
-
     var arabicGovernorateListFirebase =
         await FirebaseService.getArabicGovernorates();
     var governorateListFirebase = await FirebaseService.getGovernorates();
+    await Future.delayed(const Duration(milliseconds: 300));
     setState(() {
       governorateList = governorateListFirebase;
       arabicGovernorateList = arabicGovernorateListFirebase;
@@ -51,7 +50,6 @@ class _GovernoratesScreenState extends State<GovernoratesScreen> {
     }
     return staticGovernoratesData;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +69,6 @@ class _GovernoratesScreenState extends State<GovernoratesScreen> {
       child: Skeletonizer(
         enabled: governorateList.isEmpty || arabicGovernorateList.isEmpty,
         child: ListView.separated(
-          scrollDirection: Axis.vertical,
           itemBuilder: (context, index) {
             var governorate =
                 arabicGovernorateList.isEmpty || governorateList.isEmpty
