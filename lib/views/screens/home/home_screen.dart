@@ -18,9 +18,9 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // List of different screens using Screen Model
     List<ScreenModel> screens = [
-      ScreenModel(title: 'app_title'.tr(), body: HomeScreenBody()),
-      ScreenModel(title: 'governorates'.tr(), body: GovernoratesScreen()),
-      ScreenModel(title: 'favorites_title'.tr(), body: FavoritesScreen()),
+      ScreenModel(title: 'app_title'.tr(), body: const HomeScreenBody()),
+      ScreenModel(title: 'governorates'.tr(), body: const GovernoratesScreen()),
+      ScreenModel(title: 'favorites_title'.tr(), body: const FavoritesScreen()),
       ScreenModel(title: 'settings_title'.tr(), body: ProfileScreen()),
     ];
 
