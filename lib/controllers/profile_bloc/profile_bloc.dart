@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:egypt_tourist_guide/core/services/firebase_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:egypt_tourist_guide/core/services/shared_prefs_service.dart';
@@ -46,7 +45,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   Future<void> _loadProfileData(
       LoadProfileEvent event, Emitter<ProfileState> emit) async {
     emit(ProfileLoadingState());
-    await Future.delayed(const Duration(milliseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 400));
     try {
       // Get user data from firebase
       user = await FirebaseService.getUserData();
@@ -108,8 +107,12 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
   // handle update profile image from camera event
   _updateProfileImageFromCam(
-      UpdateProfileImageFromCamEvent event, Emitter<ProfileState> emit) async {
-    final XFile? image = await picker.pickImage(source: ImageSource.camera);
+    UpdateProfileImageFromCamEvent event,
+    Emitter<ProfileState> emit,
+  ) async {
+    final XFile? image = await picker.pickImage(
+      source: ImageSource.camera,
+    );
     if (image != null) {
       // Save the photo locally and get the file path
       final String? savedFilePath = await savePhotoLocally(image);
@@ -128,7 +131,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   // handle update profile image from gallery event
   _updateProfileImageFromGal(
       UpdateProfileImageFromGallEvent event, Emitter<ProfileState> emit) async {
-    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    final XFile? image = await picker.pickImage(
+      source: ImageSource.gallery,
+    );
     if (image != null) {
       // Save the photo locally and get the file path
       final String? savedFilePath = await savePhotoLocally(image);
