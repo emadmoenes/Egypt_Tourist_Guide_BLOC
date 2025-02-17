@@ -93,10 +93,6 @@ class MyApp extends StatelessWidget {
                   foregroundColor: AppColors.lightPurple,
                 ),
               ),
-              appBarTheme: AppBarTheme(
-                iconTheme: IconThemeData(color: AppColors.blackColor),
-                elevation: 0.8,
-              ),
               dividerTheme: DividerThemeData(
                 color: AppColors.lightPurple,
               ),
@@ -112,10 +108,6 @@ class MyApp extends StatelessWidget {
                 style: IconButton.styleFrom(
                   foregroundColor: AppColors.deepPurpleAccent,
                 ),
-              ),
-              appBarTheme: AppBarTheme(
-                iconTheme: IconThemeData(color: AppColors.white),
-                elevation: 0.8,
               ),
               dividerTheme: DividerThemeData(
                 color: AppColors.deepPurpleAccent,
