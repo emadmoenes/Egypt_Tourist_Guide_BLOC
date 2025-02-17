@@ -64,8 +64,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       color: AppColors.white, size: 30),
                   onPressed: () {
                     final newLocale = context.locale.languageCode == 'en'
-                        ? Locale('ar')
-                        : Locale('en');
+                        ? const Locale('ar')
+                        : const Locale('en');
                     context.setLocale(newLocale);
                   },
                 ),
@@ -98,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             const SizedBox(height: 20),
                             Text(
                               'login'.tr(),
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 32,
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.black87Color,

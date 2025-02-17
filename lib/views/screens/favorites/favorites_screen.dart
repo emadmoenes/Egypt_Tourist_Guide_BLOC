@@ -4,16 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:egypt_tourist_guide/views/widgets/place_card.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:skeletonizer/skeletonizer.dart';
+import '../../../data.dart';
 
 class FavoritesScreen extends StatelessWidget {
   const FavoritesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // bool isEnglish = context.locale.toString() == 'en';
-    // context.read<PlacesBloc>().add(GetFavouritePlaces(isEnglish));
+    final placesBloc = context.read<PlacesBloc>();
     double width = MediaQuery.sizeOf(context).width;
-    List<PlacesModel> places = context.read<PlacesBloc>().favPlacesP;
+    List<PlacesModel> places = placesBloc.favPlacesP;
     return BlocConsumer<PlacesBloc, PlacesState>(
       listener: (context, state) {
         if (state is FavoriteToggledState) {
@@ -23,9 +24,7 @@ class FavoritesScreen extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        if (state is FavouritePlacesLoading) {
-          return Center(child: CircularProgressIndicator());
-        } else if (state is PlacesError) {
+        if (state is PlacesError) {
           return Center(
             child: Text(state.message),
           );
@@ -33,28 +32,40 @@ class FavoritesScreen extends StatelessWidget {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            (places.isEmpty)
-                ? Center(
-                    child: Text('no_favorites'.tr()),
-                  )
-                : Expanded(
-                    child: ListView.builder(
-                      itemCount: places.length,
-                      itemBuilder: (context, index) {
-                        final place = places[index];
-                        return Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: width * 0.05,
-                            vertical: width * 0.02,
-                          ),
-                          child: PlaceCard(
-                            place: place,
-                            isWide: true,
-                          ),
-                        );
-                      },
-                    ),
+            Visibility(
+              visible: places.isEmpty && state is FavouritePlacesSuccess,
+              child: Center(
+                child: Text('no_favorites'.tr()),
+              ),
+            ),
+            Visibility(
+              visible: state is FavouritePlacesLoading || places.isNotEmpty,
+              child: Expanded(
+                child: Skeletonizer(
+                  enabled: state is FavouritePlacesLoading,
+                  child: ListView.builder(
+                    itemCount: places.isEmpty
+                        ? PLACES.sublist(0, 4).length
+                        : places.length,
+                    itemBuilder: (context, index) {
+                      final place = places.isEmpty
+                          ? PLACES.sublist(0, 4)[index]
+                          : places[index];
+                      return Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: width * 0.05,
+                          vertical: width * 0.02,
+                        ),
+                        child: PlaceCard(
+                          place: place,
+                          isWide: true,
+                        ),
+                      );
+                    },
                   ),
+                ),
+              ),
+            ),
           ],
         );
       },

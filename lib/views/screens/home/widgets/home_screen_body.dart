@@ -20,13 +20,13 @@ class HomeScreenBody extends StatelessWidget {
               return HomeSectionTitle(text: 'popular-places'.tr());
             },
           ),
-          PopularPlacesSection(),
+          const PopularPlacesSection(),
           BlocBuilder<PlacesBloc, PlacesState>(
             builder: (context, state) {
               return HomeSectionTitle(text: 'suggested_places'.tr());
             },
           ),
-          SuggestedPlacesSection(),
+          const SuggestedPlacesSection(),
         ],
       ),
     );

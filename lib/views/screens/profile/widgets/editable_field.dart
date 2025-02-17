@@ -30,7 +30,7 @@ class EditableField extends StatelessWidget {
       children: [
         Text(
           label,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
@@ -64,7 +64,7 @@ class EditableField extends StatelessWidget {
               )
             : Text(
                 isPassword ? '••••••••' : value,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                 ),
               ),

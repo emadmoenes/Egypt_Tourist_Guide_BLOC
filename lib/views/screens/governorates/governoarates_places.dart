@@ -46,7 +46,6 @@ class GovernoratesPlaces extends StatelessWidget {
                   padding: const EdgeInsetsDirectional.only(bottom: 10.0),
                   child: SuggestedPlacesGrid(
                     suggestedPlaces: places,
-                    isWide: false,
                   ),
                 );
               },
@@ -80,14 +79,14 @@ class GovernorateContainer extends StatelessWidget {
         end: width * 0.05,
         top: 10.0,
       ),
-      padding: EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
             color: AppColors.greyColor.withValues(alpha: 0.3),
             spreadRadius: 2,
             blurRadius: 3,
-            offset: Offset(2, 6),
+            offset: const Offset(2, 6),
           ),
         ],
         borderRadius: BorderRadius.circular(15),
@@ -103,7 +102,7 @@ class GovernorateContainer extends StatelessWidget {
         children: [
           Text(
             governorate.name,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16,
               color: AppColors.white,
               overflow: TextOverflow.ellipsis,
@@ -113,7 +112,7 @@ class GovernorateContainer extends StatelessWidget {
           ),
           Text(
             governorate.description,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 14,
               color: AppColors.white,
               overflow: TextOverflow.ellipsis,

@@ -19,6 +19,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'controllers/profile_bloc/profile_bloc.dart';
 import 'firebase_options.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -26,11 +27,8 @@ Future<void> main() async {
   );
   await EasyLocalization.ensureInitialized();
 
-
-
   await SharedPrefsService.init();
-  String? token =
-      SharedPrefsService.getStringData(key: AppStringEn.tokenKey);
+  String? token = SharedPrefsService.getStringData(key: AppStringEn.tokenKey);
 
   Widget startWidget = LoginScreen();
   if (token != null) {
@@ -50,7 +48,6 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-
   const MyApp({
     super.key,
     required this.startPage,
@@ -72,7 +69,6 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => ProfileBloc()..add(LoadProfileEvent()),
         ),
-    
         BlocProvider(
           create: (context) {
             final themeBloc = ThemeBloc();
@@ -86,8 +82,13 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(
+                primaryContainer: AppColors.white,
+                primary: AppColors.primaryColor,
+                seedColor: AppColors.white,
+              ),
               fontFamily: 'merriweather',
-              appBarTheme: AppBarTheme(
+              appBarTheme: const AppBarTheme(
                 iconTheme: IconThemeData(color: AppColors.blackColor),
                 elevation: 0.8,
               ),
@@ -96,14 +97,14 @@ class MyApp extends StatelessWidget {
                   foregroundColor: AppColors.lightPurple,
                 ),
               ),
-              dividerTheme: DividerThemeData(
+              dividerTheme: const DividerThemeData(
                 color: AppColors.lightPurple,
               ),
             ),
             darkTheme: ThemeData(
               fontFamily: 'merriweather',
               brightness: Brightness.dark,
-              appBarTheme: AppBarTheme(
+              appBarTheme: const AppBarTheme(
                 iconTheme: IconThemeData(color: AppColors.white),
                 elevation: 0.8,
               ),
@@ -112,7 +113,7 @@ class MyApp extends StatelessWidget {
                   foregroundColor: AppColors.deepPurpleAccent,
                 ),
               ),
-              dividerTheme: DividerThemeData(
+              dividerTheme: const DividerThemeData(
                 color: AppColors.deepPurpleAccent,
               ),
             ),
@@ -154,8 +155,10 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       );
     default:
       return MaterialPageRoute(
-        builder: (_) => Scaffold(
-          body: Center(child: Text('Route not found')),
+        builder: (_) => const Scaffold(
+          body: Center(
+            child: Text('Route not found'),
+          ),
         ),
       );
   }
