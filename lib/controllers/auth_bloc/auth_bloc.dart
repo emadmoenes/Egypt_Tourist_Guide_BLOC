@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_events.dart';
 import 'package:egypt_tourist_guide/controllers/auth_bloc/auth_states.dart';
 import 'package:egypt_tourist_guide/core/app_strings_en.dart';
