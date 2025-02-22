@@ -45,7 +45,7 @@ class ProfileScreen extends StatelessWidget {
         bool isEditing = profileBloc.isEditing;
         UserModel user = profileBloc.user;
         if (state is ProfileLoadingState) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }
@@ -61,7 +61,7 @@ class ProfileScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SizedBox(height: 40),
-                    CircleAvatar(
+                    const CircleAvatar(
                       radius: 70,
                       backgroundImage: AssetImage(AppImages.user),
                     ),
@@ -71,7 +71,7 @@ class ProfileScreen extends StatelessWidget {
                       children: [
                         Text(
                           'dark_theme'.tr(),
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 17,
                             fontWeight: FontWeight.bold,
                           ),
@@ -90,7 +90,7 @@ class ProfileScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 10),
-                    Divider(
+                    const Divider(
                       thickness: 1,
                     ),
                     Row(
@@ -98,7 +98,7 @@ class ProfileScreen extends StatelessWidget {
                       children: [
                         Text(
                           'profile_details'.tr(),
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 17,
                             fontWeight: FontWeight.bold,
                           ),
@@ -128,7 +128,7 @@ class ProfileScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Divider(
+                    const Divider(
                       thickness: 1,
                     ),
                     ProfileCard(
