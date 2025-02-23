@@ -104,6 +104,7 @@ The app contains four Blocs:
 
 - Change profile options:
 ![Alt text](assets/images/screenshots/change_profile_output1.jpg)
+
 ![Alt text](assets/images/screenshots/change_profile_output2.jpg)
 
 ## **Packages Used**
