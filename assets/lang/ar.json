@@ -54,5 +54,9 @@
   "take_photo": "التقط صورة",
   "choose_from_gallery": "اختر من المعرض",
   "remove-photo": "إزالة الصورة",
-  "Location": "الموقع"
+  "Location": "الموقع",
+  "auth-not-available": "لا تتوفر ميزة المصادقة باستخدام البصمة على هذا الجهاز",
+  "authentication-Done": "تم المصادقة بنجاح",
+  "scan-fingerprint": "يرجى مسح بصمة إصبعك للتحقق",
+  "access-denied": "غير مسموح بالدخول"
 }
