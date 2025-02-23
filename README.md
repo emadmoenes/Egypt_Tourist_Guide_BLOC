@@ -96,7 +96,7 @@ The app contains four Blocs:
 3. **Home Page** → **Favorites Page**
 4. **Home Page** → **Profile Page**
 
--------
+------------
 
 ## Screenshots
 
@@ -104,6 +104,7 @@ The app contains four Blocs:
 | -------------------------------| ---------------------------------------| ------------------------------|
 | ![Place det](place_details.png)| ![Profile options](change_profile1.png)| ![Output](change_profile2.png)|
 
+-------------------------
 
 ## **Packages Used**
 - **SharedPreferences**: For local data storage and offline support ==> https://pub.dev/packages/shared_preferences.
