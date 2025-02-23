@@ -33,10 +33,11 @@ class _PlaceDetailsScreenState extends State<PlaceDetailsScreen> {
   }
 
   //------- Cairo position -------//
-  CameraPosition initialPosition({required LatLng position}) {
+  CameraPosition initialPosition(
+      {required double latitude, required double longitude}) {
     return CameraPosition(
       bearing: 192.8334901395799,
-      target: position,
+      target: LatLng(latitude, longitude),
       tilt: 59.440717697143555,
       zoom: 13.151926040649414,
     );
@@ -84,7 +85,8 @@ class _PlaceDetailsScreenState extends State<PlaceDetailsScreen> {
               child: CustomGoogleMapWidget(
                   placeName: widget.placeModel.name,
                   initialPosition: initialPosition(
-                    position: widget.placeModel.location,
+                    latitude: widget.placeModel.location.latitude,
+                    longitude: widget.placeModel.location.longitude,
                   ),
                   onMapCreated: (GoogleMapController controller) {
                     _controller.complete(controller);

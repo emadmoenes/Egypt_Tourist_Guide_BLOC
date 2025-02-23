@@ -47,8 +47,8 @@ class ProfileScreen extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        ProfileBloc profileBloc = context.read<ProfileBloc>();
-        AuthBloc authBloc = context.read<AuthBloc>();
+        ProfileBloc profileBloc = ProfileBloc.get(context);
+        AuthBloc authBloc = AuthBloc.get(context);
         bool isEditing = profileBloc.isEditing;
         UserModel user = profileBloc.user;
         if (state is ProfileLoadingState) {
@@ -79,7 +79,7 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       BlocBuilder<ThemeBloc, ThemeState>(
                         builder: (context, state) {
-                          ThemeBloc themeBloc = context.read<ThemeBloc>();
+                          ThemeBloc themeBloc = ThemeBloc.get(context);
                           return Switch(
                               value: themeBloc.theme == 'dark',
                               splashRadius: 10,

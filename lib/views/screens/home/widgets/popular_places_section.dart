@@ -19,7 +19,7 @@ class PopularPlacesSection extends StatelessWidget {
       height: width * 0.81 * 0.75,
       child: BlocBuilder<PlacesBloc, PlacesState>(
         builder: (context, state) {
-          final placesBloc = context.read<PlacesBloc>();
+          final placesBloc = PlacesBloc.get(context);
           List<PlacesModel> places = placesBloc.placesV;
 
           if (state is PlacesLoaded) {

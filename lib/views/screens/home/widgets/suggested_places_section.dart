@@ -15,7 +15,7 @@ class SuggestedPlacesSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PlacesBloc, PlacesState>(builder: (context, state) {
-      final placesBloc = context.read<PlacesBloc>();
+      final placesBloc = PlacesBloc.get(context);
       List<PlacesModel> places = placesBloc.placesV;
       if (state is PlacesLoaded) {
         if (state.places.isEmpty) {

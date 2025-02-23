@@ -31,7 +31,7 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     bool isLoading = false;
-    AuthBloc authBloc = context.read<AuthBloc>();
+    AuthBloc authBloc = AuthBloc.get(context);
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AccountCreated) {

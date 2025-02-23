@@ -12,7 +12,7 @@ class FavoritesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final placesBloc = context.read<PlacesBloc>();
+    final placesBloc = PlacesBloc.get(context);
     double width = MediaQuery.sizeOf(context).width;
     List<PlacesModel> places = placesBloc.favPlacesP;
     return BlocConsumer<PlacesBloc, PlacesState>(

@@ -19,6 +19,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<UpdateAvatarEvent>(_updateProfileImage);
     on<RemoveProfileImageEvent>(_removeProfileImage);
   }
+  // Static method to return profile bloc object (to apply singleton pattern)
+  static ProfileBloc get(context) => BlocProvider.of(context);
 
   UserModel user = UserModel(
     fullName: 'User Name',

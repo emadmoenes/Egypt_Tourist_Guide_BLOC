@@ -6,7 +6,6 @@ import 'package:egypt_tourist_guide/models/governorate_model.dart';
 import 'package:egypt_tourist_guide/models/place_model.dart';
 import 'package:egypt_tourist_guide/views/screens/governorates/widgets/governorate_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import '../../../controllers/places_bloc/places_bloc.dart';
 
@@ -57,7 +56,7 @@ class _GovernoratesScreenState extends State<GovernoratesScreen> {
     double width = MediaQuery.sizeOf(context).width;
     //--- Get governorate's places data ---//
     List<PlacesModel> getGovernorateData(String governorateId) {
-      final placesBloc = context.read<PlacesBloc>();
+      final placesBloc = PlacesBloc.get(context);
 
       return placesBloc.placesV
           .where((place) => place.governorateId == governorateId)

@@ -14,6 +14,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LogoutRequested>(_onLogoutRequested);
   }
 
+  // Static method to return auth bloc object (to apply singleton pattern)
+  static AuthBloc get(context) => BlocProvider.of(context);
+
   // handle login request event
   Future<void> _onLoginRequested(
       LoginRequested event, Emitter<AuthState> emit) async {

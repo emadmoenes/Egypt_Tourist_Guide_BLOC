@@ -1,4 +1,5 @@
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class PlacesModel {
   final int id;
   final String? governorateId;
@@ -6,7 +7,7 @@ class PlacesModel {
   final String description;
   final String image;
   bool isFav;
-  final LatLng location;
+  final GeoPoint location;
 
   PlacesModel({
     required this.id,
@@ -26,7 +27,7 @@ class PlacesModel {
       description: map['description'] as String,
       image: map['image'] as String,
       isFav: map['isFav'] as bool,
-      location: const LatLng(25.7204, 32.6100),
+      location: map['location'] as GeoPoint,
     );
   }
 }

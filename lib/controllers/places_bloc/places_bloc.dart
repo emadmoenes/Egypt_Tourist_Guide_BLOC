@@ -27,6 +27,9 @@ class PlacesBloc extends Bloc<PlacesEvent, PlacesState> {
     on<GetFavouritePlaces>(_getFavouritePlaces);
   }
 
+  // Static method to return places bloc object (to apply singleton pattern)
+  static PlacesBloc get(context) => BlocProvider.of(context);
+
   List<PlacesModel> placesV = [];
 
   // handle load places event

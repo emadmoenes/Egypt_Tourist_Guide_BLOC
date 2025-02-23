@@ -27,7 +27,7 @@ class PlaceCard extends StatelessWidget {
         context.locale.toString() == 'ar' ? ARABICGOVERNORATES : GOVERNERATES;
     GovernorateModel placeGovernorate = governorateList
         .firstWhere((element) => element.id == place.governorateId);
-    final placesBloc = context.read<PlacesBloc>();
+    final placesBloc = PlacesBloc.get(context);
     double bigContainerHeight = isWide ? width * 0.81 * 0.75 : width * 0.48;
     bool? isFav = place.isFav;
     return InkWell(

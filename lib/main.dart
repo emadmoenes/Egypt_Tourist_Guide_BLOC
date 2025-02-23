@@ -29,9 +29,9 @@ Future<void> main() async {
   await SharedPrefsService.init();
   String? token = SharedPrefsService.getStringData(key: AppStringEn.tokenKey);
 
-  Widget startWidget = LoginScreen();
+  Widget startWidget = const LoginScreen();
   if (token != null) {
-    startWidget = HomeScreen();
+    startWidget = const HomeScreen();
   }
 
   runApp(
@@ -137,10 +137,11 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     case AppRoutes.signupRoute:
       return SlideRightRoute(child: const SignupScreen());
     case AppRoutes.loginRoute:
-      return SlideRightRoute(child: const LoginScreen());
+      return FadeTransitionRoute(child: const LoginScreen());
     case AppRoutes.homeRoute:
-      return FadeTransitionRoute(child: HomeScreen());
+      return FadeTransitionRoute(child: const HomeScreen());
     case AppRoutes.placeDetailsRoute:
+      // Extract arguments and pass them to Place Details
       final args = settings.arguments as PlacesModel;
       return SlideRightRoute(child: PlaceDetailsScreen(placeModel: args));
     case AppRoutes.placesRoute:

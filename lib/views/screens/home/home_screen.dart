@@ -29,7 +29,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
           title: BlocBuilder<PlacesBloc, PlacesState>(
             builder: (context, state) {
-              final placesBloc = context.read<PlacesBloc>();
+              final placesBloc = PlacesBloc.get(context);
               return Text(
                 screens[placesBloc.currentPageIndex].title,
               );
@@ -38,8 +38,8 @@ class HomeScreen extends StatelessWidget {
           actions: [
             BlocBuilder<ThemeBloc, ThemeState>(
               builder: (context, state) {
-                ThemeBloc themeBloc = context.read<ThemeBloc>();
-                final placesBloc = context.read<PlacesBloc>();
+                ThemeBloc themeBloc = ThemeBloc.get(context);
+                final placesBloc = PlacesBloc.get(context);
 
                 return IconButton(
                   icon: Icon(
@@ -49,7 +49,7 @@ class HomeScreen extends StatelessWidget {
                         : AppColors.white,
                     size: 30,
                   ),
-                  onPressed: () async{
+                  onPressed: () async {
                     // Toggle between English and Arabic
                     final newLocale = context.locale.languageCode == 'en'
                         ? const Locale('ar')
@@ -67,7 +67,7 @@ class HomeScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 11),
         child: BlocBuilder<PlacesBloc, PlacesState>(
           builder: (context, state) {
-            final placesBloc = context.read<PlacesBloc>();
+            final placesBloc = PlacesBloc.get(context);
             return screens[placesBloc.currentPageIndex].body;
           },
         ),
