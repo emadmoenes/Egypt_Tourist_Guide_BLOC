@@ -92,7 +92,7 @@ The app contains four Blocs:
 
 ## Navigation Flow
 1. **Login Page** → **Signup Page** → **Login Page** → **Home Page**
-2. **Home Page** → **Governorates Page** → **Landmarks Page**
+2. **Home Page** → **Governorates Page** → **Landmarks Page** → **Landmarks details**
 3. **Home Page** → **Favorites Page**
 4. **Home Page** → **Profile Page**
 
