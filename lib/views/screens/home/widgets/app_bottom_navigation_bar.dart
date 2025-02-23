@@ -26,19 +26,22 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
       final bool canAuthenticate =
           canAuthenticateWithBiometrics || await auth.isDeviceSupported();
       if (canAuthenticate || canAuthenticateWithBiometrics) {
-        _isAvailable = true;
-        setState(() {});
+        setState(() {
+          _isAvailable = true;
+        });
       } else {
         log('Auth with biometrics feature is not available');
-        _isAvailable = false;
-        setState(() {});
+        setState(() {
+          _isAvailable = false;
+        });
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('auth-not-available'.tr()),
         ));
       }
     } on PlatformException catch (e) {
-      _isAvailable = false;
-      setState(() {});
+      setState(() {
+        _isAvailable = false;
+      });
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('auth-not-available'.tr()),
       ));

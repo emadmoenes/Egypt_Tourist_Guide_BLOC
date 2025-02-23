@@ -46,7 +46,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   Future<void> _loadProfileData(
       LoadProfileEvent event, Emitter<ProfileState> emit) async {
     emit(ProfileLoadingState());
-    await Future.delayed(const Duration(milliseconds: 400));
+    await Future.delayed(const Duration(milliseconds: 300));
     try {
       // Get user data from firebase
       user = await FirebaseService.getUserData();
