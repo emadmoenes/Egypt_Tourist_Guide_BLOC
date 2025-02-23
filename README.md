@@ -99,13 +99,11 @@ The app contains four Blocs:
 -------
 
 ## Screenshots
-- Google maps widget in place details:
-![Alt text](place_details.png)
 
-- Change profile options:
-![Alt text](change_profile1.png)
+|  Google maps widget            | Change profile options                 | Change profile Output         |
+| -------------------------------| ---------------------------------------| ------------------------------|
+| ![Place det](place_details.png)| ![Profile options](change_profile1.png)| ![Output](change_profile2.png)|
 
-![Alt text](change_profile2.png)
 
 ## **Packages Used**
 - **SharedPreferences**: For local data storage and offline support ==> https://pub.dev/packages/shared_preferences.
