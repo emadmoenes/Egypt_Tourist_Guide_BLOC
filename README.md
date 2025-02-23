@@ -99,9 +99,12 @@ The app contains four Blocs:
 -------
 
 ## **Screenshots
-google maps widget in place details:
+- Google maps widget in place details:
 ![Alt text](assets/images/screenshots/place_details_output.png)
 
+- Change profile options:
+![Alt text](assets/images/screenshots/change_profile_output1.jpg)
+![Alt text](assets/images/screenshots/change_profile_output2.jpg)
 
 ## **Packages Used**
 - **SharedPreferences**: For local data storage and offline support ==> https://pub.dev/packages/shared_preferences.
