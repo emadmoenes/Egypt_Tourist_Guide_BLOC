@@ -5,7 +5,7 @@
 The **Egypt Tourist Guide** is a mobile application designed to help tourists explore landmarks, museums, and attractions across various Egyptian governorates. The app provides a user-friendly interface for discovering popular places, saving favorites, and managing user profiles. This project aims to enhance the tourism experience by offering curated suggestions and personalization.
 it manages state using Bloc. (in controllers folder)
 
-## State Management(BLOC)
+## State Management (BLOC)
 The app contains four Blocs:
                                       
 1- **User Authentication**:                  
@@ -82,7 +82,7 @@ The app contains four Blocs:
 ---
 
 ## Navigation Flow
-1. **Signup Page** → **Login Page** → **Welcome Page** → **Home Page**
+1. **Login Page** → **Signup Page** → **Login Page** → **Home Page**
 2. **Home Page** → **Governorates Page** → **Landmarks Page**
 3. **Home Page** → **Favorites Page**
 4. **Home Page** → **Profile Page**
