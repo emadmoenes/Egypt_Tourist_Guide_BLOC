@@ -20,7 +20,7 @@ The app contains four Blocs:
 
   -------------------
 
-## Features
+## Pages & Features
 
 ### 1. Signup Page
 - **Input Fields**: Full Name, Email, Password, confirm password, Phone Number (optional).
