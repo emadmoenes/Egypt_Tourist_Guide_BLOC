@@ -29,7 +29,6 @@ class PlaceCard extends StatelessWidget {
         .firstWhere((element) => element.id == place.governorateId);
     final placesBloc = PlacesBloc.get(context);
     double bigContainerHeight = isWide ? width * 0.81 * 0.75 : width * 0.48;
-    bool? isFav = place.isFav;
     return InkWell(
       // on Tab go to place details
       onTap: () => Navigator.pushNamed(
@@ -64,7 +63,6 @@ class PlaceCard extends StatelessWidget {
           placesBloc: placesBloc,
           placeGovernorate: placeGovernorate,
           place: place,
-          isFav: isFav,
           textFactor: textFactor,
         ),
       ),
@@ -82,7 +80,6 @@ class SecondContainer extends StatelessWidget {
     required this.place,
     required this.isWide,
     required this.textFactor,
-    this.isFav,
     required this.placeGovernorate,
   });
 
@@ -92,7 +89,6 @@ class SecondContainer extends StatelessWidget {
   final bool isWide;
   final double textFactor;
   final GovernorateModel placeGovernorate;
-  bool? isFav;
 
   @override
   Widget build(BuildContext context) {
@@ -143,13 +139,14 @@ class SecondContainer extends StatelessWidget {
                       ),
                     );
                   },
-                  child: BlocConsumer<PlacesBloc, PlacesState>(
-                    listener: (context, state) {
-                      if (state is FavoriteToggledState) {
-                        isFav = state.place?.isFav;
-                      }
-                    },
+                  child: BlocBuilder<PlacesBloc, PlacesState>(
                     builder: (context, state) {
+                      bool? isFav = place.isFav;
+                      if (state is FavoriteToggledState) {
+                        if (state.place?.id == place.id) {
+                          isFav = state.place?.isFav;
+                        }
+                      }
                       return CircleAvatar(
                         backgroundColor: AppColors.white,
                         maxRadius: isWide ? 10 : 8,

@@ -66,10 +66,10 @@ class PlacesBloc extends Bloc<PlacesEvent, PlacesState> {
       User? user = FirebaseService.authInstance.currentUser;
       // Call the toggleFavouritePlace method from firebase service
       await FirebaseService.toggleFavouritePlace(user: user, placeE: placeE);
-      emit(FavoriteToggledState(place: placeE));
-
-      // Getting the favourite places again
+      // -- Getting the favourite places again
       favPlacesP = [];
+      // Get the user favourite places using the getUserFavouritePlacesId method
+      // from firebase service
       List<int> placesId = await FirebaseService.getUserFavouritePlacesId(
           uid: FirebaseService.authInstance.currentUser!.uid,
           isEnglish: event.isEnglish);
@@ -79,15 +79,17 @@ class PlacesBloc extends Bloc<PlacesEvent, PlacesState> {
         favPlacesP.add(place);
       }
       // Making the places isFav true for all places
-      for (var place in favPlacesP) {
+      for (PlacesModel place in favPlacesP) {
         place.isFav = true;
       }
       // apply it in places list in home
-      for (var element in placesV) {
-        favPlacesP.contains(element)
-            ? element.isFav = true
-            : element.isFav = false;
+      for (PlacesModel place in placesV) {
+        if (place.id == placeE.id) {
+          place.isFav = !place.isFav;
+        }
       }
+
+      emit(FavoriteToggledState(place: placeE));
       emit(FavouritePlacesSuccess(places: favPlacesP));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'no_user_found') {
@@ -98,7 +100,7 @@ class PlacesBloc extends Bloc<PlacesEvent, PlacesState> {
     }
   }
 
-  // handle bottom navigation event
+  //-- handle bottom navigation event -- //
   Future<void> _changeBottomNavigationIndex(
       ChangeBottomNavigationIndexEvent event, Emitter<PlacesState> emit) async {
     currentPageIndex = event.index;
@@ -115,21 +117,24 @@ class PlacesBloc extends Bloc<PlacesEvent, PlacesState> {
     favPlacesP = [];
     try {
       List<int> placesId = await FirebaseService.getUserFavouritePlacesId(
-          uid: FirebaseAuth.instance.currentUser!.uid,
-          isEnglish: event.isEnglish);
+        uid: FirebaseService.authInstance.currentUser!.uid,
+        isEnglish: event.isEnglish,
+      );
       for (int id in placesId) {
-        favPlacesP.add(await FirebaseService.getPlaceById(
-            id: id, isEnglish: event.isEnglish));
+        PlacesModel place = await FirebaseService.getPlaceById(
+          id: id,
+          isEnglish: event.isEnglish,
+        );
+        favPlacesP.add(place);
+        for (PlacesModel place in placesV) {
+          if (place.id == id) {
+            place.isFav = true;
+          }
+        }
       }
       // Making the places isFav true for places in fav places list
       for (var place in favPlacesP) {
         place.isFav = true;
-      }
-      // apply it in places list in home
-      for (var element in placesV) {
-        favPlacesP.contains(element)
-            ? element.isFav = true
-            : element.isFav = false;
       }
       emit(FavouritePlacesSuccess(places: favPlacesP));
       log('favourite places success with length: ${favPlacesP.length}');
