@@ -98,7 +98,7 @@ The app contains four Blocs:
 
 -------
 
-## **Screenshots
+## Screenshots
 - Google maps widget in place details:
 ![Alt text](assets/images/screenshots/place_details_output.png)
 
