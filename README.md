@@ -84,8 +84,6 @@ The app contains four Blocs:
 - Enhance the Government Page by including Google Maps functionality for each landmark.
 - Display a Google Map widget in each landmark's details page with a marker indicating the landmark's location.
 - When the map is clicked, the user is redirected to Google Maps with the landmark's longitude and latitude to start navigation.
-- The output image of place details with google map => in assets/images with name of place_details_output.
-![Alt text](assets/images/place_details_output.png)
 
 ### 12. Profile image Management
  - Apply changing profile image feature.
@@ -99,6 +97,11 @@ The app contains four Blocs:
 4. **Home Page** → **Profile Page**
 
 -------
+
+## **Screenshots
+google maps widget in place details:
+![Alt text](assets/images/screenshots/place_details_output.png)
+
 
 ## **Packages Used**
 - **SharedPreferences**: For local data storage and offline support ==> https://pub.dev/packages/shared_preferences.
