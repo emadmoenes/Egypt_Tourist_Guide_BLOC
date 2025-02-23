@@ -5,15 +5,7 @@
 The **Egypt Tourist Guide** is a mobile application designed to help tourists explore landmarks, museums, and attractions across various Egyptian governorates. The app provides a user-friendly interface for discovering popular places, saving favorites, and managing user profiles. This project aims to enhance the tourism experience by offering curated suggestions and personalization.
 it manages state using Bloc (in controllers folder).
 
-# Connect App to Firebase
-Project configuration with firebase --> done using the flutterfire CLI and flutterfire configure command.                                                    
-
-After the project is configured, firebase options file is added to lib folder.                                                         
-Then, we add firebase core, firebase_auth, cloud_firestore packages to the pubspec.yaml file.                                             
-
-And initialize firebase in main.dart file.
-
-# Controllers
+# State Management
 The app contains four Blocs:
                                       
 1- **User Authentication**:                  
@@ -28,7 +20,7 @@ The app contains four Blocs:
 
   -------------------
 
-## Features
+## Pages & Features
 
 ### 1. Signup Page
 - **Input Fields**: Full Name, Email, Password, confirm password, Phone Number (optional).
@@ -93,10 +85,14 @@ The app contains four Blocs:
 - Display a Google Map widget in each landmark's details page with a marker indicating the landmark's location.
 - When the map is clicked, the user is redirected to Google Maps with the landmark's longitude and latitude to start navigation.
 - The output image of place details with google map => in assets/images with name of place_details_output.
----
+
+### 12. Profile image Management
+ - Apply changing profile image feature.
+ - The user can change his image from Gallery or Camera.
+ - Also, delete profile image option provided.
 
 ## Navigation Flow
-1. **Signup Page** → **Login Page** → **Welcome Page** → **Home Page**
+1. **Login Page** → **Signup Page** → **Login Page** → **Home Page**
 2. **Home Page** → **Governorates Page** → **Landmarks Page**
 3. **Home Page** → **Favorites Page**
 4. **Home Page** → **Profile Page**
@@ -107,11 +103,12 @@ The app contains four Blocs:
 - **SharedPreferences**: For local data storage and offline support ==> https://pub.dev/packages/shared_preferences.
 - **easy_localization**: For localization feature ==> https://pub.dev/packages/easy_localization.
 - **flutter_bloc**: For state management using bloc ==> https://pub.dev/packages/flutter_bloc.
-- **firebase_core**:  For using the Firebase Core API ==> https://pub.dev/packages/firebase_core
-- **firebase_auth**: For using Firebase Auth and enabling authentication using email and password. ==> https://pub.dev/packages/firebase_auth
-- **cloud_firestore**: for Cloud Firestore, a cloud-hosted, noSQL database with live synchronization and offline support. ==> https://pub.dev/packages/cloud_firestore
+- **firebase_core**:  For using the Firebase Core API ==> https://pub.dev/packages/firebase_core.
+- **firebase_auth**: For using Firebase Auth and enabling authentication using email and password. ==> https://pub.dev/packages/firebase_auth.
+- **cloud_firestore**: for Cloud Firestore, a cloud-hosted, noSQL database with live synchronization and offline support. ==> https://pub.dev/packages/cloud_firestore.
 - **skeletonizer**: For skeleton loading effect and enhance user experience during web or app loading. ==> https://pub.dev/packages/skeletonizer.                                               
 - **New**------------------------
 - **google_maps_flutter**: For using google maps ==> https://pub.dev/packages/google_maps_flutter.
-- **url_launcher**: For launching google maps outside the app  ==> https://pub.dev/packages/url_launcher
-- **MVC Architecture**: For clean and maintainable code structure.
+- **url_launcher**: For launching google maps outside the app with specific location ==> https://pub.dev/packages/url_launcher.
+- **image_picker**: To enable the user to change his picture by picking images from the image library, or taking pictures with the camera ==> https://pub.dev/packages/image_picker.
+- **path_provider**: To get the file download path from the user phone and save image file locally  ==> https://pub.dev/packages/path_provider.
