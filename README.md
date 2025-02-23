@@ -90,6 +90,20 @@ The app contains four Blocs:
  - The user can change his image from Gallery or Camera.
  - Also, delete profile image option provided.
 
+### 13. Authentication using fingerprint auth
+ - The user cannot access his profile before scanning his fingerprint for security.
+ - If the user device does not support biometric authentication, it will be redirected to the profile
+   page (assuming that the user is authenticated).
+ - Auth done using local auth package.
+
+## Permissions Used:
+In AndroidManifest.xml file:
+ - android.permission.USE_BIOMETRIC.                                     
+ - android.permission.USE_FINGERPRINT.                              
+ - android.permission.INTERNET.
+ - android.permission.CAMERA
+ - android.permission.WRITE_EXTERNAL_STORAGE -> to save image file locally.
+
 ## Navigation Flow
 1. **Login Page** → **Signup Page** → **Login Page** → **Home Page**
 2. **Home Page** → **Governorates Page** → **Landmarks Page** → **Landmarks details**
@@ -119,3 +133,4 @@ The app contains four Blocs:
 - **url_launcher**: For launching google maps outside the app with specific location ==> https://pub.dev/packages/url_launcher.
 - **image_picker**: To enable the user to change his picture by picking images from the image library, or taking pictures with the camera ==> https://pub.dev/packages/image_picker.
 - **path_provider**: To get the file download path from the user phone and save image file locally  ==> https://pub.dev/packages/path_provider.
+- **local_auth**: To allow local authentication via fingerprint  => https://pub.dev/packages/local_auth
