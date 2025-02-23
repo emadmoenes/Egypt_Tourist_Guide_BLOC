@@ -85,6 +85,7 @@ The app contains four Blocs:
 - Display a Google Map widget in each landmark's details page with a marker indicating the landmark's location.
 - When the map is clicked, the user is redirected to Google Maps with the landmark's longitude and latitude to start navigation.
 - The output image of place details with google map => in assets/images with name of place_details_output.
+![Alt text](assets/images/place_details_output.png)
 
 ### 12. Profile image Management
  - Apply changing profile image feature.
