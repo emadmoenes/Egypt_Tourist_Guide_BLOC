@@ -20,10 +20,9 @@ final class PlacesError extends PlacesState {
 }
 
 final class FavoriteToggledState extends PlacesState {
-  final List<PlacesModel> places;
   final PlacesModel? place;
 
-  FavoriteToggledState({required this.places, this.place});
+  FavoriteToggledState({this.place});
 }
 
 class FavouritePlacesLoading extends PlacesState {}

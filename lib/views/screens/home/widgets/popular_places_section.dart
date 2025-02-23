@@ -30,6 +30,9 @@ class PopularPlacesSection extends StatelessWidget {
             } else {
               places = state.places;
             }
+          }
+          if (state is FavouritePlacesSuccess) {
+            places = placesBloc.placesV;
           } else if (state is PlacesError) {
             return AppErrorWidget(
               errorMessage: state.message,

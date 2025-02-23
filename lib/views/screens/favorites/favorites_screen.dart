@@ -17,9 +17,7 @@ class FavoritesScreen extends StatelessWidget {
     List<PlacesModel> places = placesBloc.favPlacesP;
     return BlocConsumer<PlacesBloc, PlacesState>(
       listener: (context, state) {
-        if (state is FavoriteToggledState) {
-          places = state.places;
-        } else if (state is FavouritePlacesSuccess) {
+        if (state is FavouritePlacesSuccess) {
           places = state.places;
         }
       },

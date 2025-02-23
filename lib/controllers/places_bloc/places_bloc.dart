@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -65,52 +64,35 @@ class PlacesBloc extends Bloc<PlacesEvent, PlacesState> {
     try {
       PlacesModel placeE = event.place;
       User? user = FirebaseService.authInstance.currentUser;
+      // Call the toggleFavouritePlace method from firebase service
+      await FirebaseService.toggleFavouritePlace(user: user, placeE: placeE);
+      emit(FavoriteToggledState(place: placeE));
 
-      if (user == null) {
-        emit(PlacesError(message: "no_user_found".tr()));
-        return;
-      }
-
-      String uid = user.uid;
-
-      // Get favourite places of that user
-      final snapshot =
-          await FirebaseService.users.where('uid', isEqualTo: uid).get();
-      if (snapshot.docs.isEmpty) {
-        emit(PlacesError(message: "no_user_found".tr()));
-        return;
-      }
-
-      DocumentReference userDoc = snapshot.docs.first.reference;
-      List<dynamic> favPlaces = snapshot.docs.first['favPlaces'] ?? [];
-
-      // check if that place is favourite or not
-      if (favPlaces.contains(placeE.id)) {
-        favPlaces.remove(placeE.id);
-      } else {
-        favPlaces.add(placeE.id);
-      }
-
-      // update current favPlaces on firestore
-      await userDoc.update({'favPlaces': favPlaces});
-
-      // Getting the favourite places
+      // Getting the favourite places again
       favPlacesP = [];
       List<int> placesId = await FirebaseService.getUserFavouritePlacesId(
-          uid: FirebaseAuth.instance.currentUser!.uid,
+          uid: FirebaseService.authInstance.currentUser!.uid,
           isEnglish: event.isEnglish);
-      //List<PlacesModel> places = [];
       for (int id in placesId) {
-        favPlacesP.add(await FirebaseService.getPlaceById(
-            id: id, isEnglish: event.isEnglish));
+        PlacesModel place = await FirebaseService.getPlaceById(
+            id: id, isEnglish: event.isEnglish);
+        favPlacesP.add(place);
       }
-      //Making the places isFav true for all places
+      // Making the places isFav true for all places
       for (var place in favPlacesP) {
         place.isFav = true;
       }
+      // apply it in places list in home
+      for (var element in placesV) {
+        favPlacesP.contains(element)
+            ? element.isFav = true
+            : element.isFav = false;
+      }
       emit(FavouritePlacesSuccess(places: favPlacesP));
-
-      emit(FavoriteToggledState(places: favPlacesP, place: placeE));
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'no_user_found') {
+        emit(PlacesError(message: "no_user_found".tr()));
+      }
     } catch (e) {
       emit(PlacesError(message: e.toString()));
     }
@@ -142,6 +124,12 @@ class PlacesBloc extends Bloc<PlacesEvent, PlacesState> {
       // Making the places isFav true for places in fav places list
       for (var place in favPlacesP) {
         place.isFav = true;
+      }
+      // apply it in places list in home
+      for (var element in placesV) {
+        favPlacesP.contains(element)
+            ? element.isFav = true
+            : element.isFav = false;
       }
       emit(FavouritePlacesSuccess(places: favPlacesP));
       log('favourite places success with length: ${favPlacesP.length}');
