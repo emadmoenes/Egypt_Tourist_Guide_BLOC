@@ -10,6 +10,7 @@ import 'package:egypt_tourist_guide/views/screens/auth/widgets/text_form_field.d
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
+import '../../widgets/custom_snack_bar.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -36,7 +37,10 @@ class _SignupScreenState extends State<SignupScreen> {
       listener: (context, state) {
         if (state is AccountCreated) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Account created successfully')),
+            customSnackBar(
+              text: 'account-created-successfully'.tr(),
+              color: chooseSnackBarColor(ToastStates.SUCCESS),
+            ),
           );
           isLoading = false;
           Navigator.pushNamedAndRemoveUntil(
@@ -46,7 +50,10 @@ class _SignupScreenState extends State<SignupScreen> {
           );
         } else if (state is AuthError) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message)),
+            customSnackBar(
+              text: state.message,
+              color: chooseSnackBarColor(ToastStates.ERROR),
+            ),
           );
           isLoading = false;
         } else if (state is AuthLoading) {

@@ -25,6 +25,7 @@
   "validation_password_special": "Password must contain at least one special character",
   "validation_confirm_password": "Please confirm your password",
   "validation_confirm_password_match": "Passwords do not match",
+  "account-created-successfully": "Account created successfully!",
   "no_favorites": "No favorite places yet!",
   "app_title": "Egypt Tourist Guide",
   "favorites_title": "Favourites",

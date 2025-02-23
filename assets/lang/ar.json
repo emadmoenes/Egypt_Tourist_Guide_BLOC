@@ -25,6 +25,7 @@
   "validation_password_special": "يجب أن تحتوي كلمة المرور على رمز خاص واحد على الأقل",
   "validation_confirm_password": "الرجاء تأكيد كلمة المرور",
   "validation_confirm_password_match": "كلمات المرور غير متطابقة",
+  "account-created-successfully": "تم تسجيل حسابك بنجاح!",
   "no_favorites": "لا توجد أماكن مفضلة حتى الآن!",
   "app_title": "دليل السياحة في مصر",
   "favorites_title": "المفضلة",

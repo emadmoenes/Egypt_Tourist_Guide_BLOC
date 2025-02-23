@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:local_auth/local_auth.dart';
+import '../../../widgets/custom_snack_bar.dart';
 
 class AppBottomNavigationBar extends StatefulWidget {
   const AppBottomNavigationBar({super.key});
@@ -34,16 +35,18 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
         setState(() {
           _isAvailable = false;
         });
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('auth-not-available'.tr()),
+        ScaffoldMessenger.of(context).showSnackBar(customSnackBar(
+          text: 'auth-not-available'.tr(),
+          color: chooseSnackBarColor(ToastStates.NOTIFY),
         ));
       }
     } on PlatformException catch (e) {
       setState(() {
         _isAvailable = false;
       });
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('auth-not-available'.tr()),
+      ScaffoldMessenger.of(context).showSnackBar(customSnackBar(
+        text: 'auth-not-available'.tr(),
+        color: chooseSnackBarColor(ToastStates.NOTIFY),
       ));
       log('Error occurred(can not authenticate): $e');
     }
@@ -71,9 +74,12 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
         _isAuthenticated = authenticated;
       });
       if (_isAuthenticated) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('authentication-Done'.tr()),
-        ));
+        ScaffoldMessenger.of(context).showSnackBar(
+          customSnackBar(
+            text: 'authentication-Done'.tr(),
+            color: chooseSnackBarColor(ToastStates.SUCCESS),
+          ),
+        );
       }
     } catch (e) {
       // That means the user device does not support biometrics
@@ -81,9 +87,12 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
       setState(() {
         _isAuthenticated = true;
       });
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('auth-not-available'.tr()),
-      ));
+      ScaffoldMessenger.of(context).showSnackBar(
+        customSnackBar(
+          text: 'auth-not-available'.tr(),
+          color: chooseSnackBarColor(ToastStates.NOTIFY),
+        ),
+      );
     }
   }
 
@@ -109,8 +118,9 @@ class _AppBottomNavigationBarState extends State<AppBottomNavigationBar> {
               if (_isAuthenticated) {
                 placesBloc.add(ChangeBottomNavigationIndexEvent(pageIndex));
               } else if (!_isAuthenticated) {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text('access-denied'.tr()),
+                ScaffoldMessenger.of(context).showSnackBar(customSnackBar(
+                  text: 'access-denied'.tr(),
+                  color: chooseSnackBarColor(ToastStates.ERROR),
                 ));
               }
             } else {

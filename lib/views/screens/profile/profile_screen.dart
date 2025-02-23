@@ -12,6 +12,8 @@ import 'package:egypt_tourist_guide/models/user_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../widgets/custom_snack_bar.dart';
+
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
 
@@ -23,25 +25,25 @@ class ProfileScreen extends StatelessWidget {
       listener: (context, state) {
         if (state is ProfileUpdatedState) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('profile_updated_successfully'.tr()),
-              backgroundColor: AppColors.green,
+            customSnackBar(
+              text: 'profile_updated_successfully'.tr(),
+              color: chooseSnackBarColor(ToastStates.SUCCESS),
             ),
           );
         }
         if (state is ProfileImageUpdatedState) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('profile_photo_updated_successfully'.tr()),
-              backgroundColor: AppColors.green,
+            customSnackBar(
+              text: 'profile_photo_updated_successfully'.tr(),
+              color: chooseSnackBarColor(ToastStates.SUCCESS),
             ),
           );
         }
         if (state is ProfileErrorState) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.message),
-              backgroundColor: AppColors.red,
+            customSnackBar(
+              text: state.message,
+              color: chooseSnackBarColor(ToastStates.ERROR),
             ),
           );
         }
@@ -112,7 +114,7 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         onPressed: () {
                           if (isEditing) {
-                            if (_formKey.currentState!.validate() ) {
+                            if (_formKey.currentState!.validate()) {
                               profileBloc.add(UpdateProfileEvent(user));
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -149,10 +151,9 @@ class ProfileScreen extends StatelessWidget {
                       authBloc.add(LogoutRequested());
                       Navigator.of(context).pushNamedAndRemoveUntil(
                         AppRoutes.loginRoute,
-                            (route) => false,
+                        (route) => false,
                       );
                     },
-
                   ),
                 ],
               ),
