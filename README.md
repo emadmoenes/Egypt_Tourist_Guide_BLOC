@@ -124,7 +124,7 @@ The main folders in lib are:
 
 | Google maps (place details)     | Change profile options                  | Change profile Output         |
 |---------------------------------|-----------------------------------------|-------------------------------|
-| ![Place det](place_details.png) | ![Profile options](profile_options.jpg) | ![Output](change_profile.jpg) |
+| ![Place det](place_details.jpg) | ![Profile options](profile_options.jpg) | ![Output](change_profile.jpg) |
 
 | Auth fingerprint                      | Auth done                   | Auth failed                     |
 |---------------------------------------|-----------------------------|---------------------------------|
