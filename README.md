@@ -76,7 +76,7 @@ The app contains four Blocs:
 - Using easy localization package.
 
 ### 10. Theme feature
-- Alllow manually toggle between light and dark modes.
+- Allow manually toggle between light and dark modes.
 - Using theme bloc.
   
 ------
