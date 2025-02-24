@@ -12,7 +12,7 @@ class ProfilePic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ProfileBloc profileBloc = context.read<ProfileBloc>();
+    ProfileBloc profileBloc = ProfileBloc.get(context);
 
     //----- Show image picker options -----//
     Future<void> showImagePickerOptions(BuildContext context) async {
