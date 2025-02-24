@@ -132,6 +132,13 @@ The main folders in lib are:
 
 -------------------------
 
+## How to Run the App
+
+1. Clone the repository.
+2. Run `flutter pub get` to install dependencies.
+3. Run `flutter run` to start the app.
+
+----------------
 ## **Packages Used**
 - **SharedPreferences**: For local data storage and offline support ==> https://pub.dev/packages/shared_preferences.
 - **easy_localization**: For localization feature ==> https://pub.dev/packages/easy_localization.
