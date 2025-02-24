@@ -78,9 +78,18 @@ The app contains four Blocs:
 ### 10. Theme feature
 - Alllow manually toggle between light and dark modes.
 - Using theme bloc.
+  
+------
 
----
+## App Structure
+The code is organized using **MVC Architecture** for clean and maintainable code structure.                   
+The main folders in lib are:
+- **controllers**: contains controllers which deal with presentaion layer to handle logic (auth bloc, places bloc, profile bloc, and theme bloc).
+- **core**: define lang and services logic folders. also, the other general files in the app (lang folder, services folder).
+- **models**: define the data models (place model, governorate model, user model, and screen model).
+- **views**: UI design and components (screens and widgets).
 
+  
 ## Navigation Flow
 1. **Login Page** → **Signup Page** → **Login Page** → **Home Page**
 2. **Home Page** → **Governorates Page** → **Landmarks Page**
@@ -94,4 +103,3 @@ The app contains four Blocs:
 - **easy_localization**: For localization feature ==> https://pub.dev/packages/easy_localization.
 - **flutter_bloc**: For state management using bloc ==> https://pub.dev/packages/flutter_bloc.
 - **skeletonizer**: For skeleton loading effect and enhance user experience during web or app loading. ==> https://pub.dev/packages/skeletonizer.
-- **MVC Architecture**: For clean and maintainable code structure.
