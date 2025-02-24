@@ -18,14 +18,14 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // List of different screens using Screen Model
     List<ScreenModel> screens = [
-      ScreenModel(title: 'app_title'.tr(), body: HomeScreenBody()),
-      ScreenModel(title: 'governorates'.tr(), body: GovernoratesScreen()),
-      ScreenModel(title: 'favorites_title'.tr(), body: FavoritesScreen()),
+      ScreenModel(title: 'app_title'.tr(), body: const HomeScreenBody()),
+      ScreenModel(title: 'governorates'.tr(), body: const GovernoratesScreen()),
+      ScreenModel(title: 'favorites_title'.tr(), body: const FavoritesScreen()),
       ScreenModel(title: 'settings_title'.tr(), body: ProfileScreen()),
     ];
 
     return Scaffold(
-      bottomNavigationBar: AppBottomNavigationBar(),
+      bottomNavigationBar: const AppBottomNavigationBar(),
       appBar: AppBar(
           elevation: 0.5,
           title: BlocBuilder<PlacesBloc, PlacesState>(
@@ -51,8 +51,8 @@ class HomeScreen extends StatelessWidget {
                   onPressed: () {
                     // Toggle between English and Arabic
                     final newLocale = context.locale.languageCode == 'en'
-                        ? Locale('ar')
-                        : Locale('en');
+                        ? const Locale('ar')
+                        : const Locale('en');
                     context.setLocale(newLocale);
                   },
                 );
@@ -60,7 +60,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ]),
       body: SafeArea(
-        minimum: EdgeInsets.symmetric(vertical: 11),
+        minimum: const EdgeInsets.symmetric(vertical: 11),
         child: BlocBuilder<PlacesBloc, PlacesState>(
           builder: (context, state) {
             final placesBloc = context.read<PlacesBloc>();

@@ -27,9 +27,9 @@ Future<void> main() async {
   await SharedPrefsService.init();
   String? token =
       await SharedPrefsService.getStringData(key: AppStringEn.tokenKey);
-  Widget startWidget = LoginScreen();
+  Widget startWidget = const LoginScreen();
   if (token != null) {
-    startWidget = HomeScreen();
+    startWidget = const HomeScreen();
   }
   runApp(
     EasyLocalization(
@@ -78,11 +78,11 @@ class MyApp extends StatelessWidget {
                   foregroundColor: AppColors.lightPurple,
                 ),
               ),
-              appBarTheme: AppBarTheme(
+              appBarTheme: const AppBarTheme(
                 iconTheme: IconThemeData(color: AppColors.blackColor),
                 elevation: 0.8,
               ),
-              dividerTheme: DividerThemeData(
+              dividerTheme: const DividerThemeData(
                 color: AppColors.lightPurple,
               ),
             ),
@@ -94,11 +94,11 @@ class MyApp extends StatelessWidget {
                   foregroundColor: AppColors.deepPurpleAccent,
                 ),
               ),
-              appBarTheme: AppBarTheme(
+              appBarTheme: const AppBarTheme(
                 iconTheme: IconThemeData(color: AppColors.white),
                 elevation: 0.8,
               ),
-              dividerTheme: DividerThemeData(
+              dividerTheme: const DividerThemeData(
                 color: AppColors.deepPurpleAccent,
               ),
             ),
@@ -137,7 +137,7 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       );
     default:
       return MaterialPageRoute(
-        builder: (_) => Scaffold(
+        builder: (_) => const Scaffold(
           body: Center(child: Text('Route not found')),
         ),
       );

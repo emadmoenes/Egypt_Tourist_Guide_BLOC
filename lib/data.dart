@@ -2,7 +2,7 @@ import 'models/governorate_model.dart';
 import 'models/place_model.dart';
 
 // List of Governorates
-final List<GovernorateModel> GOVERNERATES = [
+final List<GovernorateModel> GOVERNERATES = const [
   GovernorateModel(
     id: '1',
     name: 'Alexandria',
@@ -161,7 +161,7 @@ final List<PlacesModel> PLACES = [
   ),
 ];
 
-final List<GovernorateModel> ARABICGOVERNORATES = [
+final List<GovernorateModel> ARABICGOVERNORATES = const [
   GovernorateModel(
     id: '1',
     name: 'الإسكندرية',
@@ -200,7 +200,8 @@ final List<GovernorateModel> ARABICGOVERNORATES = [
 final List<PlacesModel> ARABICPLACES = [
   PlacesModel(
     id: 1,
-    governorateId: '1', // الإسكندرية
+    governorateId: '1',
+    // الإسكندرية
     name: 'الكورنيش',
     description: 'واجهة بحرية خلابة في الإسكندرية.',
     image: 'assets/cities/alexandria/corniche.jpg',
@@ -208,7 +209,8 @@ final List<PlacesModel> ARABICPLACES = [
   ),
   PlacesModel(
     id: 2,
-    governorateId: '1', // الإسكندرية
+    governorateId: '1',
+    // الإسكندرية
     name: 'مكتبة الإسكندرية',
     description: 'مكتبة حديثة ومركز ثقافي لإحياء ذكرى المكتبة القديمة.',
     image: 'assets/cities/alexandria/library_of_alexandria.jpg',
@@ -216,7 +218,8 @@ final List<PlacesModel> ARABICPLACES = [
   ),
   PlacesModel(
     id: 3,
-    governorateId: '1', // الإسكندرية
+    governorateId: '1',
+    // الإسكندرية
     name: 'قلعة قايتباي',
     description: 'قلعة تاريخية تقع على ساحل البحر المتوسط.',
     image: 'assets/cities/alexandria/quitbai_citidal.jpg',
@@ -224,7 +227,8 @@ final List<PlacesModel> ARABICPLACES = [
   ),
   PlacesModel(
     id: 4,
-    governorateId: '2', // القاهرة
+    governorateId: '2',
+    // القاهرة
     name: 'برج القاهرة',
     description: 'برج أيقوني يوفر إطلالة بانورامية على القاهرة.',
     image: 'assets/cities/cairo/cairo_tower.webp',
@@ -232,7 +236,8 @@ final List<PlacesModel> ARABICPLACES = [
   ),
   PlacesModel(
     id: 5,
-    governorateId: '2', // القاهرة
+    governorateId: '2',
+    // القاهرة
     name: 'شارع المعز',
     description: 'شارع تاريخي في القاهرة الإسلامية يتميز بالعمارة الرائعة.',
     image: 'assets/cities/cairo/elmoez_street.jpg',
@@ -240,7 +245,8 @@ final List<PlacesModel> ARABICPLACES = [
   ),
   PlacesModel(
     id: 6,
-    governorateId: '2', // القاهرة
+    governorateId: '2',
+    // القاهرة
     name: 'مسجد محمد علي',
     description: 'مسجد رائع على الطراز العثماني يقع في قلعة القاهرة.',
     image: 'assets/cities/cairo/mosque_of_muhammad_ali.webp',
@@ -248,7 +254,8 @@ final List<PlacesModel> ARABICPLACES = [
   ),
   PlacesModel(
     id: 7,
-    governorateId: '3', // الجيزة
+    governorateId: '3',
+    // الجيزة
     name: 'أهرامات الجيزة',
     description: 'آخر عجائب الدنيا السبع الباقية من العالم القديم.',
     image: 'assets/cities/giza/pyramids.jpg',
@@ -256,7 +263,8 @@ final List<PlacesModel> ARABICPLACES = [
   ),
   PlacesModel(
     id: 8,
-    governorateId: '3', // الجيزة
+    governorateId: '3',
+    // الجيزة
     name: 'أبو الهول',
     description: 'مخلوق أسطوري بجسم أسد ورأس إنسان.',
     image: 'assets/cities/giza/sphinx_and_pyramid_in_giza.jpeg',
@@ -264,7 +272,8 @@ final List<PlacesModel> ARABICPLACES = [
   ),
   PlacesModel(
     id: 9,
-    governorateId: '4', // الغردقة
+    governorateId: '4',
+    // الغردقة
     name: 'الجونة',
     description: 'مدينة منتجعية فاخرة على البحر الأحمر.',
     image: 'assets/cities/hurghada/el_gouna_festival_plaza.jpeg',
@@ -272,7 +281,8 @@ final List<PlacesModel> ARABICPLACES = [
   ),
   PlacesModel(
     id: 10,
-    governorateId: '4', // الغردقة
+    governorateId: '4',
+    // الغردقة
     name: 'أكواريوم الغردقة',
     description: 'أكواريوم كبير يعرض الحياة البحرية في البحر الأحمر.',
     image: 'assets/cities/hurghada/hurghada_grand_aquarium.jpg',
@@ -280,7 +290,8 @@ final List<PlacesModel> ARABICPLACES = [
   ),
   PlacesModel(
     id: 11,
-    governorateId: '5', // الأقصر
+    governorateId: '5',
+    // الأقصر
     name: 'معبد الكرنك',
     description: 'مجمع معابد ضخم مخصص للإله آمون.',
     image: 'assets/cities/luxor/karnak_temple.jpg',
@@ -288,7 +299,8 @@ final List<PlacesModel> ARABICPLACES = [
   ),
   PlacesModel(
     id: 12,
-    governorateId: '5', // الأقصر
+    governorateId: '5',
+    // الأقصر
     name: 'تمثالي ممنون',
     description: 'تمثالان ضخمان من الحجر للفرعون أمنحتب الثالث.',
     image: 'assets/cities/luxor/colossi_of_memnon.jpg',

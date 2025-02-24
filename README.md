@@ -89,6 +89,7 @@ The main folders in lib are:
 - **models**: define the data models (place model, governorate model, user model, and screen model).
 - **views**: UI design and components (screens and widgets).
 
+--------
   
 ## Navigation Flow
 1. **Login Page** → **Signup Page** → **Login Page** → **Home Page**
@@ -97,7 +98,17 @@ The main folders in lib are:
 4. **Home Page** → **Profile Page**
 
 -------
+## Screenshots
 
+| Home Page                | Governorates Page                        | Favourites Page                      |
+|--------------------------|------------------------------------------|--------------------------------------|
+| ![Home](home_screen.png) | ![Governorates](governorates_screen.png) | ![Favourites](favourites_screen.png) |
+
+| Settings Page                    | Governorates Places                             | Home Page (dark and arabic)   |
+|----------------------------------|-------------------------------------------------|-------------------------------|
+| ![Settings](settings_screen.png) | ![Governorates Places](governorates_places.png) | ![Home Dark](home%20dark.png) |
+
+-----
 ## **Packages Used**
 - **SharedPreferences**: For local data storage and offline support ==> https://pub.dev/packages/shared_preferences.
 - **easy_localization**: For localization feature ==> https://pub.dev/packages/easy_localization.
