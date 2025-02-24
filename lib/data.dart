@@ -1,9 +1,9 @@
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'models/governorate_model.dart';
 import 'models/place_model.dart';
 
 // List of Governorates
-final List<GovernorateModel> GOVERNERATES = [
+final List<GovernorateModel> GOVERNERATES = const [
   GovernorateModel(
     id: '1',
     name: 'Alexandria',
@@ -48,18 +48,18 @@ final List<GovernorateModel> GOVERNERATES = [
 
 // Places positions
 final Map<String, dynamic> placesPositions = {
-  'Corniche': LatLng(31.2156, 29.9060),
-  'Library of Alexandria': LatLng(31.2089, 29.9092),
-  'Quitbai Citadel': LatLng(31.2140, 29.8856),
-  'Cairo Tower': LatLng(30.0459, 31.2243),
-  'Elmoez Street': LatLng(30.0505, 31.2613),
-  'Mosque of Muhammad Ali': LatLng(30.0286, 31.2599),
-  'Pyramids of Giza': LatLng(29.9792, 31.1342),
-  'Sphinx': LatLng(29.9753, 31.1376),
-  'El Gouna': LatLng(27.4025, 33.6515),
-  'Hurghada Grand Aquarium': LatLng(27.1215, 33.8281),
-  'Karnak Temple': LatLng(25.7188, 32.6573),
-  'Colossi of Memnon': LatLng(25.7204, 32.6100),
+  'Corniche': const GeoPoint(31.2156, 29.9060),
+  'Library of Alexandria': const GeoPoint(31.2089, 29.9092),
+  'Quitbai Citadel': const GeoPoint(31.2140, 29.8856),
+  'Cairo Tower': const GeoPoint(30.0459, 31.2243),
+  'Elmoez Street': const GeoPoint(30.0505, 31.2613),
+  'Mosque of Muhammad Ali': const GeoPoint(30.0286, 31.2599),
+  'Pyramids of Giza': const GeoPoint(29.9792, 31.1342),
+  'Sphinx': const GeoPoint(29.9753, 31.1376),
+  'El Gouna': const GeoPoint(27.4025, 33.6515),
+  'Hurghada Grand Aquarium': const GeoPoint(27.1215, 33.8281),
+  'Karnak Temple': const GeoPoint(25.7188, 32.6573),
+  'Colossi of Memnon': const GeoPoint(25.7204, 32.6100),
 };
 // List of Places
 final List<PlacesModel> PLACES = [

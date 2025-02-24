@@ -7,7 +7,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../../core/app_colors.dart';
 import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
 import 'package:google_maps_flutter_android/google_maps_flutter_android.dart';
-
 import '../../widgets/custom_google_map_widget.dart';
 
 class PlaceDetailsScreen extends StatefulWidget {
@@ -21,7 +20,7 @@ class PlaceDetailsScreen extends StatefulWidget {
 
 class _PlaceDetailsScreenState extends State<PlaceDetailsScreen> {
   final Completer<GoogleMapController> _controller =
-      Completer<GoogleMapController>();
+  Completer<GoogleMapController>();
 
   // initialize map render (to solve did not frame error)
   void _initializeMapRenderer() {
@@ -33,10 +32,11 @@ class _PlaceDetailsScreenState extends State<PlaceDetailsScreen> {
   }
 
   //------- Cairo position -------//
-  CameraPosition initialPosition({required LatLng position}) {
+  CameraPosition initialPosition(
+      {required double latitude, required double longitude}) {
     return CameraPosition(
       bearing: 192.8334901395799,
-      target: position,
+      target: LatLng(latitude, longitude),
       tilt: 59.440717697143555,
       zoom: 13.151926040649414,
     );
@@ -84,7 +84,8 @@ class _PlaceDetailsScreenState extends State<PlaceDetailsScreen> {
               child: CustomGoogleMapWidget(
                   placeName: widget.placeModel.name,
                   initialPosition: initialPosition(
-                    position: widget.placeModel.location,
+                    latitude: widget.placeModel.location.latitude,
+                    longitude: widget.placeModel.location.longitude,
                   ),
                   onMapCreated: (GoogleMapController controller) {
                     _controller.complete(controller);
