@@ -18,10 +18,10 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // List of different screens using Screen Model
     List<ScreenModel> screens = [
-      ScreenModel(title: 'app_title'.tr(), body: const HomeScreenBody()),
-      ScreenModel(title: 'governorates'.tr(), body: const GovernoratesScreen()),
-      ScreenModel(title: 'favorites_title'.tr(), body: const FavoritesScreen()),
-      ScreenModel(title: 'settings_title'.tr(), body: ProfileScreen()),
+      const ScreenModel(title: 'app_title', body: HomeScreenBody()),
+      const ScreenModel(title: 'governorates', body: GovernoratesScreen()),
+      const ScreenModel(title: 'favorites_title', body: FavoritesScreen()),
+      ScreenModel(title: 'settings_title', body: ProfileScreen()),
     ];
 
     return Scaffold(
@@ -29,9 +29,9 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
           title: BlocBuilder<PlacesBloc, PlacesState>(
             builder: (context, state) {
-              final placesBloc = context.read<PlacesBloc>();
+              final PlacesBloc placesBloc = context.read<PlacesBloc>();
               return Text(
-                screens[placesBloc.currentPageIndex].title,
+                screens[placesBloc.currentPageIndex].title.tr(),
               );
             },
           ),
