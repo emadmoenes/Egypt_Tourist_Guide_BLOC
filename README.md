@@ -118,6 +118,10 @@ The main folders in lib are:
 |--------------------------|------------------------------------------|--------------------------------------|
 | ![Home](home_screen.png) | ![Governorates](governorates_screen.png) | ![Favourites](favourites_screen.png) |
 
+| Settings Page                    | Governorates Places                             | Place Details Page                  |
+|----------------------------------|-------------------------------------------------|-------------------------------------|
+| ![Settings](settings_screen.png) | ![Governorates Places](governorates_places.png) | ![Place Details](place_details.png) |
+
 
 ----------
 

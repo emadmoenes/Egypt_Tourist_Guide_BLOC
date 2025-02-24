@@ -189,7 +189,7 @@ final List<PlacesModel> PLACES = [
   ),
 ];
 
-final List<GovernorateModel> ARABICGOVERNORATES = [
+final List<GovernorateModel> ARABICGOVERNORATES = const [
   GovernorateModel(
     id: '1',
     name: 'الإسكندرية',
