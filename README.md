@@ -111,7 +111,15 @@ In AndroidManifest.xml file:
 4. **Home Page** → **Profile Page**
 
 ------------
+## App Structure
+The code is organized using **MVC Architecture** for clean and maintainable code structure.                   
+The main folders in lib are:
+- **controllers**: contains controllers which deal with presentaion layer to handle logic (auth bloc, places bloc, profile bloc, and theme bloc).
+- **core**: define lang and services logic folders includes firebase service. also, the other general files in the app (lang folder, services folder).
+- **models**: define the data models (place model, governorate model, user model, and screen model).
+- **views**: UI design and components (screens and widgets).
 
+--------
 ## Screenshots
 
 |  Google maps widget            | Change profile options                 | Change profile Output         |
