@@ -102,7 +102,8 @@ The main folders in lib are:
 - **core**: define lang and services logic folders includes firebase service. also, the other general files in the app (lang folder, services folder).
 - **models**: define the data models (place model, governorate model, user model, and screen model).
 - **views**: UI design and components (screens and widgets).
-
+  
+---------------
 
 ## Navigation Flow
 1. **Login Page** → **Signup Page** → **Home Page**
