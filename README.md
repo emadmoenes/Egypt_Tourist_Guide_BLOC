@@ -109,7 +109,7 @@ The main folders in lib are:
 1. **Login Page** → **Signup Page** → **Home Page**
 2. **Home Page** → **Governorates Page** → **Landmarks Page** → **Landmarks details page**
 3. **Home Page** → **Favorites Page**
-4. **Home Page** → **Profile Page**
+4. **Home Page** → **Settings Page**
 
 -------
 ## Screenshots
