@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:egypt_tourist_guide/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../../models/governorate_model.dart';
 
 class FirebaseService {
   //------- Firebase auth feature ------//
@@ -29,20 +29,39 @@ class FirebaseService {
   // log out from firebase auth
   static Future<void> signOut() async => await authInstance.signOut();
 
-  /////////////////////////////////////////////////
+/////////////////////////////////////////////////
   //----- Firebase firestore feature -----//
 
   // database instance
   static FirebaseFirestore db = FirebaseFirestore.instance;
 
-  // create a collection called users
-  static CollectionReference users = db.collection('users');
+  // Create a collection called governorates
+  static CollectionReference<Map<String, dynamic>> governoratesCollection =
+      db.collection('governorates');
 
-  // Add user document to the collection users in database after sign up
-  static Future<void> addUser({
-    required UserModel user,
-  }) {
-    // Call the user's CollectionReference to add a new user
-    return users.add(user.toMap());
+  //----- Get english governorates method -----//
+  static Future<List<GovernorateModel>> getGovernorates() async {
+    List<GovernorateModel> governorates = [];
+    await governoratesCollection.get().then((event) {
+      for (var doc in event.docs) {
+        governorates.add(GovernorateModel.fromFirestore(doc));
+      }
+    });
+    return governorates;
+  }
+
+  // Create a collection called arabic governorates
+  static CollectionReference<Map<String, dynamic>> governoratesACollection =
+      db.collection('arabic_governorates');
+
+  //----- Get arabic governorates method -----//
+  static Future<List<GovernorateModel>> getArabicGovernorates() async {
+    List<GovernorateModel> arabicGovernorates = [];
+    await governoratesACollection.get().then((event) {
+      for (var doc in event.docs) {
+        arabicGovernorates.add(GovernorateModel.fromFirestore(doc));
+      }
+    });
+    return arabicGovernorates;
   }
 }

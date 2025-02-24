@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:egypt_tourist_guide/core/app_routes.dart';
-import 'package:egypt_tourist_guide/core/services/governorates_service.dart';
+import 'package:egypt_tourist_guide/core/services/firebase_service.dart';
 import 'package:egypt_tourist_guide/data.dart';
 import 'package:egypt_tourist_guide/models/governorate_model.dart';
 import 'package:egypt_tourist_guide/models/place_model.dart';
@@ -24,11 +24,12 @@ class _GovernoratesScreenState extends State<GovernoratesScreen> {
     super.initState();
     getGovernoratesFromFirebase();
   }
+
   //--- Get governorates from firebase ---//
   Future<void> getGovernoratesFromFirebase() async {
     var arabicGovernorateListFirebase =
-        await GovernoratesService().getArabicGovernorates();
-    var governorateListFirebase = await GovernoratesService().getGovernorates();
+        await FirebaseService.getArabicGovernorates();
+    var governorateListFirebase = await FirebaseService.getGovernorates();
     setState(() {
       governorateList = governorateListFirebase;
       arabicGovernorateList = arabicGovernorateListFirebase;
@@ -46,6 +47,7 @@ class _GovernoratesScreenState extends State<GovernoratesScreen> {
     }
     return staticGovernoratesData;
   }
+
   //--- Get governorate's places data ---//
   List<PlacesModel> getGovernorateData(String governorateId) {
     return context.locale.toString() == 'ar'
@@ -70,11 +72,11 @@ class _GovernoratesScreenState extends State<GovernoratesScreen> {
           scrollDirection: Axis.vertical,
           itemBuilder: (context, index) {
             var governorate =
-            arabicGovernorateList.isEmpty || governorateList.isEmpty
-                ? _getGovernoratesStaticData()[index]
-                : context.locale.toString() == 'ar'
-                ? arabicGovernorateList[index]
-                : governorateList[index];
+                arabicGovernorateList.isEmpty || governorateList.isEmpty
+                    ? _getGovernoratesStaticData()[index]
+                    : context.locale.toString() == 'ar'
+                        ? arabicGovernorateList[index]
+                        : governorateList[index];
             return GovernorateCard(
               governorate: governorate,
               width: width,
@@ -83,7 +85,7 @@ class _GovernoratesScreenState extends State<GovernoratesScreen> {
                 // Go to governorate places
                 List<PlacesModel> listOfPlaces =
                     getGovernorateData(governorate.id);
-        
+
                 // Navigate to GovernoratesPlaces with arguments
                 Navigator.pushNamed(
                   context,
@@ -106,8 +108,8 @@ class _GovernoratesScreenState extends State<GovernoratesScreen> {
           itemCount: arabicGovernorateList.isEmpty || governorateList.isEmpty
               ? _getGovernoratesStaticData().length
               : context.locale.toString() == 'ar'
-              ? arabicGovernorateList.length
-              : governorateList.length,
+                  ? arabicGovernorateList.length
+                  : governorateList.length,
         ),
       ),
     );

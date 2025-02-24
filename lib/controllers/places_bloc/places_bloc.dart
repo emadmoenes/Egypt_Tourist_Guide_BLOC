@@ -26,7 +26,7 @@ class PlacesBloc extends Bloc<PlacesEvent, PlacesState> {
       LoadPlacesEvent event, Emitter<PlacesState> emit) async {
     emit(PlacesLoading());
     // make delay to show loading in home page design
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
     emit(PlacesLoaded(places: PLACES));
   }
 
@@ -35,7 +35,7 @@ class PlacesBloc extends Bloc<PlacesEvent, PlacesState> {
       LoadMorePlacesEvent event, Emitter<PlacesState> emit) async {
     emit(PlacesLoading());
     // make delay to show loading in home page design
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
     emit(PlacesLoaded(places: PLACES));
   }
 
