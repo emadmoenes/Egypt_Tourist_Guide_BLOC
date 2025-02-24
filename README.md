@@ -122,9 +122,9 @@ The main folders in lib are:
 --------
 ## Screenshots
 
-| Google maps (place details)     | Change profile options                  | Change profile Output          |
-|---------------------------------|-----------------------------------------|--------------------------------|
-| ![Place det](place_details.png) | ![Profile options](change_profile1.png) | ![Output](change_profile2.png) |
+| Google maps (place details)     | Change profile options                  | Change profile Output         |
+|---------------------------------|-----------------------------------------|-------------------------------|
+| ![Place det](place_details.png) | ![Profile options](profile_options.jpg) | ![Output](change_profile.jpg) |
 
 | Auth fingerprint                      | Auth done                   | Auth failed                     |
 |---------------------------------------|-----------------------------|---------------------------------|
