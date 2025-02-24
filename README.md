@@ -122,13 +122,13 @@ The main folders in lib are:
 --------
 ## Screenshots
 
-|  Google maps (place details)   | Change profile options                 | Change profile Output         |
-| -------------------------------| ---------------------------------------| ------------------------------|
-| ![Place det](place_details.png)| ![Profile options](change_profile1.png)| ![Output](change_profile2.png)|
+| Google maps (place details)     | Change profile options                  | Change profile Output          |
+|---------------------------------|-----------------------------------------|--------------------------------|
+| ![Place det](place_details.png) | ![Profile options](change_profile1.png) | ![Output](change_profile2.png) |
 
-|  Auth fingerprint                    | Auth done                  | Auth failed                    |
-| -------------------------------      | ---------------------------| ------------------------------ |
-| ![Profile Auth](auth fingerprint.jpg)| ![Auth done](auth_done.jpg)| ![Auth denied](auth_denied.jpg)|
+| Auth fingerprint                      | Auth done                   | Auth failed                     |
+|---------------------------------------|-----------------------------|---------------------------------|
+| ![Profile Auth](auth_fingerprint.jpg) | ![Auth done](auth_done.jpg) | ![Auth denied](auth_denied.jpg) |
 
 -------------------------
 
