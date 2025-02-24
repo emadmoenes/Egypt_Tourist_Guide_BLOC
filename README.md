@@ -13,7 +13,7 @@ Then, we add firebase core, firebase_auth, cloud_firestore packages to the pubsp
 
 And initialize firebase in main.dart file.
 
-# Controllers
+# State Management 
 The app contains four Blocs:
                                       
 1- **User Authentication**:                  
@@ -95,9 +95,11 @@ The app contains four Blocs:
 - The output image of place details with google map => in assets/images with name of place_details_output.
 ---
 
+
+
 ## Navigation Flow
-1. **Signup Page** → **Login Page** → **Welcome Page** → **Home Page**
-2. **Home Page** → **Governorates Page** → **Landmarks Page**
+1. **Login Page** → **Signup Page** → **Home Page**
+2. **Home Page** → **Governorates Page** → **Landmarks Page** → **Landmarks details page**
 3. **Home Page** → **Favorites Page**
 4. **Home Page** → **Profile Page**
 
@@ -114,4 +116,3 @@ The app contains four Blocs:
 - **New**------------------------
 - **google_maps_flutter**: For using google maps ==> https://pub.dev/packages/google_maps_flutter.
 - **url_launcher**: For launching google maps outside the app  ==> https://pub.dev/packages/url_launcher
-- **MVC Architecture**: For clean and maintainable code structure.
