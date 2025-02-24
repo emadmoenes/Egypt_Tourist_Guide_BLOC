@@ -111,6 +111,14 @@ The main folders in lib are:
 4. **Home Page** → **Profile Page**
 
 -------
+## Screenshots
+
+| Home Page                | Governorates Page                        | Favourites Page                      |
+|--------------------------|------------------------------------------|--------------------------------------|
+| ![Home](home_screen.png) | ![Governorates](governorates_screen.png) | ![Favourites](favourites_screen.png) |
+
+
+----------
 
 ## **Packages Used**
 - **SharedPreferences**: For local data storage and offline support ==> https://pub.dev/packages/shared_preferences.
