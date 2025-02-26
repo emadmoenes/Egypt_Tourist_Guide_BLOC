@@ -89,8 +89,16 @@ The main folders in lib are:
 - **models**: define the data models (place model, governorate model, user model, and screen model).
 - **views**: UI design and components (screens and widgets).
 
---------
-  
+-------------
+
+## How to Run
+
+1. Clone the repository.
+2. Run `flutter pub get` to install dependencies.
+3. Run `flutter run` to start the app.
+
+---------------------------------------
+
 ## Navigation Flow
 1. **Login Page** → **Signup Page** → **Login Page** → **Home Page**
 2. **Home Page** → **Governorates Page** → **Landmarks Page**
